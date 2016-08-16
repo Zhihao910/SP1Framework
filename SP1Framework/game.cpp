@@ -26,7 +26,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(85, 50, "SP1 Framework");
 
 
 //--------------------------------------------------------------
@@ -240,7 +240,7 @@ void renderSplashScreen()  // renders the splash screen
     g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);*/
 
 	COORD c = g_Console.getConsoleSize();
-	c.X = 6;
+	c.X = 10;
 	c.Y /= 3;
 
 	string line;
@@ -322,7 +322,7 @@ void renderCharacter()
     {
         charColor = 0x0A;
     }
-    g_Console.writeToBuffer(g_sChar.m_cLocation, (char)1, charColor);
+    g_Console.writeToBuffer(g_sChar.m_cLocation, (char)64, charColor);
 }
 
 void renderFramerate()
@@ -385,7 +385,6 @@ void MapLayout()
 				g_Console.writeToBuffer(c, map[x][y]);
 			}
 		}
-		// use for() loop to get the column and row elements
 		myfile.close();
 	}
 }
