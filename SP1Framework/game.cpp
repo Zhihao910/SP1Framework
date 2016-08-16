@@ -8,17 +8,13 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-<<<<<<< HEAD
 #include <string>
 #include <vector>
-
-=======
 #include <fstream>
 #include <cstdlib>
 #include <string>
 
 using namespace std;
->>>>>>> fcf4f309b2bfd78f5f3bdb1559dd926c417d5e6b
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;

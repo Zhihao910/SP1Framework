@@ -47,9 +47,6 @@ class Monster
 		int Status;
 		int xPos;
 		int yPos;
-
-	public:
-
 };
 
 void init        ( void );      // initialize your variables, allocate memory, etc
@@ -69,12 +66,7 @@ void renderMap();           // renders the map to the buffer first
 void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
-<<<<<<< HEAD
 void attacking();			// attacking monsters
-=======
 void renderMainMenuScreen();
 void mainmenuwait();
-
->>>>>>> fcf4f309b2bfd78f5f3bdb1559dd926c417d5e6b
-
 #endif // _GAME_H
