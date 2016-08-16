@@ -69,4 +69,5 @@ void renderToScreen();      // dump the contents of the buffer to the screen, on
 void attacking();			// attacking monsters
 void renderMainMenuScreen();
 void mainmenuwait();
+void MapLayout();
 #endif // _GAME_H

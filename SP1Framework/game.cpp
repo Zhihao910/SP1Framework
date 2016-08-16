@@ -228,11 +228,10 @@ void renderSplashScreen()  // renders the splash screen
     /*COORD c = g_Console.getConsoleSize();
     c.Y /= 3;
     c.X = c.X / 2 - 10;
-<<<<<<< HEAD
+
     g_Console.writeToBuffer(c, "Keyboard Warriors", 0x03);
-=======
+
     g_Console.writeToBuffer(c, "SplashScreen", 0x03);
->>>>>>> fcf4f309b2bfd78f5f3bdb1559dd926c417d5e6b
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 20;
     g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
@@ -292,7 +291,8 @@ void renderMainMenuScreen() //renders main menu
 
 void renderGame()
 {
-    renderMap();        // renders the map to the buffer first
+	MapLayout();
+    //renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 }
 
@@ -349,3 +349,43 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
+void MapLayout()
+{
+	COORD c;
+	c.X = 0;
+	c.Y = 0;
+
+	int height = 0;
+	int width = 0;
+
+	char map[80][25];
+	ifstream myfile("MapLayout.txt");
+	if (myfile.is_open())
+	{
+		while (height < 20)
+		{
+			while (width < 60)
+			{
+				myfile >> map[width][height];
+				width++;
+			}
+			width = 0;
+			height++;
+		}
+		for (int y = 0; y < 20; y++)
+		{
+			c.Y = y + 1;
+			for (int x = 0; x < 60; x++)
+			{
+				if (map[x][y] == 'a')
+				{
+					map[x][y] == ' ';
+				}
+				c.X = x;
+				g_Console.writeToBuffer(c, map[x][y]);
+			}
+		}
+		// use for() loop to get the column and row elements
+		myfile.close();
+	}
+}
