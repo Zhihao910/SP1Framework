@@ -3,9 +3,14 @@
 //
 #include "game.h"
 #include "Framework\console.h"
+#include <time.h>
+#include <stdlib.h>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <string>
+#include <vector>
+
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -138,7 +143,7 @@ void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
-                        // sound can be played here too.
+				        // sound can be played here too.
 }
 
 void moveCharacter()
@@ -203,7 +208,7 @@ void renderSplashScreen()  // renders the splash screen
     COORD c = g_Console.getConsoleSize();
     c.Y /= 3;
     c.X = c.X / 2 - 10;
-    g_Console.writeToBuffer(c, "Escape from Alcatraz", 0x03);
+    g_Console.writeToBuffer(c, "Keyboard Warriors", 0x03);
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 20;
     g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
@@ -270,3 +275,4 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
+

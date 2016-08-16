@@ -33,6 +33,18 @@ struct SGameChar
     bool  m_bActive;
 };
 
+class Monster
+{
+	private: 
+		int HP;
+		int Status;
+		int xPos;
+		int yPos;
+
+	public:
+
+};
+
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
 void update      ( double dt ); // update the game and the state of the game
@@ -50,5 +62,6 @@ void renderMap();           // renders the map to the buffer first
 void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
+void attacking();			// attacking monsters
 
 #endif // _GAME_H
