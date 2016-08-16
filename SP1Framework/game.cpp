@@ -8,9 +8,17 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+<<<<<<< HEAD
 #include <string>
 #include <vector>
 
+=======
+#include <fstream>
+#include <cstdlib>
+#include <string>
+
+using namespace std;
+>>>>>>> fcf4f309b2bfd78f5f3bdb1559dd926c417d5e6b
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -23,6 +31,7 @@ double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger k
 
 // Console object
 Console g_Console(80, 25, "SP1 Framework");
+
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -81,6 +90,9 @@ void getInput( void )
     g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	g_abKeyPressed[K_1] = isKeyPressed(VK_1);
+	g_abKeyPressed[K_2] = isKeyPressed(VK_2);
+	g_abKeyPressed[K_3] = isKeyPressed(VK_3);
 }
 
 //--------------------------------------------------------------
@@ -109,6 +121,8 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
+		case S_MAINMENU: mainmenuwait();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -128,6 +142,8 @@ void render()
             break;
         case S_GAME: renderGame();
             break;
+		case S_MAINMENU: renderMainMenuScreen();
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -136,7 +152,7 @@ void render()
 void splashScreenWait()    // waits for time to pass in splash screen
 {
     if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
-        g_eGameState = S_GAME;
+        g_eGameState = S_MAINMENU;
 }
 
 void gameplay()            // gameplay logic
@@ -144,6 +160,14 @@ void gameplay()            // gameplay logic
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
 				        // sound can be played here too.
+}
+void mainmenuwait() // main menu logic
+{
+	if (g_abKeyPressed[K_1])
+		g_eGameState = S_GAME;
+	//instruction key
+	if (g_abKeyPressed[K_3])
+		g_bQuitGame = true;
 }
 
 void moveCharacter()
@@ -200,21 +224,74 @@ void processUserInput()
 void clearScreen()
 {
     // Clears the buffer with this colour attribute
-    g_Console.clearBuffer(0x1F);
+	g_Console.clearBuffer(/*0x1F*/);
 }
 
 void renderSplashScreen()  // renders the splash screen
 {
-    COORD c = g_Console.getConsoleSize();
+    /*COORD c = g_Console.getConsoleSize();
     c.Y /= 3;
     c.X = c.X / 2 - 10;
+<<<<<<< HEAD
     g_Console.writeToBuffer(c, "Keyboard Warriors", 0x03);
+=======
+    g_Console.writeToBuffer(c, "SplashScreen", 0x03);
+>>>>>>> fcf4f309b2bfd78f5f3bdb1559dd926c417d5e6b
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 20;
     g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 9;
-    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
+    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);*/
+
+	COORD c = g_Console.getConsoleSize();
+	c.X = 6;
+	c.Y /= 3;
+
+	string line;
+	ifstream myfile("Splashscreen.txt");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			g_Console.writeToBuffer(c, line);
+			c.Y++;
+		}
+		myfile.close();
+	}
+	
+}
+
+void renderMainMenuScreen() //renders main menu
+{
+	/*COORD c = g_Console.getConsoleSize();
+	c.Y /= 3;
+	c.X = c.X / 2 - 10;
+	g_Console.writeToBuffer(c, "ESCAPE FROM ALCATRAZ", 0x09);
+	c.Y += 8;
+	g_Console.writeToBuffer(c, "1) Start Game", 0x09);
+	c.Y += 2;
+	c.X = g_Console.getConsoleSize().X / 2 - 10;
+	g_Console.writeToBuffer(c, "2) Instructions", 0x09);
+	c.Y += 2;
+	c.X = g_Console.getConsoleSize().X / 2 - 10;
+	g_Console.writeToBuffer(c, "3) Exit", 0x09);*/
+
+	COORD c = g_Console.getConsoleSize();
+	c.X = 0;
+	c.Y = 0;
+
+	string line;
+	ifstream myfile("Mainmenu.txt");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			g_Console.writeToBuffer(c, line);
+			c.Y++;
+		}
+		myfile.close();
+	}
 }
 
 void renderGame()
