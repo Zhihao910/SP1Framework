@@ -25,6 +25,8 @@ SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
+char map[80][20];
+
 // Console object
 Console g_Console(85, 50, "SP1 Framework");
 
@@ -45,8 +47,8 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-    g_sChar.m_cLocation.X = g_Console.getConsoleSize().X / 2;
-    g_sChar.m_cLocation.Y = g_Console.getConsoleSize().Y / 2;
+	g_sChar.m_cLocation.X = (g_Console.getConsoleSize().X / 2) - 40;
+	g_sChar.m_cLocation.Y = (g_Console.getConsoleSize().Y / 2) - 23;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
@@ -80,15 +82,15 @@ void shutdown( void )
 //--------------------------------------------------------------
 void getInput( void )
 {    
-    g_abKeyPressed[K_UP]     = isKeyPressed(VK_UP);
-    g_abKeyPressed[K_DOWN]   = isKeyPressed(VK_DOWN);
-    g_abKeyPressed[K_LEFT]   = isKeyPressed(VK_LEFT);
-    g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
-    g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
-    g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
-	g_abKeyPressed[K_1] = isKeyPressed(VK_1);
-	g_abKeyPressed[K_2] = isKeyPressed(VK_2);
-	g_abKeyPressed[K_3] = isKeyPressed(VK_3);
+g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
+g_abKeyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
+g_abKeyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
+g_abKeyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
+g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
+g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+g_abKeyPressed[K_1] = isKeyPressed(VK_1);
+g_abKeyPressed[K_2] = isKeyPressed(VK_2);
+g_abKeyPressed[K_3] = isKeyPressed(VK_3);
 }
 
 //--------------------------------------------------------------
@@ -107,19 +109,19 @@ void getInput( void )
 //--------------------------------------------------------------
 void update(double dt)
 {
-    // get the delta time
-    g_dElapsedTime += dt;
-    g_dDeltaTime = dt;
+	// get the delta time
+	g_dElapsedTime += dt;
+	g_dDeltaTime = dt;
 
-    switch (g_eGameState)
-    {
-        case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
-            break;
-        case S_GAME: gameplay(); // gameplay logic when we are in the game
-            break;
-		case S_MAINMENU: mainmenuwait();
-			break;
-    }
+	switch (g_eGameState)
+	{
+	case S_SPLASHSCREEN: splashScreenWait(); // game logic for the splash screen
+		break;
+	case S_GAME: gameplay(); // gameplay logic when we are in the game
+		break;
+	case S_MAINMENU: mainmenuwait();
+		break;
+	}
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -131,31 +133,31 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-    clearScreen();      // clears the current screen and draw from scratch 
-    switch (g_eGameState)
-    {
-        case S_SPLASHSCREEN: renderSplashScreen();
-            break;
-        case S_GAME: renderGame();
-            break;
-		case S_MAINMENU: renderMainMenuScreen();
-			break;
-    }
-    renderFramerate();  // renders debug information, frame rate, elapsed time, etc
-    renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+	clearScreen();      // clears the current screen and draw from scratch 
+	switch (g_eGameState)
+	{
+	case S_SPLASHSCREEN: renderSplashScreen();
+		break;
+	case S_GAME: renderGame();
+		break;
+	case S_MAINMENU: renderMainMenuScreen();
+		break;
+	}
+	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
+	renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
-        g_eGameState = S_MAINMENU;
+	if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
+		g_eGameState = S_MAINMENU;
 }
 
 void gameplay()            // gameplay logic
 {
-    processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-    moveCharacter();    // moves the character, collision detection, physics, etc
-				        // sound can be played here too.
+	processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
+	moveCharacter();    // moves the character, collision detection, physics, etc
+	// sound can be played here too.
 }
 void mainmenuwait() // main menu logic
 {
@@ -168,36 +170,57 @@ void mainmenuwait() // main menu logic
 
 void moveCharacter()
 {
-    bool bSomethingHappened = false;
-    if (g_dBounceTime > g_dElapsedTime)
-        return;
-
-    // Updating the location of the character based on the key press
-    // providing a beep sound whenver we shift the character
-    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
-    {
-        //Beep(1440, 30);
-        g_sChar.m_cLocation.Y--;
-        bSomethingHappened = true;
+	bool bSomethingHappened = false;
+	
+	if (g_dBounceTime > g_dElapsedTime)
+		return;
+	
+	// Updating the location of the character based on the key press
+	// providing a beep sound whenver we shift the character
+	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+	{
+		//Beep(1440, 30);
+		g_sChar.m_cLocation.Y--;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1]) == '#')
+		{
+			g_sChar.m_cLocation.Y++;
+		}
     }
+
     if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.X--;
-        bSomethingHappened = true;
+		g_sChar.m_cLocation.X--;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y -1]) == '#')
+		{
+			g_sChar.m_cLocation.X++;
+		}
     }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+
+    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.Y++;
-        bSomethingHappened = true;
+		g_sChar.m_cLocation.Y++;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
+		{
+			g_sChar.m_cLocation.Y--;
+		}
     }
-    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+
+    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.X++;
-        bSomethingHappened = true;
+		g_sChar.m_cLocation.X++;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
+		{
+			g_sChar.m_cLocation.X--;
+		}
     }
+
     if (g_abKeyPressed[K_SPACE])
     {
         g_sChar.m_bActive = !g_sChar.m_bActive;
@@ -357,14 +380,14 @@ void MapLayout()
 
 	int height = 0;
 	int width = 0;
-
-	char map[80][25];
+	bool canPass = true;
+	
 	ifstream myfile("MapLayout.txt");
 	if (myfile.is_open())
 	{
 		while (height < 20)
 		{
-			while (width < 60)
+			while (width < 80)
 			{
 				myfile >> map[width][height];
 				width++;
@@ -372,19 +395,20 @@ void MapLayout()
 			width = 0;
 			height++;
 		}
-		for (int y = 0; y < 20; y++)
-		{
-			c.Y = y + 1;
-			for (int x = 0; x < 60; x++)
-			{
-				if (map[x][y] == 'a')
-				{
-					map[x][y] == ' ';
-				}
-				c.X = x;
-				g_Console.writeToBuffer(c, map[x][y]);
-			}
-		}
+
 		myfile.close();
+	}
+	for (int y = 0; y < 20; y++)
+	{
+		c.Y = y + 1;
+		for (int x = 0; x < 80; x++)
+		{
+			c.X = x;
+			if (map[x][y] == '.')
+			{
+				map[x][y] = ' ';
+			}
+			g_Console.writeToBuffer(c, map[x][y]);
+		}
 	}
 }
