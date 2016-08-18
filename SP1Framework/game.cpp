@@ -19,6 +19,7 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+bool	setSpawn = false;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -26,6 +27,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 char map[80][20];
+int maps = 0;
 
 // Console object
 Console g_Console(85, 50, "SP1 Framework");
@@ -91,6 +93,8 @@ g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 g_abKeyPressed[K_1] = isKeyPressed(VK_1);
 g_abKeyPressed[K_2] = isKeyPressed(VK_2);
 g_abKeyPressed[K_3] = isKeyPressed(VK_3);
+g_abKeyPressed[K_4] = isKeyPressed(VK_4);
+g_abKeyPressed[K_P] = isKeyPressed(VK_P);
 }
 
 //--------------------------------------------------------------
@@ -121,6 +125,10 @@ void update(double dt)
 		break;
 	case S_MAINMENU: mainmenuwait();
 		break;
+	case S_INSTRUCTIONS: instructionwait();
+		break;
+	case S_LEVELS: selectLevel();
+		break;
 	}
 }
 //--------------------------------------------------------------
@@ -142,6 +150,10 @@ void render()
 		break;
 	case S_MAINMENU: renderMainMenuScreen();
 		break;
+	case S_INSTRUCTIONS : renderInstructionScreen();
+		break;
+	case S_LEVELS: renderLevelSelection();
+		break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 	renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -162,10 +174,48 @@ void gameplay()            // gameplay logic
 void mainmenuwait() // main menu logic
 {
 	if (g_abKeyPressed[K_1])
-		g_eGameState = S_GAME;
-	//instruction key
+	{
+		g_dBounceTime = g_dElapsedTime + 0.5; // 125ms should be enough
+		g_eGameState = S_LEVELS;
+	}
+	if (g_abKeyPressed[K_2])
+	{
+		g_eGameState = S_INSTRUCTIONS;
+	}
 	if (g_abKeyPressed[K_3])
+	{
 		g_bQuitGame = true;
+	}
+}
+
+void instructionwait()
+{
+	if (g_abKeyPressed[K_P])
+	{
+		g_eGameState = S_MAINMENU;
+	}
+}
+
+void selectLevel()
+{	
+	if (g_dBounceTime > g_dElapsedTime)
+		return;
+	if (g_abKeyPressed[K_1])
+	{
+		maps = 1;
+		g_eGameState = S_GAME;
+	}
+	if (g_abKeyPressed[K_2])
+	{
+		maps = 2;
+		g_eGameState = S_GAME;
+	}
+	if (g_abKeyPressed[K_3])
+	{
+		maps = 3;
+		g_eGameState = S_GAME;
+	}
+	
 }
 
 void moveCharacter()
@@ -182,23 +232,21 @@ void moveCharacter()
 		//Beep(1440, 30);
 		g_sChar.m_cLocation.Y--;
 		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1]) == '#')
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
 		{
 			g_sChar.m_cLocation.Y++;
 		}
     }
-
     if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
 		g_sChar.m_cLocation.X--;
 		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y -1]) == '#')
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
 		{
 			g_sChar.m_cLocation.X++;
 		}
     }
-
     if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
@@ -209,7 +257,6 @@ void moveCharacter()
 			g_sChar.m_cLocation.Y--;
 		}
     }
-
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
@@ -220,13 +267,11 @@ void moveCharacter()
 			g_sChar.m_cLocation.X--;
 		}
     }
-
     if (g_abKeyPressed[K_SPACE])
     {
         g_sChar.m_bActive = !g_sChar.m_bActive;
         bSomethingHappened = true;
     }
-
     if (bSomethingHappened)
     {
         // set the bounce time to some time in the future to prevent accidental triggers
@@ -237,7 +282,13 @@ void processUserInput()
 {
     // quits the game if player hits the escape key
     if (g_abKeyPressed[K_ESCAPE])
-        g_bQuitGame = true;    
+        g_bQuitGame = true; 
+	if (g_abKeyPressed[K_P])
+	{
+		g_sChar.m_cLocation.X = (g_Console.getConsoleSize().X / 2) - 40;
+		g_sChar.m_cLocation.Y = (g_Console.getConsoleSize().Y / 2) - 23;
+		g_eGameState = S_MAINMENU;
+	}
 }
 
 void clearScreen()
@@ -248,21 +299,7 @@ void clearScreen()
 
 void renderSplashScreen()  // renders the splash screen
 {
-    /*COORD c = g_Console.getConsoleSize();
-    c.Y /= 3;
-    c.X = c.X / 2 - 10;
-
-    g_Console.writeToBuffer(c, "Keyboard Warriors", 0x03);
-
-    g_Console.writeToBuffer(c, "SplashScreen", 0x03);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 20;
-    g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 9;
-    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);*/
-
-	COORD c = g_Console.getConsoleSize();
+   	COORD c = g_Console.getConsoleSize();
 	c.X = 10;
 	c.Y /= 3;
 
@@ -277,24 +314,10 @@ void renderSplashScreen()  // renders the splash screen
 		}
 		myfile.close();
 	}
-	
 }
 
 void renderMainMenuScreen() //renders main menu
 {
-	/*COORD c = g_Console.getConsoleSize();
-	c.Y /= 3;
-	c.X = c.X / 2 - 10;
-	g_Console.writeToBuffer(c, "ESCAPE FROM ALCATRAZ", 0x09);
-	c.Y += 8;
-	g_Console.writeToBuffer(c, "1) Start Game", 0x09);
-	c.Y += 2;
-	c.X = g_Console.getConsoleSize().X / 2 - 10;
-	g_Console.writeToBuffer(c, "2) Instructions", 0x09);
-	c.Y += 2;
-	c.X = g_Console.getConsoleSize().X / 2 - 10;
-	g_Console.writeToBuffer(c, "3) Exit", 0x09);*/
-
 	COORD c = g_Console.getConsoleSize();
 	c.X = 0;
 	c.Y = 0;
@@ -312,9 +335,47 @@ void renderMainMenuScreen() //renders main menu
 	}
 }
 
+void renderInstructionScreen() //render instructions
+{
+	COORD c = g_Console.getConsoleSize();
+	c.X = 0;
+	c.Y = 0;
+
+	string line;
+	ifstream myfile("Instructions.txt");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			g_Console.writeToBuffer(c, line);
+			c.Y++;
+		}
+		myfile.close();
+	}
+}
+
+void renderLevelSelection()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.X = 0;
+	c.Y = 0;
+
+	string line;
+	ifstream myfile("LevelSelection.txt");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			g_Console.writeToBuffer(c, line);
+			c.Y++;
+		}
+		myfile.close();
+	}
+}
+
 void renderGame()
 {
-	MapLayout();
+	loadMap(maps);
     //renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 }
@@ -377,11 +438,9 @@ void MapLayout()
 	COORD c;
 	c.X = 0;
 	c.Y = 0;
-
 	int height = 0;
 	int width = 0;
-	bool canPass = true;
-	
+
 	ifstream myfile("MapLayout.txt");
 	if (myfile.is_open())
 	{
@@ -406,9 +465,138 @@ void MapLayout()
 			c.X = x;
 			if (map[x][y] == '.')
 			{
-				map[x][y] = ' ';
+				g_Console.writeToBuffer(c, unsigned char(32));
 			}
-			g_Console.writeToBuffer(c, map[x][y]);
+			if (map[x][y] == '#')
+			{
+				g_Console.writeToBuffer(c, unsigned char(219));
+			}
+			if (map[x][y] == 'P'&&!setSpawn)
+			{
+				g_Console.writeToBuffer(c, unsigned char(233));
+				g_sChar.m_cLocation.X = x;
+				g_sChar.m_cLocation.Y = y+1;
+				setSpawn = true;
+			}
 		}
 	}
+}
+void MapLayout2()
+{
+	COORD c;
+	c.X = 0;
+	c.Y = 0;
+
+	int height = 0;
+	int width = 0;
+
+	ifstream myfile("MapLayout2.txt");
+	if (myfile.is_open())
+	{
+		while (height < 15)
+		{
+			while (width < 80)
+			{
+				myfile >> map[width][height];
+				width++;
+			}
+			width = 0;
+			height++;
+		}
+
+		myfile.close();
+	}
+	for (int y = 0; y < 15; y++)
+	{
+		c.Y = y + 1;
+		for (int x = 0; x < 80; x++)
+		{
+			c.X = x;
+			if (map[x][y] == '.')
+			{
+				g_Console.writeToBuffer(c, unsigned char(32));
+			}
+
+			if (map[x][y] == '#')
+			{
+				g_Console.writeToBuffer(c, unsigned char(219));
+			}
+			if (map[x][y] == 'P'&&!setSpawn)
+			{
+				g_Console.writeToBuffer(c, unsigned char(233));
+				g_sChar.m_cLocation.X = x;
+				g_sChar.m_cLocation.Y = y + 1;
+				setSpawn = true;
+			}
+		}
+	}
+}
+void MapLayout3()
+{
+	COORD c;
+	c.X = 0;
+	c.Y = 0;
+
+	int height = 0;
+	int width = 0;
+
+	ifstream myfile("MapLayout3.txt");
+	if (myfile.is_open())
+	{
+		while (height < 15)
+		{
+			while (width < 80)
+			{
+				myfile >> map[width][height];
+				width++;
+			}
+			width = 0;
+			height++;
+		}
+
+		myfile.close();
+	}
+	for (int y = 0; y < 15; y++)
+	{
+		c.Y = y + 1;
+		for (int x = 0; x < 80; x++)
+		{
+			c.X = x;
+			if (map[x][y] == '.')
+			{
+				g_Console.writeToBuffer(c, unsigned char(32));
+			}
+
+			if (map[x][y] == '#')
+			{
+				g_Console.writeToBuffer(c, unsigned char(219));
+			}
+			if (map[x][y] == 'P'&&!setSpawn)
+			{
+				g_Console.writeToBuffer(c, unsigned char(233));
+				g_sChar.m_cLocation.X = x;
+				g_sChar.m_cLocation.Y = y + 1;
+				setSpawn = true;
+			}
+		}
+	}
+}
+
+void loadMap(int level)
+{
+	switch (level)
+	{
+	case 1:
+		MapLayout();
+		break;
+	case 2:
+		MapLayout2();
+		break;
+	case 3:
+		MapLayout3();
+		break;
+	default:
+		break;
+	}
+	g_eGameState = S_GAME;
 }

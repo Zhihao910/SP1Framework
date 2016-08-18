@@ -4,7 +4,9 @@
 #include "Framework\timer.h"
 #define VK_1 0x31 
 #define VK_2 0x32 
-#define VK_3 0x33 
+#define VK_3 0x33
+#define VK_4 0x34
+#define VK_P 0x50
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
@@ -21,6 +23,8 @@ enum EKEYS
 	K_1, 
 	K_2,
 	K_3,
+	K_4,
+	K_P,
     K_COUNT
 };
 
@@ -28,9 +32,11 @@ enum EKEYS
 enum EGAMESTATES
 {
     S_SPLASHSCREEN,
+	S_MAINMENU,
+	S_INSTRUCTIONS,
     S_GAME,
-    S_COUNT,
-	S_MAINMENU
+	S_LEVELS,
+	S_COUNT
 };
 
 // struct for the game character
@@ -68,6 +74,13 @@ void renderFramerate();     // renders debug information, frame rate, elapsed ti
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 void attacking();			// attacking monsters
 void renderMainMenuScreen();
+void renderInstructionScreen();
+void renderLevelSelection();
 void mainmenuwait();
+void instructionwait();
+void selectLevel();
 void MapLayout();
+void MapLayout2();
+void MapLayout3();
+void loadMap(int level);
 #endif // _GAME_H
