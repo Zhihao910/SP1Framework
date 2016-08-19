@@ -87,6 +87,11 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="MapLayout.txt" />
+    <Text Include="MapLayout2.txt" />
+    <Text Include="MapLayout3.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

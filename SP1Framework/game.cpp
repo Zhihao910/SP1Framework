@@ -20,6 +20,7 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	setSpawn = false;
+bool	setFinal = false;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -236,6 +237,16 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.Y++;
 		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		{
+			maps++;
+			setFinal = true;
+			if (setFinal == true && maps == 4)
+			{
+				g_eGameState = S_MAINMENU;
+			}
+			setSpawn = false;
+		}
     }
     if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
     {
@@ -245,6 +256,16 @@ void moveCharacter()
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
 		{
 			g_sChar.m_cLocation.X++;
+		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		{
+			maps++;
+			setFinal = true;
+			if (setFinal == true && maps == 4)
+			{
+				g_eGameState = S_MAINMENU;
+			}
+			setSpawn = false;
 		}
     }
     if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0)
@@ -256,6 +277,16 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.Y--;
 		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		{
+			maps++;
+			setFinal = true;
+			if (setFinal == true && maps == 4)
+			{
+				g_eGameState = S_MAINMENU;
+			}
+			setSpawn = false;
+		}
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0)
     {
@@ -265,6 +296,16 @@ void moveCharacter()
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
 		{
 			g_sChar.m_cLocation.X--;
+		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		{
+			maps++;
+			setFinal = true;
+			if (setFinal == true && maps == 4)
+			{
+				g_eGameState = S_MAINMENU;
+			}
+			setSpawn = false;
 		}
     }
     if (g_abKeyPressed[K_SPACE])
@@ -376,26 +417,7 @@ void renderLevelSelection()
 void renderGame()
 {
 	loadMap(maps);
-    //renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-}
-
-void renderMap()
-{
-    // Set up sample colours, and output shadings
-    const WORD colors[] = {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-    };
-
-    COORD c;
-    for (int i = 0; i < 12; ++i)
-    {
-        c.X = 5 * i;
-        c.Y = i + 1;
-        colour(colors[i]);
-        g_Console.writeToBuffer(c, " °±²Û", colors[i]);
-    }
 }
 
 void renderCharacter()
@@ -471,6 +493,12 @@ void MapLayout()
 			{
 				g_Console.writeToBuffer(c, unsigned char(219));
 			}
+			if (map[x][y] == 'O')
+			{
+				g_Console.writeToBuffer(c, unsigned char(240));
+				setFinal = false;
+
+			}
 			if (map[x][y] == 'P'&&!setSpawn)
 			{
 				g_Console.writeToBuffer(c, unsigned char(233));
@@ -521,6 +549,11 @@ void MapLayout2()
 			{
 				g_Console.writeToBuffer(c, unsigned char(219));
 			}
+			if (map[x][y] == 'O')
+			{
+				g_Console.writeToBuffer(c, unsigned char(240));
+				setFinal = false;
+			}
 			if (map[x][y] == 'P'&&!setSpawn)
 			{
 				g_Console.writeToBuffer(c, unsigned char(233));
@@ -570,6 +603,11 @@ void MapLayout3()
 			if (map[x][y] == '#')
 			{
 				g_Console.writeToBuffer(c, unsigned char(219));
+			}
+			if (map[x][y] == 'O')
+			{
+				g_Console.writeToBuffer(c, unsigned char(240));		
+				setFinal = false;
 			}
 			if (map[x][y] == 'P'&&!setSpawn)
 			{
