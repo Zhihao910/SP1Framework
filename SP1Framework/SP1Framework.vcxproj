@@ -80,17 +80,26 @@
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="InstructionScreen.cpp" />
+    <ClCompile Include="LevelSelection.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="SplashScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="loadText.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Instructions.txt" />
+    <Text Include="LevelSelection.txt" />
+    <Text Include="Mainmenu.txt" />
     <Text Include="MapLayout.txt" />
     <Text Include="MapLayout2.txt" />
     <Text Include="MapLayout3.txt" />
+    <Text Include="Splashscreen.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

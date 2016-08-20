@@ -1,14 +1,21 @@
-
-
-
-  "1" Maze 1
-
-  "2" Maze 2
-
-  "3" Maze 3
-
-
-
-
-
-                                                                     "Q" Menu   
+    __     ______ _    __ ______ __    _____     
+   / /    / ____/| |  / // ____// /   / ___/     
+  / /    / __/   | | / // __/  / /    \__ \      
+ / /___ / /___   | |/ // /___ / /___ ___/ /      
+/_____//_____/   |___//_____//_____//____/       
+                                                 
+                                                 
+                                                 
+                                                 
+    Press "1" for Level 1.                       
+                                                 
+    Press "2" for Level 2.                       
+                                                 
+    Press "3" for Level 3.                       
+                                                 
+    Press "4" for Level 4.                       
+                                                 
+    Press "5" for Level 5.                       
+                                                 
+                                                 
+    PRESS "P" TO GO BACK TO THE MAIN MENU.       

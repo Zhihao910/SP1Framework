@@ -2,37 +2,24 @@
 //
 //
 #include "game.h"
-#include "Framework\console.h"
-#include <time.h>
-#include <stdlib.h>
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <cstdlib>
-#include <string>
-
-using namespace std;
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	setSpawn = false;
 bool	setFinal = false;
+bool	fileLoaded = false;
 
 // Game specific variables here
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
-
-char map[80][20];
+char map[100][30];
+char text[40][100];
 int maps = 0;
 
 // Console object
-Console g_Console(85, 50, "SP1 Framework");
-
+Console g_Console(100, 50, "SP1 Framework");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -54,7 +41,7 @@ void init( void )
 	g_sChar.m_cLocation.Y = (g_Console.getConsoleSize().Y / 2) - 23;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
-    g_Console.setConsoleFont(0, 16, L"Consolas");
+    g_Console.setConsoleFont(0, 16, L"Raster Fonts");
 }
 
 //--------------------------------------------------------------
@@ -132,6 +119,7 @@ void update(double dt)
 		break;
 	}
 }
+
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
 //            At this point, you should know exactly what to draw onto the screen.
@@ -147,23 +135,21 @@ void render()
 	{
 	case S_SPLASHSCREEN: renderSplashScreen();
 		break;
+
 	case S_GAME: renderGame();
 		break;
+
 	case S_MAINMENU: renderMainMenuScreen();
 		break;
-	case S_INSTRUCTIONS : renderInstructionScreen();
+
+	case S_INSTRUCTIONS: renderInstructionScreen();
 		break;
+
 	case S_LEVELS: renderLevelSelection();
 		break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 	renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-}
-
-void splashScreenWait()    // waits for time to pass in splash screen
-{
-	if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
-		g_eGameState = S_MAINMENU;
 }
 
 void gameplay()            // gameplay logic
@@ -172,6 +158,12 @@ void gameplay()            // gameplay logic
 	moveCharacter();    // moves the character, collision detection, physics, etc
 	// sound can be played here too.
 }
+
+void splashScreenWait()    // waits for time to pass in splash screen
+{
+	if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
+		g_eGameState = S_MAINMENU;
+}
 void mainmenuwait() // main menu logic
 {
 	if (g_abKeyPressed[K_1])
@@ -179,16 +171,19 @@ void mainmenuwait() // main menu logic
 		g_dBounceTime = g_dElapsedTime + 0.5; // 125ms should be enough
 		g_eGameState = S_LEVELS;
 	}
+
 	if (g_abKeyPressed[K_2])
 	{
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_INSTRUCTIONS;
 	}
+
 	if (g_abKeyPressed[K_3])
 	{
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_bQuitGame = true;
 	}
 }
-
 void instructionwait()
 {
 	if (g_abKeyPressed[K_P])
@@ -196,7 +191,6 @@ void instructionwait()
 		g_eGameState = S_MAINMENU;
 	}
 }
-
 void selectLevel()
 {	
 	if (g_dBounceTime > g_dElapsedTime)
@@ -216,7 +210,10 @@ void selectLevel()
 		maps = 3;
 		g_eGameState = S_GAME;
 	}
-	
+	if (g_abKeyPressed[K_P])
+	{
+		g_eGameState = S_MAINMENU;
+	}
 }
 
 void moveCharacter()
@@ -323,7 +320,8 @@ void processUserInput()
 {
     // quits the game if player hits the escape key
     if (g_abKeyPressed[K_ESCAPE])
-        g_bQuitGame = true; 
+        g_bQuitGame = true;
+
 	if (g_abKeyPressed[K_P])
 	{
 		g_sChar.m_cLocation.X = (g_Console.getConsoleSize().X / 2) - 40;
@@ -340,77 +338,66 @@ void clearScreen()
 
 void renderSplashScreen()  // renders the splash screen
 {
+	SplashScreen();
+
    	COORD c = g_Console.getConsoleSize();
 	c.X = 10;
 	c.Y /= 3;
+	string line = "";
 
-	string line;
-	ifstream myfile("Splashscreen.txt");
-	if (myfile.is_open())
+	for (int y = 0; y < 30; y++)
 	{
-		while (getline(myfile, line))
-		{
-			g_Console.writeToBuffer(c, line);
-			c.Y++;
-		}
-		myfile.close();
+		line = text[y];
+		g_Console.writeToBuffer(c, line);
+		c.Y++;
 	}
 }
-
 void renderMainMenuScreen() //renders main menu
 {
+	MainMenu();
+
 	COORD c = g_Console.getConsoleSize();
 	c.X = 0;
 	c.Y = 0;
+	string line = "";
 
-	string line;
-	ifstream myfile("Mainmenu.txt");
-	if (myfile.is_open())
+	for (int y = 0; y < 38; y++)
 	{
-		while (getline(myfile, line))
-		{
-			g_Console.writeToBuffer(c, line);
-			c.Y++;
-		}
-		myfile.close();
+		line = text[y];
+		g_Console.writeToBuffer(c, line);
+		c.Y++;
 	}
 }
-
 void renderInstructionScreen() //render instructions
 {
+	Instructions();
+
 	COORD c = g_Console.getConsoleSize();
 	c.X = 0;
 	c.Y = 0;
+	string line = "";
 
-	string line;
-	ifstream myfile("Instructions.txt");
-	if (myfile.is_open())
+	for (int y = 0; y < 33; y++)
 	{
-		while (getline(myfile, line))
-		{
-			g_Console.writeToBuffer(c, line);
-			c.Y++;
-		}
-		myfile.close();
+		line = text[y];
+		g_Console.writeToBuffer(c, line);
+		c.Y++;
 	}
 }
-
 void renderLevelSelection()
 {
+	LevelSelect();
+
 	COORD c = g_Console.getConsoleSize();
 	c.X = 0;
 	c.Y = 0;
+	string line = "";
 
-	string line;
-	ifstream myfile("LevelSelection.txt");
-	if (myfile.is_open())
+	for (int y = 0; y < 21; y++)
 	{
-		while (getline(myfile, line))
-		{
-			g_Console.writeToBuffer(c, line);
-			c.Y++;
-		}
-		myfile.close();
+		line = text[y];
+		g_Console.writeToBuffer(c, line);
+		c.Y++;
 	}
 }
 
@@ -419,7 +406,6 @@ void renderGame()
 	loadMap(maps);
     renderCharacter();  // renders the character into the buffer
 }
-
 void renderCharacter()
 {
     // Draw the location of the character
@@ -430,7 +416,6 @@ void renderCharacter()
     }
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)64, charColor);
 }
-
 void renderFramerate()
 {
     COORD c;
@@ -499,7 +484,7 @@ void MapLayout()
 				setFinal = false;
 
 			}
-			if (map[x][y] == 'P'&&!setSpawn)
+			if (map[x][y] == 'P'&& !setSpawn)
 			{
 				g_Console.writeToBuffer(c, unsigned char(233));
 				g_sChar.m_cLocation.X = x;

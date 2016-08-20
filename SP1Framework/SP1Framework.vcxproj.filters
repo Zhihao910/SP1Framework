@@ -33,6 +33,18 @@
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InstructionScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSelection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
@@ -44,6 +56,9 @@
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="loadText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="MapLayout.txt">
@@ -53,6 +68,18 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="MapLayout3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Instructions.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LevelSelection.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Mainmenu.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Splashscreen.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -1,18 +1,33 @@
- _____  _____ ____  _____ 
-/__ __\/  __// ___\/__ __\
-  / \  |  \  |    \  / \  
-  | |  |  /_ \___ |  | |  
-  \_/  \____\\____/  \_/  
-                          
-
-- Arrow keys to move.
-- Objective(s)?
-- Get to the end of the maze by finding keys "!" to open blocked doors "\" 
-  to edge your way closer to the end of the maze.
-- The use of portals "@" placed on the maps will allow you to travel to 
-  other parts of the maze that may be blocked off containing a key to the 
-  next door.
-- Along the way, you will meet mobs that you will fight.
-- To succefully attack a mob, you will have to correctly type out a set of 
-  random words that will appear on the screen.
-
+   ______                  __                    __                                 
+  / ____/  ____    ____   / /_   _____  ____    / /   _____                         
+ / /      / __ \  / __ \ / __/  / ___/ / __ \  / /   / ___/                         
+/ /___   / /_/ / / / / // /_   / /    / /_/ / / /   (__  )                          
+\____/   \____/ /_/ /_/ \__/  /_/     \____/ /_/   /____/                           
+                                                                                    
+                                                                                    
+ "UP ARROW"       -- MOVE UP                                                        
+                                                                                    
+ "DOWN ARROW"     -- MOVE DOWN                                                      
+                                                                                    
+ "LEFT ARROW"     -- MOVE LEFT                                                      
+                                                                                    
+ "RIGHT ARROW"    -- MOVE RIGHT                                                     
+                                                                                    
+   ____     __         _                 __     _                                   
+  / __ \   / /_       (_)  ___   _____  / /_   (_) _   __  ___    _____             
+ / / / /  / __ \     / /  / _ \ / ___/ / __/  / / | | / / / _ \  / ___/             
+/ /_/ /  / /_/ /    / /  /  __// /__  / /_   / /  | |/ / /  __/ (__  )              
+\____/  /_.___/  __/ /   \___/ \___/  \__/  /_/   |___/  \___/ /____/               
+                /___/                                                               
+                                                                                    
+ == COLLECT COLOURED KEYS TO OPENED LOCKED DOORS OF THE SAME COLOUR.                
+                                                                                    
+ == FIGHT MONSTERS AND GAIN EXPERIENCE TO LEVEL UP YOUR CHARACTER.                  
+                                                                                    
+ == USE PORTALS TO GAIN ACCESS TO NEW AREAS.                                        
+                                                                                    
+ == GET TO THE STAIRCASE AT THE END OF EACH LEVEL TO PROGRESS TO THE NEXT LEVEL.    
+                                                                                    
+ == HAVE FUN!                                                                       
+                                                                                    
+ PRESS "P" TO GO BACK TO MAIN MENU                                                  
