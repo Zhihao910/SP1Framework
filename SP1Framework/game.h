@@ -19,6 +19,11 @@
 #define VK_4 0x34
 #define VK_P 0x50
 
+#define VK_W 0x57
+#define VK_A 0x41
+#define VK_S 0x53
+#define VK_D 0x44
+
 using namespace std;
 
 extern CStopWatch g_swTimer;
@@ -40,6 +45,10 @@ enum EKEYS
 	K_3,
 	K_4,
 	K_P,
+	K_W,
+	K_A,
+	K_S,
+	K_D,
     K_COUNT
 };
 

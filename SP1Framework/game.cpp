@@ -85,6 +85,10 @@ g_abKeyPressed[K_2] = isKeyPressed(VK_2);
 g_abKeyPressed[K_3] = isKeyPressed(VK_3);
 g_abKeyPressed[K_4] = isKeyPressed(VK_4);
 g_abKeyPressed[K_P] = isKeyPressed(VK_P);
+g_abKeyPressed[K_W] = isKeyPressed(VK_W);
+g_abKeyPressed[K_A] = isKeyPressed(VK_A);
+g_abKeyPressed[K_S] = isKeyPressed(VK_S);
+g_abKeyPressed[K_D] = isKeyPressed(VK_D);
 }
 
 //--------------------------------------------------------------
@@ -227,7 +231,7 @@ void moveCharacter()
 	
 	// Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
-	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0) // Up movement
 	{
 		//Beep(1440, 30);
 		g_sChar.m_cLocation.Y--;
@@ -249,7 +253,7 @@ void moveCharacter()
 			
 		}
     }
-    if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
+    if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0) //left movement
     {
         //Beep(1440, 30);
 		g_sChar.m_cLocation.X--;
@@ -270,7 +274,7 @@ void moveCharacter()
 			}
 		}
     }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0)
+    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0) //down movement
     {
         //Beep(1440, 30);
 		g_sChar.m_cLocation.Y++;
@@ -291,7 +295,7 @@ void moveCharacter()
 			}
 		}
     }
-    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0)
+    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0) //right movement
     {
         //Beep(1440, 30);
 		g_sChar.m_cLocation.X++;
@@ -334,6 +338,8 @@ void processUserInput()
 		g_sChar.m_cLocation.X = (g_Console.getConsoleSize().X / 2) - 40;
 		g_sChar.m_cLocation.Y = (g_Console.getConsoleSize().Y / 2) - 23;
 		g_eGameState = S_MAINMENU;
+		newMap = true;
+		setSpawn = false;	
 	}
 }
 

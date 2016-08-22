@@ -12,6 +12,7 @@ void readMap(int level, int height, int width)
 	case 3: mapname = "MapLayout3.txt";
 		break;
 	}
+	memset(map, '\0', sizeof(map[0][0]) * 100 * 50); // clear array
 	ifstream myfile(mapname);
 	if (myfile.is_open())
 	{
