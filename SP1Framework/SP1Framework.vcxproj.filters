@@ -45,6 +45,12 @@
     <ClCompile Include="LevelSelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loadLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="printLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="loadText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loadLayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="printLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

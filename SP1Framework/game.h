@@ -23,6 +23,8 @@ using namespace std;
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
+extern bool newMap;
+extern bool setSpawn;
 
 // Enumeration to store the control keys that your game will have
 enum EKEYS
@@ -94,4 +96,6 @@ void MapLayout();
 void MapLayout2();
 void MapLayout3();
 void loadMap(int level);
+
+void readMap(int level, int height, int width);
 #endif // _GAME_H

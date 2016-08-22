@@ -82,15 +82,19 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="InstructionScreen.cpp" />
     <ClCompile Include="LevelSelection.cpp" />
+    <ClCompile Include="loadLayout.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="printLayout.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="loadLayout.h" />
     <ClInclude Include="loadText.h" />
+    <ClInclude Include="printLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Instructions.txt" />

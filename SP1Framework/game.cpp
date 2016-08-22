@@ -7,14 +7,16 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	setSpawn = false;
+bool	newMap = true;
 bool	setFinal = false;
-bool	fileLoaded = false;
+
+
 
 // Game specific variables here
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
-char map[100][30];
+char map[100][50];
 char text[40][100];
 int maps = 0;
 
@@ -230,19 +232,21 @@ void moveCharacter()
 		//Beep(1440, 30);
 		g_sChar.m_cLocation.Y--;
 		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
 			g_sChar.m_cLocation.Y++;
 		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
 			setFinal = true;
+			newMap = true;
+			setSpawn = false;
 			if (setFinal == true && maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
-			setSpawn = false;
+			
 		}
     }
     if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
@@ -250,19 +254,20 @@ void moveCharacter()
         //Beep(1440, 30);
 		g_sChar.m_cLocation.X--;
 		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
 			g_sChar.m_cLocation.X++;
 		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
 			setFinal = true;
+			newMap = true;
+			setSpawn = false;
 			if (setFinal == true && maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
-			setSpawn = false;
 		}
     }
     if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0)
@@ -270,19 +275,20 @@ void moveCharacter()
         //Beep(1440, 30);
 		g_sChar.m_cLocation.Y++;
 		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
 			g_sChar.m_cLocation.Y--;
 		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
 			setFinal = true;
+			newMap = true;
+			setSpawn = false;
 			if (setFinal == true && maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
-			setSpawn = false;
 		}
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0)
@@ -290,19 +296,20 @@ void moveCharacter()
         //Beep(1440, 30);
 		g_sChar.m_cLocation.X++;
 		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == '#')
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
 			g_sChar.m_cLocation.X--;
 		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'O' && !setFinal)
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
 			setFinal = true;
+			newMap = true;
+			setSpawn = false;
 			if (setFinal == true && maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
-			setSpawn = false;
 		}
     }
     if (g_abKeyPressed[K_SPACE])
@@ -341,7 +348,7 @@ void renderSplashScreen()  // renders the splash screen
 	SplashScreen();
 
    	COORD c = g_Console.getConsoleSize();
-	c.X = 10;
+	c.X = (c.X/2)-25;
 	c.Y /= 3;
 	string line = "";
 
@@ -440,170 +447,6 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-void MapLayout()
-{
-	COORD c;
-	c.X = 0;
-	c.Y = 0;
-	int height = 0;
-	int width = 0;
-
-	ifstream myfile("MapLayout.txt");
-	if (myfile.is_open())
-	{
-		while (height < 20)
-		{
-			while (width < 80)
-			{
-				myfile >> map[width][height];
-				width++;
-			}
-			width = 0;
-			height++;
-		}
-
-		myfile.close();
-	}
-	for (int y = 0; y < 20; y++)
-	{
-		c.Y = y + 1;
-		for (int x = 0; x < 80; x++)
-		{
-			c.X = x;
-			if (map[x][y] == '.')
-			{
-				g_Console.writeToBuffer(c, unsigned char(32));
-			}
-			if (map[x][y] == '#')
-			{
-				g_Console.writeToBuffer(c, unsigned char(219));
-			}
-			if (map[x][y] == 'O')
-			{
-				g_Console.writeToBuffer(c, unsigned char(240));
-				setFinal = false;
-
-			}
-			if (map[x][y] == 'P'&& !setSpawn)
-			{
-				g_Console.writeToBuffer(c, unsigned char(233));
-				g_sChar.m_cLocation.X = x;
-				g_sChar.m_cLocation.Y = y+1;
-				setSpawn = true;
-			}
-		}
-	}
-}
-void MapLayout2()
-{
-	COORD c;
-	c.X = 0;
-	c.Y = 0;
-
-	int height = 0;
-	int width = 0;
-
-	ifstream myfile("MapLayout2.txt");
-	if (myfile.is_open())
-	{
-		while (height < 15)
-		{
-			while (width < 80)
-			{
-				myfile >> map[width][height];
-				width++;
-			}
-			width = 0;
-			height++;
-		}
-
-		myfile.close();
-	}
-	for (int y = 0; y < 15; y++)
-	{
-		c.Y = y + 1;
-		for (int x = 0; x < 80; x++)
-		{
-			c.X = x;
-			if (map[x][y] == '.')
-			{
-				g_Console.writeToBuffer(c, unsigned char(32));
-			}
-
-			if (map[x][y] == '#')
-			{
-				g_Console.writeToBuffer(c, unsigned char(219));
-			}
-			if (map[x][y] == 'O')
-			{
-				g_Console.writeToBuffer(c, unsigned char(240));
-				setFinal = false;
-			}
-			if (map[x][y] == 'P'&&!setSpawn)
-			{
-				g_Console.writeToBuffer(c, unsigned char(233));
-				g_sChar.m_cLocation.X = x;
-				g_sChar.m_cLocation.Y = y + 1;
-				setSpawn = true;
-			}
-		}
-	}
-}
-void MapLayout3()
-{
-	COORD c;
-	c.X = 0;
-	c.Y = 0;
-
-	int height = 0;
-	int width = 0;
-
-	ifstream myfile("MapLayout3.txt");
-	if (myfile.is_open())
-	{
-		while (height < 15)
-		{
-			while (width < 80)
-			{
-				myfile >> map[width][height];
-				width++;
-			}
-			width = 0;
-			height++;
-		}
-
-		myfile.close();
-	}
-	for (int y = 0; y < 15; y++)
-	{
-		c.Y = y + 1;
-		for (int x = 0; x < 80; x++)
-		{
-			c.X = x;
-			if (map[x][y] == '.')
-			{
-				g_Console.writeToBuffer(c, unsigned char(32));
-			}
-
-			if (map[x][y] == '#')
-			{
-				g_Console.writeToBuffer(c, unsigned char(219));
-			}
-			if (map[x][y] == 'O')
-			{
-				g_Console.writeToBuffer(c, unsigned char(240));		
-				setFinal = false;
-			}
-			if (map[x][y] == 'P'&&!setSpawn)
-			{
-				g_Console.writeToBuffer(c, unsigned char(233));
-				g_sChar.m_cLocation.X = x;
-				g_sChar.m_cLocation.Y = y + 1;
-				setSpawn = true;
-			}
-		}
-	}
-}
 
 void loadMap(int level)
 {
@@ -621,5 +464,4 @@ void loadMap(int level)
 	default:
 		break;
 	}
-	g_eGameState = S_GAME;
 }
