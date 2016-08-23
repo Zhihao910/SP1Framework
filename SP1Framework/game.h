@@ -68,7 +68,10 @@ struct SGameChar
 {
     COORD m_cLocation;
     bool  m_bActive;
-	int redKey, blueKey;
+	int redKey;
+	int	blueKey;
+	int gold;
+
 };
 
 void init        ( void );      // initialize your variables, allocate memory, etc

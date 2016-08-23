@@ -25,31 +25,35 @@ void readMap(int level, int height, int width)
 				myfile >> map[width][height];
 				if (map[width][height] == '.')
 				{
-					map[width][height] = char(32);
+					map[width][height] = char(176); //Floor
 				}
-				if (map[width][height] == '#')
+				if (map[width][height] == '#') //Wall
 				{
 					map[width][height] = char(219);
 				}
-				if (map[width][height] == 'O')
+				if (map[width][height] == 'O') //Staircase
 				{
 					map[width][height] = char(240);
 				}
-				if (map[width][height] == 'A')
+				if (map[width][height] == 'A') //Red Door
 				{
 					map[width][height] = char(178);
 				}
-				if (map[width][height] == 'B')
+				if (map[width][height] == 'B') //Blue Door
 				{
 					map[width][height] = char(177);
 				}
-				if (map[width][height] == '1')
+				if (map[width][height] == '1') //Red Key
 				{
 					map[width][height] = char(169);
 				}
-				if (map[width][height] == '2')
+				if (map[width][height] == '2') //Blue Key
 				{
 					map[width][height] = char(170);
+				}
+				if (map[width][height] == 'G') // Gold
+				{
+					map[width][height] = char(233);
 				}
 				width++;
 			}
