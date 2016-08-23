@@ -17,12 +17,9 @@
 #define VK_2 0x32 
 #define VK_3 0x33
 #define VK_4 0x34
+#define VK_5 0x35
+#define VK_6 0x36
 #define VK_P 0x50
-
-#define VK_W 0x57
-#define VK_A 0x41
-#define VK_S 0x53
-#define VK_D 0x44
 
 using namespace std;
 
@@ -44,11 +41,9 @@ enum EKEYS
 	K_2,
 	K_3,
 	K_4,
+	K_5,
+	K_6,
 	K_P,
-	K_W,
-	K_A,
-	K_S,
-	K_D,
     K_COUNT
 };
 
@@ -101,14 +96,29 @@ void mainmenuwait();
 void instructionwait();
 void selectLevel();
 
+void PrintSplashScreen();	//Loads and Prints the Splash Screen
+void PrintMainMenu();		//Loads and Prints the Main Menu
+void PrintInstructions();	//Loads and Prints the Instruction Screen
+void PrintLevelSelect();	//Loads and Prints the Level Selection Screen
+void PrintDialogueBox();
+void PrintDialogueText();
+
 void SplashScreen();
 void MainMenu();
 void Instructions();
 void LevelSelect();
+void DialogueBox();
 
-void MapLayout();
+void MapLayout1();
 void MapLayout2();
 void MapLayout3();
+void MapLayout4();
+void MapLayout5();
+void MapLayout6();
+void MapLayout7();
+void MapLayout8();
+void MapLayout9();
+void MapLayout10();
 void loadMap(int level);
 
 void readMap(int level, int height, int width);

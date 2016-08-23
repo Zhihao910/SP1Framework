@@ -13,6 +13,12 @@ void readMap(int level, int height, int width)
 		break;
 	case 3: mapname = "MapLayout3.txt";
 		break;
+	case 4: mapname = "MapLayout4.txt";
+		break;
+	case 5: mapname = "MapLayout5.txt";
+		break;
+	case 6: mapname = "MapLayout6.txt";
+		break;
 	}
 	memset(map, '\0', sizeof(map[0][0]) * 100 * 50); // clear array
 	ifstream myfile(mapname);

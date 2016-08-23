@@ -81,11 +81,9 @@ g_abKeyPressed[K_1] = isKeyPressed(VK_1);
 g_abKeyPressed[K_2] = isKeyPressed(VK_2);
 g_abKeyPressed[K_3] = isKeyPressed(VK_3);
 g_abKeyPressed[K_4] = isKeyPressed(VK_4);
+g_abKeyPressed[K_5] = isKeyPressed(VK_5);
+g_abKeyPressed[K_6] = isKeyPressed(VK_6);
 g_abKeyPressed[K_P] = isKeyPressed(VK_P);
-g_abKeyPressed[K_W] = isKeyPressed(VK_W);
-g_abKeyPressed[K_A] = isKeyPressed(VK_A);
-g_abKeyPressed[K_S] = isKeyPressed(VK_S);
-g_abKeyPressed[K_D] = isKeyPressed(VK_D);
 }
 
 //--------------------------------------------------------------
@@ -161,7 +159,7 @@ void gameplay()            // gameplay logic
 {
 	processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
 	moveCharacter();    // moves the character, collision detection, physics, etc
-	// sound can be played here too.
+						// sound can be played here too.
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
@@ -203,18 +201,40 @@ void selectLevel()
 	if (g_abKeyPressed[K_1])
 	{
 		maps = 1;
+		g_sChar.gold = 0;
 		g_eGameState = S_GAME;
 	}
 	if (g_abKeyPressed[K_2])
 	{
 		maps = 2;
+		g_sChar.gold = 0;
 		g_eGameState = S_GAME;
 	}
 	if (g_abKeyPressed[K_3])
 	{
 		maps = 3;
+		g_sChar.gold = 0;
 		g_eGameState = S_GAME;
 	}
+	if (g_abKeyPressed[K_4])
+	{
+		maps = 4;
+		g_sChar.gold = 0;
+		g_eGameState = S_GAME;
+	}
+	if (g_abKeyPressed[K_5])
+	{
+		maps = 5;
+		g_sChar.gold = 0;
+		g_eGameState = S_GAME;
+	}
+	if (g_abKeyPressed[K_6])
+	{
+		maps = 6;
+		g_sChar.gold = 0;
+		g_eGameState = S_GAME;
+	}
+
 	if (g_abKeyPressed[K_P])
 	{
 		g_eGameState = S_MAINMENU;
@@ -258,7 +278,7 @@ void moveCharacter()
 			if (g_sChar.redKey != 0)
 			{
 				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';    
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 			}
 
 			if (g_sChar.redKey == 0)
@@ -266,13 +286,12 @@ void moveCharacter()
 				g_sChar.m_cLocation.Y++;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
 				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 			}
 
 			if (g_sChar.blueKey == 0)
@@ -280,16 +299,19 @@ void moveCharacter()
 				g_sChar.m_cLocation.Y++;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
 		{
 			g_sChar.redKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
 		{
 			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
@@ -317,7 +339,7 @@ void moveCharacter()
 			if (g_sChar.redKey != 0)
 			{
 				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 			}
 
 			if (g_sChar.redKey == 0)
@@ -325,13 +347,12 @@ void moveCharacter()
 				g_sChar.m_cLocation.X++;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
 				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 
 			}
 
@@ -340,16 +361,19 @@ void moveCharacter()
 				g_sChar.m_cLocation.X++;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
 		{
 			g_sChar.redKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
 		{
 			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
@@ -377,7 +401,7 @@ void moveCharacter()
 			if (g_sChar.redKey != 0)
 			{
 				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 			}
 
 			if (g_sChar.redKey == 0)
@@ -385,13 +409,12 @@ void moveCharacter()
 				g_sChar.m_cLocation.Y--;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
 				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 			}
 
 			if (g_sChar.blueKey == 0)
@@ -399,7 +422,6 @@ void moveCharacter()
 				g_sChar.m_cLocation.Y--;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
 		{
 			g_sChar.redKey++;
@@ -409,6 +431,11 @@ void moveCharacter()
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
 		{
 			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
@@ -436,7 +463,7 @@ void moveCharacter()
 			if (g_sChar.redKey != 0)
 			{
 				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 			}
 
 			if (g_sChar.redKey == 0)
@@ -444,13 +471,12 @@ void moveCharacter()
 				g_sChar.m_cLocation.X--;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
 				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
 			}
 
 			if (g_sChar.blueKey == 0)
@@ -458,7 +484,6 @@ void moveCharacter()
 				g_sChar.m_cLocation.X--;
 			}
 		}
-
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
 		{
 			g_sChar.redKey++;
@@ -468,6 +493,11 @@ void moveCharacter()
 		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
 		{
 			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
@@ -506,67 +536,24 @@ void clearScreen()
 
 void renderSplashScreen()  // renders the splash screen
 {
-	SplashScreen();
-
-   	COORD c = g_Console.getConsoleSize();
-	c.X = (c.X/2)-25;
-	c.Y /= 3;
-	string line = "";
-
-	for (int y = 0; y < 30; y++)
-	{
-		line = text[y];
-		g_Console.writeToBuffer(c, line);
-		c.Y++;
-	}
+	PrintSplashScreen();
 }
 void renderMainMenuScreen() //renders main menu
 {
-	MainMenu();
-
-	COORD c = g_Console.getConsoleSize();
-	c.X = 0;
-	c.Y = 0;
-	string line = "";
-
-	for (int y = 0; y < 38; y++)
-	{
-		line = text[y];
-		g_Console.writeToBuffer(c, line);
-		c.Y++;
-	}
+	PrintMainMenu();
 }
 void renderInstructionScreen() //render instructions
 {
-	Instructions();
-
-	COORD c = g_Console.getConsoleSize();
-	c.X = 0;
-	c.Y = 0;
-	string line = "";
-
-	for (int y = 0; y < 33; y++)
-	{
-		line = text[y];
-		g_Console.writeToBuffer(c, line);
-		c.Y++;
-	}
+	PrintInstructions();
 }
 void renderLevelSelection()
 {
-	LevelSelect();
-
-	COORD c = g_Console.getConsoleSize();
-	c.X = 0;
-	c.Y = 0;
-	string line = "";
-
-	for (int y = 0; y < 21; y++)
-	{
-		line = text[y];
-		g_Console.writeToBuffer(c, line);
-		c.Y++;
-	}
+	PrintLevelSelect();
+}
+void renderDialogue()
+{
+	PrintDialogueBox();
+	PrintDialogueText();
 }
 
 void renderGame()
@@ -613,7 +600,7 @@ void loadMap(int level)
 	switch (level)
 	{
 	case 1:
-		MapLayout();
+		MapLayout1();
 		break;
 	case 2:
 		MapLayout2();
@@ -621,36 +608,16 @@ void loadMap(int level)
 	case 3:
 		MapLayout3();
 		break;
+	case 4:
+		MapLayout4();
+		break;
+	case 5:
+		MapLayout5();
+		break;
+	case 6:
+		MapLayout6();
+		break;
 	default:
 		break;
 	}
-}
-
-void renderDialogue()
-{
-	COORD c = g_Console.getConsoleSize();
-	c.X = 4;
-	c.Y = 24;
-
-	string redText = "Number of Red Keys: ";
-	string blueText = "Number of Blue Keys: ";
-	string goldText = "Amount of Gold: ";
-
-	g_Console.writeToBuffer(c, redText);
-	c.X = sizeof(redText);
-	g_Console.writeToBuffer(c, g_sChar.redKey + '0');
-
-	c.X = 4;
-	c.Y += 2;
-
-	g_Console.writeToBuffer(c, blueText);
-	c.X = sizeof(blueText);
-	g_Console.writeToBuffer(c, g_sChar.blueKey + '0');
-
-	c.X = 4;
-	c.Y += 2;
-
-	g_Console.writeToBuffer(c, goldText);
-	c.X = sizeof(goldText);
-	g_Console.writeToBuffer(c, g_sChar.gold + '0');
 }

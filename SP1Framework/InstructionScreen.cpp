@@ -1,5 +1,22 @@
 #include "loadText.h"
 
+void PrintInstructions()
+{
+	Instructions();
+
+	COORD c = g_Console.getConsoleSize();
+	c.X = 0;
+	c.Y = 0;
+	string line = "";
+
+	for (int y = 0; y < 33; y++)
+	{
+		line = text[y];
+		g_Console.writeToBuffer(c, line);
+		c.Y++;
+	}
+}
+
 void Instructions()
 {
 
