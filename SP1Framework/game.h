@@ -68,6 +68,7 @@ struct SGameChar
 {
     COORD m_cLocation;
     bool  m_bActive;
+	int redKey, blueKey;
 };
 
 void init        ( void );      // initialize your variables, allocate memory, etc
@@ -91,6 +92,7 @@ void renderToScreen();      // dump the contents of the buffer to the screen, on
 void renderMainMenuScreen();
 void renderInstructionScreen();
 void renderLevelSelection();
+void renderDialogue();
 
 void mainmenuwait();
 void instructionwait();

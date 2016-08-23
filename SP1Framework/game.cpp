@@ -8,9 +8,6 @@ double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	setSpawn = false;
 bool	newMap = true;
-bool	setFinal = false;
-
-
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -142,7 +139,9 @@ void render()
 	case S_SPLASHSCREEN: renderSplashScreen();
 		break;
 
-	case S_GAME: renderGame();
+	case S_GAME: 
+		renderGame();
+		renderDialogue();
 		break;
 
 	case S_MAINMENU: renderMainMenuScreen();
@@ -224,6 +223,10 @@ void selectLevel()
 
 void moveCharacter()
 {
+	COORD c;
+	c.X = 4;
+	c.Y = 24;
+
 	bool bSomethingHappened = false;
 	
 	if (g_dBounceTime > g_dElapsedTime)
@@ -243,14 +246,51 @@ void moveCharacter()
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
-			setFinal = true;
 			newMap = true;
 			setSpawn = false;
-			if (setFinal == true && maps == 4)
+			if (maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
-			
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';    
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.Y++;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.Y++;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
     if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0) //left movement
@@ -265,13 +305,52 @@ void moveCharacter()
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
-			setFinal = true;
 			newMap = true;
 			setSpawn = false;
-			if (setFinal == true && maps == 4)
+			if (maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.X++;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.X++;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
     if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0) //down movement
@@ -286,13 +365,51 @@ void moveCharacter()
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
-			setFinal = true;
 			newMap = true;
 			setSpawn = false;
-			if (setFinal == true && maps == 4)
+			if (maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.Y--;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.Y--;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0) //right movement
@@ -307,13 +424,51 @@ void moveCharacter()
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 		{
 			maps++;
-			setFinal = true;
 			newMap = true;
 			setSpawn = false;
-			if (setFinal == true && maps == 4)
+			if (maps == 4)
 			{
 				g_eGameState = S_MAINMENU;
 			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.X--;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.X--;
+			}
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
     }
     if (g_abKeyPressed[K_SPACE])
@@ -339,7 +494,7 @@ void processUserInput()
 		g_sChar.m_cLocation.Y = (g_Console.getConsoleSize().Y / 2) - 23;
 		g_eGameState = S_MAINMENU;
 		newMap = true;
-		setSpawn = false;	
+		setSpawn = false;
 	}
 }
 
@@ -453,7 +608,6 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-
 void loadMap(int level)
 {
 	switch (level)
@@ -470,4 +624,26 @@ void loadMap(int level)
 	default:
 		break;
 	}
+}
+
+void renderDialogue()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.X = 4;
+	c.Y = 24;
+
+	string redText = "Number of Red Keys: ";
+	string blueText = "Number of Blue Keys: ";
+
+
+	g_Console.writeToBuffer(c, redText);
+	c.X = sizeof(redText);
+	g_Console.writeToBuffer(c, g_sChar.redKey + '0');
+
+	c.Y += 2;
+	c.X = 4;
+
+	g_Console.writeToBuffer(c, blueText);
+	c.X = sizeof(blueText);
+	g_Console.writeToBuffer(c, g_sChar.blueKey + '0');
 }

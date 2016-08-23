@@ -3,6 +3,8 @@
 void readMap(int level, int height, int width)
 {
 	string mapname = " ";
+	g_sChar.redKey = 0;
+	g_sChar.blueKey = 0;
 	switch (level)
 	{
 	case 1: mapname = "MapLayout.txt";
@@ -32,6 +34,22 @@ void readMap(int level, int height, int width)
 				if (map[width][height] == 'O')
 				{
 					map[width][height] = char(240);
+				}
+				if (map[width][height] == 'A')
+				{
+					map[width][height] = char(178);
+				}
+				if (map[width][height] == 'B')
+				{
+					map[width][height] = char(177);
+				}
+				if (map[width][height] == '1')
+				{
+					map[width][height] = char(169);
+				}
+				if (map[width][height] == '2')
+				{
+					map[width][height] = char(170);
 				}
 				width++;
 			}
