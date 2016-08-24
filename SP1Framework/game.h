@@ -29,6 +29,7 @@ extern struct SGameChar g_sChar;
 extern bool g_bQuitGame;
 extern bool newMap;
 extern bool setSpawn;
+const int totalEnemy = 8;
 
 // Enumeration to store the control keys that your game will have
 enum EKEYS
@@ -71,6 +72,16 @@ struct SGameChar
 	int health = 10;
 };
 
+struct SEnemyChar
+{
+	COORD m_cLocation;
+	bool  m_bActive;
+	bool up = false;
+	bool down = false;
+	bool left = false;
+	bool right = false;
+};
+
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
 void update      ( double dt ); // update the game and the state of the game
@@ -111,9 +122,9 @@ void Instructions();
 void LevelSelect();
 void DialogueBox();
 
-void MapLayout(int levels);
 void Portal();
 
-
-void readMap(int level, int height, int width);
+void renderEnemy();
+void MapLayout(int levels, int *numberOfEnemy);
+void readMap(int level, int height, int width, int *numberOfEnemy);
 #endif // _GAME_H

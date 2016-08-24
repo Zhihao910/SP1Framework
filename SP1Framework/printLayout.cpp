@@ -1,6 +1,6 @@
 #include "printLayout.h"
 
-void MapLayout(int levels) // Prints out Maze (depeneding on Level selected)
+void MapLayout(int levels, int *numberOfEnemy) // Prints out Maze (depeneding on Level selected)
 {
 	COORD c;
 	c.X = 0;
@@ -10,7 +10,7 @@ void MapLayout(int levels) // Prints out Maze (depeneding on Level selected)
 	if (newMap)
 	{
 		newMap = false;
-		readMap(levels, height, width);
+		readMap(levels, height, width, numberOfEnemy);
 	}
 
 	for (int y = 0; y < 20; y++)

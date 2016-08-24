@@ -1,8 +1,10 @@
 #include "loadLayout.h"
 
-void readMap(int level, int height, int width)
+void readMap(int level, int height, int width, int *numberOfEnemy)
 {
 	string mapname = " ";
+	int typeOne = 0;
+	int typeTwo = 0;
 	g_sChar.redKey = 0;
 	g_sChar.blueKey = 0;
 	switch (level)
@@ -85,6 +87,22 @@ void readMap(int level, int height, int width)
 				{
 					map[width][height] = char(70);
 				}
+				if (map[width][height] == 'X') //Enemy type 1
+				{
+					g_sEnemy[0][typeOne].m_cLocation.X = width;
+					g_sEnemy[0][typeOne].m_cLocation.Y = height + 1;
+					g_sEnemy[0][typeOne].m_bActive = true;
+					map[width][height] = char(176);
+					typeOne++;
+				}
+				if (map[width][height] == 'T') //Enemy type 2
+				{
+					g_sEnemy[1][typeTwo].m_cLocation.X = width;
+					g_sEnemy[1][typeTwo].m_cLocation.Y = height + 1;
+					g_sEnemy[1][typeTwo].m_bActive = true;
+					map[width][height] = char(176);
+					typeTwo++;
+				}
 				width++;
 			}
 			width = 0;
@@ -93,4 +111,5 @@ void readMap(int level, int height, int width)
 
 		myfile.close();
 	}
+	*numberOfEnemy = typeOne + typeTwo;
 }

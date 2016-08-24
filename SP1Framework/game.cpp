@@ -11,11 +11,14 @@ bool	newMap = true;
 
 // Game specific variables here
 SGameChar   g_sChar;
+SEnemyChar   g_sEnemy[2][totalEnemy]; //[Number of Enemy Type][Amount of enemy]
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 char map[100][50];
 char text[40][100];
 int maps = 0;
+int enemyType = 2; //2 types of enemy(Slow, Fast).
+int numberOfEnemy = 0; //Number of enemy in map
 
 // Console object
 Console g_Console(100, 50, "SP1 Framework");
@@ -558,7 +561,8 @@ void renderDialogue()
 
 void renderGame()
 {
-	MapLayout(maps);
+	MapLayout(maps, &numberOfEnemy);//Map level,Calling address of numberofenemy
+	renderEnemy();		//renders the enemy
     renderCharacter();
 	Portal();// renders the character into the buffer
 }
@@ -596,3 +600,27 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
+void renderEnemy()
+{
+	for (int i = 0; i < enemyType; i++)
+	{
+		for (int x = 0; x < numberOfEnemy; x++)
+		{
+			if (i == 0) //Enemy type 1(Slow)
+			{
+				if (g_sEnemy[i][x].m_bActive)
+				{
+					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)88);
+				}
+			}
+			if (i == 1) //Enemy type 2(Fast)
+			{
+				if (g_sEnemy[i][x].m_bActive)
+				{
+					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)84);
+				}
+			}
+		}
+	}
+
+}
