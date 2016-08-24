@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Framework">
       <UniqueIdentifier>{37c19c94-9502-4b2b-b3f1-70fa908b49af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Maps">
+      <UniqueIdentifier>{f0341606-e311-49a8-94aa-4d81b4860488}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,15 +79,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="MapLayout.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="MapLayout2.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="MapLayout3.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="Instructions.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -96,6 +90,24 @@
     </Text>
     <Text Include="Splashscreen.txt">
       <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MapLayout1.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="MapLayout2.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="MapLayout3.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="MapLayout4.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="MapLayout5.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="MapLayout6.txt">
+      <Filter>Resource Files\Maps</Filter>
     </Text>
   </ItemGroup>
 </Project>

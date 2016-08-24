@@ -66,7 +66,7 @@ struct SGameChar
 	int redKey;
 	int	blueKey;
 	int gold;
-
+	int health = 10;
 };
 
 void init        ( void );      // initialize your variables, allocate memory, etc

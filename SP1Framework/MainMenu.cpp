@@ -29,7 +29,7 @@ void MainMenu()
 	{
 		while (getline(myfile, line))
 		{
-			for (width = 0; width < 92; width++)
+			for (width = 0; width < 170; width++)
 			{
 				text[height][width] = line[width];
 			}

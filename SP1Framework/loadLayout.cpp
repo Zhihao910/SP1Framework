@@ -7,7 +7,7 @@ void readMap(int level, int height, int width)
 	g_sChar.blueKey = 0;
 	switch (level)
 	{
-	case 1: mapname = "MapLayout.txt";
+	case 1: mapname = "MapLayout1.txt";
 		break;
 	case 2: mapname = "MapLayout2.txt";
 		break;
@@ -41,19 +41,19 @@ void readMap(int level, int height, int width)
 				{
 					map[width][height] = char(240);
 				}
-				if (map[width][height] == 'A') //Red Door
+				if (map[width][height] == '(') //Red Door
 				{
 					map[width][height] = char(178);
 				}
-				if (map[width][height] == 'B') //Blue Door
+				if (map[width][height] == ')') //Blue Door
 				{
 					map[width][height] = char(177);
 				}
-				if (map[width][height] == '1') //Red Key
+				if (map[width][height] == '-') //Red Key
 				{
 					map[width][height] = char(169);
 				}
-				if (map[width][height] == '2') //Blue Key
+				if (map[width][height] == '+') //Blue Key
 				{
 					map[width][height] = char(170);
 				}

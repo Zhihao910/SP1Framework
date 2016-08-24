@@ -101,9 +101,12 @@
     <Text Include="Instructions.txt" />
     <Text Include="LevelSelection.txt" />
     <Text Include="Mainmenu.txt" />
-    <Text Include="MapLayout.txt" />
+    <Text Include="MapLayout1.txt" />
     <Text Include="MapLayout2.txt" />
     <Text Include="MapLayout3.txt" />
+    <Text Include="MapLayout4.txt" />
+    <Text Include="MapLayout5.txt" />
+    <Text Include="MapLayout6.txt" />
     <Text Include="Splashscreen.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
