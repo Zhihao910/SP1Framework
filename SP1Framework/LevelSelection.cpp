@@ -9,7 +9,7 @@ void PrintLevelSelect()
 	c.Y = 0;
 	string line = "";
 
-	for (int y = 0; y < 21; y++)
+	for (int y = 0; y < 22; y++)
 	{
 		line = text[y];
 		g_Console.writeToBuffer(c, line);
