@@ -24,6 +24,8 @@
 using namespace std;
 
 extern CStopWatch g_swTimer;
+extern char map[100][50];
+extern struct SGameChar g_sChar;
 extern bool g_bQuitGame;
 extern bool newMap;
 extern bool setSpawn;
@@ -109,17 +111,9 @@ void Instructions();
 void LevelSelect();
 void DialogueBox();
 
-void MapLayout1();
-void MapLayout2();
-void MapLayout3();
-void MapLayout4();
-void MapLayout5();
-void MapLayout6();
-void MapLayout7();
-void MapLayout8();
-void MapLayout9();
-void MapLayout10();
-void loadMap(int level);
+void MapLayout(int levels);
+void Portal();
+
 
 void readMap(int level, int height, int width);
 #endif // _GAME_H

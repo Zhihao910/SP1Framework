@@ -558,8 +558,9 @@ void renderDialogue()
 
 void renderGame()
 {
-	loadMap(maps);
-    renderCharacter();  // renders the character into the buffer
+	MapLayout(maps);
+    renderCharacter();
+	Portal();// renders the character into the buffer
 }
 void renderCharacter()
 {
@@ -595,29 +596,3 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-void loadMap(int level)
-{
-	switch (level)
-	{
-	case 1:
-		MapLayout1();
-		break;
-	case 2:
-		MapLayout2();
-		break;
-	case 3:
-		MapLayout3();
-		break;
-	case 4:
-		MapLayout4();
-		break;
-	case 5:
-		MapLayout5();
-		break;
-	case 6:
-		MapLayout6();
-		break;
-	default:
-		break;
-	}
-}

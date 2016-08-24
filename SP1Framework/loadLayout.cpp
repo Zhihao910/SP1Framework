@@ -61,6 +61,30 @@ void readMap(int level, int height, int width)
 				{
 					map[width][height] = char(233);
 				}
+				if (map[width][height] == 'A') // Portal level 4
+				{
+					map[width][height] = char(65);
+				}
+				if (map[width][height] == 'B') // Portal level 4
+				{
+					map[width][height] = char(66);
+				}
+				if (map[width][height] == 'C') // Portal level 4
+				{
+					map[width][height] = char(67);
+				}
+				if (map[width][height] == 'D') // Portal level 4
+				{
+					map[width][height] = char(68);
+				}
+				if (map[width][height] == 'E') // Portal level 4
+				{
+					map[width][height] = char(69);
+				}
+				if (map[width][height] == 'F') // Portal level 4
+				{
+					map[width][height] = char(70);
+				}
 				width++;
 			}
 			width = 0;

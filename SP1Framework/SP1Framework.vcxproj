@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dialogue.cpp" />
+    <ClCompile Include="Fog.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="loadLayout.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="printLayout.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
   </ItemGroup>
