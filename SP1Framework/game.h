@@ -80,13 +80,10 @@ struct SEnemyChar
 {
 	COORD m_cLocation;
 	bool  m_bActive;
-	int gold;
-	int health;
-
-	bool up = false;
-	bool down = false;
-	bool left = false;
-	bool right = false;
+	bool bSomethingHappened = false;
+	double	slowDownTime = 0;
+	int random = 1;
+	int tempCheck = 1;
 };
 
 void init        ( void );      // initialize your variables, allocate memory, etc
@@ -134,13 +131,14 @@ void Death();
 
 void HighScore(int score);
 void Portal();
-void renderEnemy();
 
 void fireTrap();
 void poisonTrap();
 void pitTrap();
 void spikeTrap();
 
+void renderEnemy(); 
+void enemyMove();
 void MapLayout(int levels, int *numberOfEnemy);
 void readMap(int level, int height, int width, int *numberOfEnemy);
 #endif // _GAME_H

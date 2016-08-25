@@ -266,6 +266,397 @@ void deathwait()
 	}
 }
 
+void moveCharacter()
+{
+	COORD c;
+	c.X = 4;
+	c.Y = 24;
+
+	bool bSomethingHappened = false;
+
+	if (g_dBounceTime > g_dElapsedTime)
+		return;
+
+	// Updating the location of the character based on the key press
+	// providing a beep sound whenver we shift the character
+	/*== == == == == == == == == == == == == == == == == == == == UP MOVEMENT == == == == == == == == == == == == == == == == == == == ==*/
+	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0) //Move Up
+	{
+		g_sChar.m_cLocation.Y--;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219)) // Checks Collisions Against Wall.
+		{
+			g_sChar.m_cLocation.Y++;
+		}
+		for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
+		{
+			for (int x = 0; x < numberOfEnemy; x++)
+			{
+				if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+				{
+					g_sChar.health--;
+				}
+			}
+		}
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
+		{
+			maps++;
+			newMap = true;
+			setSpawn = false;
+			if (maps > 6)
+			{
+				g_eGameState = S_SCORE;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.Y++;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.Y++;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
+	}
+	/*== == == == == == == == == == == == == == == == == == == == LEFT MOVEMENT == == == == == == == == == == == == == == == == == == == ==*/
+	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0) //Move Left
+	{
+		g_sChar.m_cLocation.X--;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219)) // Checks Collisions Against Wall.
+		{
+			g_sChar.m_cLocation.X++;
+		}
+		for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
+		{
+			for (int x = 0; x < numberOfEnemy; x++)
+			{
+				if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+				{
+					g_sChar.health--;
+				}
+			}
+		}
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
+		{
+			maps++;
+			newMap = true;
+			setSpawn = false;
+			if (maps > 6)
+			{
+				g_eGameState = S_SCORE;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.X++;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.X++;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
+	}
+	/*== == == == == == == == == == == == == == == == == == == == DOWN MOVEMENT == == == == == == == == == == == == == == == == == == == ==*/
+	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0) //Move Down
+	{
+		g_sChar.m_cLocation.Y++;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219)) // Checks Collisions Against Wall.
+		{
+			g_sChar.m_cLocation.Y--;
+		}
+		for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
+		{
+			for (int x = 0; x < numberOfEnemy; x++)
+			{
+				if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+				{
+					g_sChar.health--;
+				}
+			}
+		}
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
+		{
+			maps++;
+			newMap = true;
+			setSpawn = false;
+			if (maps > 6)
+			{
+				g_eGameState = S_SCORE;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.Y--;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.Y--;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
+	}
+	/*== == == == == == == == == == == == == == == == == == == == RIGHT MOVEMENT == == == == == == == == == == == == == == == == == == == ==*/
+	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0) //Move Right
+	{
+		g_sChar.m_cLocation.X++;
+		bSomethingHappened = true;
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219)) // Checks Collisions Against Wall.
+		{
+			g_sChar.m_cLocation.X--;
+		}
+		for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
+		{
+			for (int x = 0; x < numberOfEnemy; x++)
+			{
+				if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+				{
+					g_sChar.health--;
+				}
+			}
+		}
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
+		{
+			maps++;
+			newMap = true;
+			setSpawn = false;
+			if (maps > 6)
+			{
+				g_eGameState = S_SCORE;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
+		{
+			if (g_sChar.redKey != 0)
+			{
+				g_sChar.redKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+			}
+
+			if (g_sChar.redKey == 0)
+			{
+				g_sChar.m_cLocation.X--;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
+		{
+			if (g_sChar.blueKey != 0)
+			{
+				g_sChar.blueKey--;
+				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
+			}
+
+			if (g_sChar.blueKey == 0)
+			{
+				g_sChar.m_cLocation.X--;
+			}
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
+		{
+			g_sChar.redKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
+		{
+			g_sChar.blueKey++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
+		{
+			g_sChar.gold++;
+			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
+	}
+	if (g_abKeyPressed[K_SPACE])
+	{
+		g_sChar.m_bActive = !g_sChar.m_bActive;
+		bSomethingHappened = true;
+	}
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
+}
 void processUserInput()
 {
     // quits the game if player hits the escape key
@@ -285,7 +676,7 @@ void processUserInput()
 void clearScreen()
 {
     // Clears the buffer with this colour attribute
-	g_Console.clearBuffer(/*0x1F*/);
+	g_Console.clearBuffer();
 }
 
 void renderHighScore()
@@ -298,7 +689,7 @@ void renderGame()
 	MapLayout(maps, &numberOfEnemy);	//Map level, Calling address of number of enemy
 	renderEnemy();						//Renders the enemy
     renderCharacter();					//Renders the player
-	renderFog();						//Renders Fog of War
+	//renderFog();						//Renders Fog of War
 	Portal();							//Renders the character into the buffer
 }
 void renderCharacter()
@@ -345,16 +736,118 @@ void renderEnemy()
 				if (g_sEnemy[i][x].m_bActive)
 				{
 					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)88);
+					enemyMove();
 				}
 			}
-			if (i == 1) //Enemy type 2(Fast)
-			{
-				if (g_sEnemy[i][x].m_bActive)
-				{
-					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)84);
-				}
-			}
+			//if (i == 1) //Enemy type 2(Fast)
+			//{
+			//	if (g_sEnemy[i][x].m_bActive)
+			//	{
+			//		g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)84);
+			//		enemyMove();
+			//	}
+			//}
 		}
 	}
+}
 
+void enemyMove()
+{
+	for (int i = 0; i < enemyType; i++)
+	{
+		for (int x = 0; x < numberOfEnemy; x++)
+		{
+			g_sEnemy[i][x].bSomethingHappened = false;
+			if (g_sEnemy[i][x].slowDownTime > g_dElapsedTime)
+				return;
+
+			switch (g_sEnemy[i][x].random)
+			{
+				case 1: //Enemy Up Movement
+				{
+							if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y - 2]) != char(219))
+							{
+								if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y - 2 != g_sChar.m_cLocation.Y - 1))
+								{
+									g_sEnemy[i][x].m_cLocation.Y--;
+								}
+							}
+
+							else
+							{
+								while (g_sEnemy[i][x].random == g_sEnemy[i][x].tempCheck)
+								{
+									g_sEnemy[i][x].random = rand() % 4 + 1;
+								}
+							}
+							g_sEnemy[i][x].bSomethingHappened = true;
+							break;
+				}
+				case 2: //Enemy Down Movement
+				{
+							if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y]) != char(219))
+							{
+								if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1))
+								{
+									g_sEnemy[i][x].m_cLocation.Y++;
+								}
+							}
+							else
+							{
+								while (g_sEnemy[i][x].random == g_sEnemy[i][x].tempCheck)
+								{
+									g_sEnemy[i][x].random = rand() % 4 + 1;
+								}
+							}
+
+							g_sEnemy[i][x].bSomethingHappened = true;
+							break;
+				}
+				case 3: //Enemy Right Movement			
+				{
+							if ((map[g_sEnemy[i][x].m_cLocation.X + 1][g_sEnemy[i][x].m_cLocation.Y - 1]) != char(219))
+							{
+								if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1))
+								{
+									g_sEnemy[i][x].m_cLocation.X++;
+								}
+							}
+							else
+							{
+								while (g_sEnemy[i][x].random == g_sEnemy[i][x].tempCheck)
+								{
+									g_sEnemy[i][x].random = rand() % 4 + 1;
+								}
+							}
+							g_sEnemy[i][x].bSomethingHappened = true;
+							break;
+				}
+				case 4: //Enemy Left Movement
+				{
+							if ((map[g_sEnemy[i][x].m_cLocation.X - 1][g_sEnemy[i][x].m_cLocation.Y - 1]) != char(219))
+							{
+								if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1))
+								{
+									g_sEnemy[i][x].m_cLocation.X--;
+								}
+							}
+							else
+							{
+								while (g_sEnemy[i][x].random == g_sEnemy[i][x].tempCheck)
+								{
+									g_sEnemy[i][x].random = rand() % 4 + 1;
+								}
+							}
+							g_sEnemy[i][x].bSomethingHappened = true;
+							break;
+				}
+			}
+			if (g_sEnemy[i][x].bSomethingHappened)
+			{
+				// set the bounce time to some time in the future to prevent accidental triggers
+				g_sEnemy[i][x].slowDownTime = g_dElapsedTime + 0.5f; // Speed of enemy
+			}
+			g_sEnemy[i][x].tempCheck = g_sEnemy[i][x].random;
+		}
+	}
 }

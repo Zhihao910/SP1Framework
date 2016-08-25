@@ -77,7 +77,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="collisionDetection.cpp" />
     <ClCompile Include="DeathScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="Fog.cpp" />
