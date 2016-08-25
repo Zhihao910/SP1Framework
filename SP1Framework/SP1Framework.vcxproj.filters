@@ -22,6 +22,9 @@
     <Filter Include="Resource Files\Maps">
       <UniqueIdentifier>{f0341606-e311-49a8-94aa-4d81b4860488}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Screens">
+      <UniqueIdentifier>{33b9e213-fb19-4b25-b5c3-071bd48e9128}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +72,12 @@
     <ClCompile Include="collisionDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DeathScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
@@ -97,18 +106,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Instructions.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="LevelSelection.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Mainmenu.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Splashscreen.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="MapLayout1.txt">
       <Filter>Resource Files\Maps</Filter>
     </Text>
@@ -128,7 +125,19 @@
       <Filter>Resource Files\Maps</Filter>
     </Text>
     <Text Include="HighScoreLayout.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Instructions.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="LevelSelection.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Mainmenu.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Splashscreen.txt">
+      <Filter>Resource Files\Screens</Filter>
     </Text>
   </ItemGroup>
 </Project>

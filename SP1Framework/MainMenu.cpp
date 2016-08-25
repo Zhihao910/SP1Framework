@@ -12,26 +12,34 @@ void PrintMainMenu()
 	for (int y = 0; y < 38; y++)
 	{
 		int color;
+		int time = g_dElapsedTime;
 
-		if (y % 2 == 0)
+		if (time % 2 == 0)
 		{
-			color = 0x1;
+			if (y % 3 == 0)
+			{
+				color = 0x4;
+			}
+
+			if (y % 3 != 0)
+			{
+				color = 0xc;
+			}
 		}
 
-		if (y % 2 != 0)
+		if (time % 2 != 0)
 		{
-			color = 0x3;
-		}
+			if (y % 2 == 0)
+			{
+				color = 0x4;
+			}
 
-		if (y % 3 == 0)
-		{
-			color = 0x9;
+			if (y % 2 != 0)
+			{
+				color = 0xc;
+			}
 		}
-
-		if (y % 3 != 0)
-		{
-			color = 0xB;
-		}
+		
 
 		line = text[y];
 		g_Console.writeToBuffer(c, line, color);

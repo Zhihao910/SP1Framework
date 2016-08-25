@@ -14,9 +14,14 @@ void moveCharacter()
 	// Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
 
-	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0) // Up movement
+	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0) //Move Up
 	{
 		g_sChar.m_cLocation.Y--;
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+
 		bSomethingHappened = true;
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
@@ -45,7 +50,7 @@ void moveCharacter()
 				g_sChar.m_cLocation.Y++;
 			}
 		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
@@ -63,7 +68,7 @@ void moveCharacter()
 			g_sChar.redKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
 		{
 			g_sChar.blueKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
@@ -73,10 +78,31 @@ void moveCharacter()
 			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
 	}
-	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0) //left movement
+	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0) //Move Left
 	{
 		g_sChar.m_cLocation.X--;
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+
 		bSomethingHappened = true;
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
@@ -105,7 +131,7 @@ void moveCharacter()
 				g_sChar.m_cLocation.X++;
 			}
 		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
@@ -124,7 +150,7 @@ void moveCharacter()
 			g_sChar.redKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
 		{
 			g_sChar.blueKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
@@ -134,10 +160,31 @@ void moveCharacter()
 			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
 	}
-	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0) //down movement
+	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0) //Move Down
 	{
 		g_sChar.m_cLocation.Y++;
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+
 		bSomethingHappened = true;
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
@@ -166,7 +213,7 @@ void moveCharacter()
 				g_sChar.m_cLocation.Y--;
 			}
 		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
@@ -185,7 +232,7 @@ void moveCharacter()
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
 
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
 		{
 			g_sChar.blueKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
@@ -195,10 +242,31 @@ void moveCharacter()
 			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
 	}
-	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0) //right movement
+	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0) //Move Right
 	{
 		g_sChar.m_cLocation.X++;
+		if (g_sChar.health < 1)
+		{
+			g_eGameState = S_DEATH;
+		}
+
 		bSomethingHappened = true;
 		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
 		{
@@ -227,7 +295,7 @@ void moveCharacter()
 				g_sChar.m_cLocation.X--;
 			}
 		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Green Door
 		{
 			if (g_sChar.blueKey != 0)
 			{
@@ -246,7 +314,7 @@ void moveCharacter()
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
 
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Green Key
 		{
 			g_sChar.blueKey++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
@@ -256,12 +324,27 @@ void moveCharacter()
 			g_sChar.gold++;
 			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
 		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(102)) //FireTrap
+		{
+			fireTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(112)) //PoisonTrap
+		{
+			poisonTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(118)) //PitfallTrap
+		{
+			pitTrap();
+		}
+		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(94)) //SpikeTrap
+		{
+			spikeTrap();
+		}
 	}
 	if (g_abKeyPressed[K_SPACE])
 	{
 		g_sChar.m_bActive = !g_sChar.m_bActive;
 		bSomethingHappened = true;
-		//PlaySound(TEXT("allahuakbar.wav"), NULL, SND_SYNC); play sounds
 	}
 	if (bSomethingHappened)
 	{

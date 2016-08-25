@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="collisionDetection.cpp" />
+    <ClCompile Include="DeathScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="Fog.cpp" />
     <ClCompile Include="Framework\console.cpp" />
@@ -92,6 +93,7 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="printLayout.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
+    <ClCompile Include="trap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collisionDetection.h" />

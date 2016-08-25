@@ -28,7 +28,7 @@ void MapLayout(int levels, int *numberOfEnemy) // Prints out Maze (depeneding on
 			}
 			if (map[x][y] == char(219))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0xA); //Prints walls in Green.
+				g_Console.writeToBuffer(c, map[x][y], 0x9); //Prints walls in Blue.
 			}
 			if (map[x][y] == char(169) || map[x][y] == char(178))
 			{
@@ -36,7 +36,7 @@ void MapLayout(int levels, int *numberOfEnemy) // Prints out Maze (depeneding on
 			}
 			if (map[x][y] == char(170) || map[x][y] == char(177))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0x9); //Prints Blue Doors and Keys in Bright Blue.
+				g_Console.writeToBuffer(c, map[x][y], 0xA); //Prints Green Doors and Keys in Bright Green.
 			}
 			if (map[x][y] == char(233))
 			{
@@ -52,30 +52,63 @@ void MapLayout(int levels, int *numberOfEnemy) // Prints out Maze (depeneding on
 			}
 			if (map[x][y] == char(65))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0x5); //Prints LEVEL 4 PORTAL-IN in Magenta. First set
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(234);
+				g_Console.writeToBuffer(c, temp[x][y], 0x5); //Prints LEVEL 4 PORTAL-IN in Magenta. First set
 			}
 			if (map[x][y] == char(66))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0x5); //Prints LEVEL 4 PORTAL-OUT in Magenta. First set
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(234);
+				g_Console.writeToBuffer(c, temp[x][y], 0x5); //Prints LEVEL 4 PORTAL-OUT in Magenta. First set
 			}
 
 			if (map[x][y] == char(67))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0x5); //Prints LEVEL 5 PORTAL-IN in Magenta. First set
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(234);
+				g_Console.writeToBuffer(c, temp[x][y], 0xE); //Prints LEVEL 5 PORTAL-IN in Yellow. First set
 			}
 			if (map[x][y] == char(68))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0x5); //Prints LEVEL 5 PORTAL-OUT in Magenta. First set
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(234);
+				g_Console.writeToBuffer(c, temp[x][y], 0xE); //Prints LEVEL 5 PORTAL-OUT in Yellow. First set
 			}
 			if (map[x][y] == char(69))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0x5); //Prints LEVEL 5 PORTAL-IN in Magenta. Second set
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(234);
+				g_Console.writeToBuffer(c, temp[x][y], 0x3); //Prints LEVEL 5 PORTAL-IN in Cyan. Second set
 			}
 			if (map[x][y] == char(70))
 			{
-				g_Console.writeToBuffer(c, map[x][y], 0x5); //Prints LEVEL 5 PORTAL-OUT in Magenta. Second set
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(234);
+				g_Console.writeToBuffer(c, temp[x][y], 0x3); //Prints LEVEL 5 PORTAL-OUT in Cyan. Second set
 			}
-			
+			if (map[x][y] == char(102))
+			{
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(94);
+				g_Console.writeToBuffer(c, temp[x][y], 0x4); //Prints FireTrap in Red.
+			}
+			if (map[x][y] == char(112))
+			{
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(94);
+				g_Console.writeToBuffer(c, temp[x][y], 0x5); //Prints PoisonTrap in Magenta.
+			}
+			if (map[x][y] == char(118))
+			{
+				temp[x][y] = map[x][y];
+				temp[x][y] = char(219);
+				g_Console.writeToBuffer(c, temp[x][y], 0x6); //Prints PitfallTrap in Brown.
+			}
+			if (map[x][y] == char(94))
+			{
+				g_Console.writeToBuffer(c, map[x][y], 0x7); //Prints SpikeTrap in White.
+			}
 		}
 	}
 }

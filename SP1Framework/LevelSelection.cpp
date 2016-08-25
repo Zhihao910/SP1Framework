@@ -5,14 +5,22 @@ void PrintLevelSelect()
 	LevelSelect();
 
 	COORD c = g_Console.getConsoleSize();
-	c.X = 0;
-	c.Y = 0;
+	c.X /= 3;
+	c.Y = 3;
 	string line = "";
 
-	for (int y = 0; y < 22; y++)
+	for (int y = 0; y < 23; y++)
 	{
-		line = text[y];
-		g_Console.writeToBuffer(c, line);
+		if (y < 6)
+		{
+			line = text[y];
+			g_Console.writeToBuffer(c, line, 0xC);
+		}
+		else if (y > 5)
+		{
+			line = text[y];
+			g_Console.writeToBuffer(c, line);
+		}		
 		c.Y++;
 	}
 }

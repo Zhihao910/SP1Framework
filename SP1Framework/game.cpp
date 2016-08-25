@@ -124,6 +124,8 @@ void update(double dt)
 		break;
 	case S_SCORE: scorewait();
 		break;
+	case S_DEATH: deathwait();
+		break;
 	}
 }
 
@@ -142,23 +144,20 @@ void render()
 	{
 	case S_SPLASHSCREEN: PrintSplashScreen();
 		break;
-
 	case S_GAME: 
 		renderGame();
 		PrintDialogueBox();
 		PrintDialogueText();
 		break;
-
 	case S_MAINMENU: PrintMainMenu();
 		break;
-
 	case S_INSTRUCTIONS: PrintInstructions();
 		break;
-
 	case S_LEVELS: PrintLevelSelect();
 		break;
-
 	case S_SCORE: renderHighScore();
+		break;
+	case S_DEATH: PrintDeath();
 		break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -168,7 +167,7 @@ void render()
 void gameplay()            // gameplay logic
 {
 	processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-	moveCharacter();				// moves the character, collision detection, physics, etc
+	moveCharacter();	// moves the character, collision detection, physics, etc
 						// sound can be played here too.
 }
 
@@ -179,6 +178,8 @@ void splashScreenWait()    // waits for time to pass in splash screen
 }
 void mainmenuwait() // main menu logic
 {
+	g_sChar.health = 10;
+
 	if (g_abKeyPressed[K_1])
 	{
 		g_dBounceTime = g_dElapsedTime + 0.5; // 125ms should be enough
@@ -257,6 +258,13 @@ void scorewait()
 		g_eGameState = S_MAINMENU;
 	}
 }
+void deathwait()
+{
+	if (g_abKeyPressed[K_ESCAPE])
+	{
+		g_eGameState = S_MAINMENU;
+	}
+}
 
 void processUserInput()
 {
@@ -325,7 +333,6 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
-
 void renderEnemy()
 {
 	for (int i = 0; i < enemyType; i++)

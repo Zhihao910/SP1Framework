@@ -11,8 +11,24 @@ void PrintInstructions()
 
 	for (int y = 0; y < 33; y++)
 	{
-		line = text[y];
-		g_Console.writeToBuffer(c, line);
+		if (y < 6)
+		{
+			line = text[y];
+			g_Console.writeToBuffer(c, line, 0xC);
+		}
+
+		else if (y > 14 && y < 22)
+		{
+			line = text[y];
+			g_Console.writeToBuffer(c, line, 0xC);
+		}
+
+		else
+		{
+			line = text[y];
+			g_Console.writeToBuffer(c, line);
+		}
+
 		c.Y++;
 	}
 }

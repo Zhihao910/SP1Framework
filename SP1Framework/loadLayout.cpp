@@ -7,6 +7,7 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 	int typeTwo = 0;
 	g_sChar.redKey = 0;
 	g_sChar.blueKey = 0;
+	g_sChar.health = 10;
 	switch (level)
 	{
 	case 1: mapname = "MapLayout1.txt";
@@ -86,6 +87,22 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 				if (map[width][height] == 'F') // Portal level 4
 				{
 					map[width][height] = char(70);
+				}
+				if (map[width][height] == 'f') // Fire Trap
+				{
+					map[width][height] = char(102);
+				}
+				if (map[width][height] == 'p') // Poison Trap
+				{
+					map[width][height] = char(112);
+				}
+				if (map[width][height] == 'v') // Pitfall Trap
+				{
+					map[width][height] = char(118);
+				}
+				if (map[width][height] == '^') // Spike Trap
+				{
+					map[width][height] = char(94);
 				}
 				if (map[width][height] == 'X') //Enemy type 1
 				{

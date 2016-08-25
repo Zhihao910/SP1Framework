@@ -20,6 +20,7 @@
 #define VK_5 0x35
 #define VK_6 0x36
 #define VK_P 0x50
+#define VK_C 0x43
 
 using namespace std;
 
@@ -46,6 +47,7 @@ enum EKEYS
 	K_4,
 	K_5,
 	K_6,
+	K_C,
 	K_P,
     K_COUNT
 };
@@ -59,6 +61,7 @@ enum EGAMESTATES
     S_GAME,
 	S_LEVELS,
 	S_SCORE,
+	S_DEATH,
 	S_COUNT
 };
 
@@ -77,6 +80,9 @@ struct SEnemyChar
 {
 	COORD m_cLocation;
 	bool  m_bActive;
+	int gold;
+	int health;
+
 	bool up = false;
 	bool down = false;
 	bool left = false;
@@ -107,6 +113,7 @@ void mainmenuwait();
 void instructionwait();
 void selectLevel();
 void scorewait();
+void deathwait();
 
 void PrintSplashScreen();		//Loads and Prints the Splash Screen
 void PrintMainMenu();			//Loads and Prints the Main Menu
@@ -114,6 +121,7 @@ void PrintInstructions();		//Loads and Prints the Instruction Screen
 void PrintLevelSelect();		//Loads and Prints the Level Selection Screen
 void PrintDialogueBox();
 void PrintDialogueText();
+void PrintDeath();
 
 void SplashScreen();
 void MainMenu();
@@ -121,11 +129,17 @@ void Instructions();
 void LevelSelect();
 void DialogueBox();
 void HighScoreBox();
+void Death();
 
 void HighScore(int score);
 void Portal();
-
 void renderEnemy();
+
+void fireTrap();
+void poisonTrap();
+void pitTrap();
+void spikeTrap();
+
 void MapLayout(int levels, int *numberOfEnemy);
 void readMap(int level, int height, int width, int *numberOfEnemy);
 #endif // _GAME_H
