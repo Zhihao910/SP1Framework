@@ -2,8 +2,8 @@
 
 void renderFog()
 {
-	const short fogWidth = 10;
-	const short fogHeight = 5;
+	int fogWidth = 10;
+	int fogHeight = 5;
 
 	for (short row = 0; row < 100; row++)
 	{

@@ -5,6 +5,7 @@ void PrintDeath()
 	Death();
 
 	setSpawn = false;
+	newMap = true;
 
 	COORD c = g_Console.getConsoleSize();
 	c.X = 10;

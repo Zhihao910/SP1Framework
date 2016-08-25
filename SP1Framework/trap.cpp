@@ -1,4 +1,4 @@
-#include "collisionDetection.h"	
+#include "traps.h"	
 
 void spikeTrap()
 {
@@ -31,6 +31,6 @@ void poisonTrap()
 
 void pitTrap()
 {
-	g_sChar.health -= 10;
+	g_sChar.health = 0;
 	g_eGameState = S_DEATH;
 }
