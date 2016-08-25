@@ -58,6 +58,7 @@ enum EGAMESTATES
 	S_INSTRUCTIONS,
     S_GAME,
 	S_LEVELS,
+	S_SCORE,
 	S_COUNT
 };
 
@@ -100,14 +101,12 @@ void renderMap();				// renders the map to the buffer first
 void renderCharacter();			// renders the character into the buffer
 void renderFramerate();			// renders debug information, frame rate, elapsed time, etc
 void renderToScreen();			// dump the contents of the buffer to the screen, one frame worth of game
-void renderMainMenuScreen();
-void renderInstructionScreen();
-void renderLevelSelection();
-void renderDialogue();
+void renderHighScore();
 
 void mainmenuwait();
 void instructionwait();
 void selectLevel();
+void scorewait();
 
 void PrintSplashScreen();		//Loads and Prints the Splash Screen
 void PrintMainMenu();			//Loads and Prints the Main Menu
@@ -121,7 +120,9 @@ void MainMenu();
 void Instructions();
 void LevelSelect();
 void DialogueBox();
+void HighScoreBox();
 
+void HighScore(int score);
 void Portal();
 
 void renderEnemy();

@@ -11,15 +11,36 @@ void PrintMainMenu()
 
 	for (int y = 0; y < 38; y++)
 	{
+		int color;
+
+		if (y % 2 == 0)
+		{
+			color = 0x1;
+		}
+
+		if (y % 2 != 0)
+		{
+			color = 0x3;
+		}
+
+		if (y % 3 == 0)
+		{
+			color = 0x9;
+		}
+
+		if (y % 3 != 0)
+		{
+			color = 0xB;
+		}
+
 		line = text[y];
-		g_Console.writeToBuffer(c, line);
+		g_Console.writeToBuffer(c, line, color);
 		c.Y++;
 	}
 }
 
 void MainMenu()
 {
-
 	int height = 0;
 	int width;
 	string line = "";

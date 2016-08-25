@@ -13,12 +13,13 @@ bool	newMap = true;
 SGameChar   g_sChar;
 SEnemyChar   g_sEnemy[2][totalEnemy]; //[Number of Enemy Type][Amount of enemy]
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
-char map[100][50];
-char text[40][100];
-int maps = 0;
-int enemyType = 2; //2 types of enemy(Slow, Fast).
-int numberOfEnemy = 0; //Number of enemy in map
+double  g_dBounceTime;		// this is to prevent key bouncing, so we won't trigger keypresses more than once
+char map[100][50];			// array for Maps
+char text[40][100];			// array for Screens
+int points;					// score variable
+int maps = 0;				// level selection
+int enemyType = 2;			// 2 types of enemy(Slow, Fast).
+int numberOfEnemy = 0;		// Number of enemy in map
 
 // Console object
 Console g_Console(100, 50, "SP1 Framework");
@@ -121,6 +122,8 @@ void update(double dt)
 		break;
 	case S_LEVELS: selectLevel();
 		break;
+	case S_SCORE: scorewait();
+		break;
 	}
 }
 
@@ -137,21 +140,25 @@ void render()
 	clearScreen();      // clears the current screen and draw from scratch 
 	switch (g_eGameState)
 	{
-	case S_SPLASHSCREEN: renderSplashScreen();
+	case S_SPLASHSCREEN: PrintSplashScreen();
 		break;
 
 	case S_GAME: 
 		renderGame();
-		renderDialogue();
+		PrintDialogueBox();
+		PrintDialogueText();
 		break;
 
-	case S_MAINMENU: renderMainMenuScreen();
+	case S_MAINMENU: PrintMainMenu();
 		break;
 
-	case S_INSTRUCTIONS: renderInstructionScreen();
+	case S_INSTRUCTIONS: PrintInstructions();
 		break;
 
-	case S_LEVELS: renderLevelSelection();
+	case S_LEVELS: PrintLevelSelect();
+		break;
+
+	case S_SCORE: renderHighScore();
 		break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -161,7 +168,7 @@ void render()
 void gameplay()            // gameplay logic
 {
 	processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-	moveCharacter();    // moves the character, collision detection, physics, etc
+	moveCharacter();				// moves the character, collision detection, physics, etc
 						// sound can be played here too.
 }
 
@@ -243,278 +250,14 @@ void selectLevel()
 		g_eGameState = S_MAINMENU;
 	}
 }
-
-void moveCharacter()
+void scorewait()
 {
-	COORD c;
-	c.X = 4;
-	c.Y = 24;
-
-	bool bSomethingHappened = false;
-	
-	if (g_dBounceTime > g_dElapsedTime)
-		return;
-	
-	// Updating the location of the character based on the key press
-	// providing a beep sound whenver we shift the character
-	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0) // Up movement
+	if (g_abKeyPressed[K_ESCAPE])
 	{
-		//Beep(1440, 30);
-		g_sChar.m_cLocation.Y--;
-		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
-		{
-			g_sChar.m_cLocation.Y++;
-		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
-		{
-			maps++;
-			newMap = true;
-			setSpawn = false;
-			if (maps == 4)
-			{
-				g_eGameState = S_MAINMENU;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
-		{
-			if (g_sChar.redKey != 0)
-			{
-				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-			}
-
-			if (g_sChar.redKey == 0)
-			{
-				g_sChar.m_cLocation.Y++;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
-		{
-			if (g_sChar.blueKey != 0)
-			{
-				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-			}
-
-			if (g_sChar.blueKey == 0)
-			{
-				g_sChar.m_cLocation.Y++;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
-		{
-			g_sChar.redKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
-		{
-			g_sChar.blueKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
-		{
-			g_sChar.gold++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-    }
-    if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0) //left movement
-    {
-        //Beep(1440, 30);
-		g_sChar.m_cLocation.X--;
-		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
-		{
-			g_sChar.m_cLocation.X++;
-		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
-		{
-			maps++;
-			newMap = true;
-			setSpawn = false;
-			if (maps == 4)
-			{
-				g_eGameState = S_MAINMENU;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
-		{
-			if (g_sChar.redKey != 0)
-			{
-				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-			}
-
-			if (g_sChar.redKey == 0)
-			{
-				g_sChar.m_cLocation.X++;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
-		{
-			if (g_sChar.blueKey != 0)
-			{
-				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-
-			}
-
-			if (g_sChar.blueKey == 0)
-			{
-				g_sChar.m_cLocation.X++;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
-		{
-			g_sChar.redKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
-		{
-			g_sChar.blueKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
-		{
-			g_sChar.gold++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-    }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y > 0) //down movement
-    {
-        //Beep(1440, 30);
-		g_sChar.m_cLocation.Y++;
-		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
-		{
-			g_sChar.m_cLocation.Y--;
-		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
-		{
-			maps++;
-			newMap = true;
-			setSpawn = false;
-			if (maps == 4)
-			{
-				g_eGameState = S_MAINMENU;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
-		{
-			if (g_sChar.redKey != 0)
-			{
-				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-			}
-
-			if (g_sChar.redKey == 0)
-			{
-				g_sChar.m_cLocation.Y--;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
-		{
-			if (g_sChar.blueKey != 0)
-			{
-				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-			}
-
-			if (g_sChar.blueKey == 0)
-			{
-				g_sChar.m_cLocation.Y--;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
-		{
-			g_sChar.redKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
-		{
-			g_sChar.blueKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
-		{
-			g_sChar.gold++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-    }
-    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X > 0) //right movement
-    {
-        //Beep(1440, 30);
-		g_sChar.m_cLocation.X++;
-		bSomethingHappened = true;
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219))
-		{
-			g_sChar.m_cLocation.X--;
-		}
-		if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
-		{
-			maps++;
-			newMap = true;
-			setSpawn = false;
-			if (maps == 4)
-			{
-				g_eGameState = S_MAINMENU;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
-		{
-			if (g_sChar.redKey != 0)
-			{
-				g_sChar.redKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-			}
-
-			if (g_sChar.redKey == 0)
-			{
-				g_sChar.m_cLocation.X--;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(177)) //Blue Door
-		{
-			if (g_sChar.blueKey != 0)
-			{
-				g_sChar.blueKey--;
-				map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ':';
-			}
-
-			if (g_sChar.blueKey == 0)
-			{
-				g_sChar.m_cLocation.X--;
-			}
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(169)) //Red Key
-		{
-			g_sChar.redKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(170)) //Blue Key
-		{
-			g_sChar.blueKey++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-		if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(233)) //Gold
-		{
-			g_sChar.gold++;
-			map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] = ' ';
-		}
-    }
-    if (g_abKeyPressed[K_SPACE])
-    {
-        g_sChar.m_bActive = !g_sChar.m_bActive;
-        bSomethingHappened = true;
-    }
-    if (bSomethingHappened)
-    {
-        // set the bounce time to some time in the future to prevent accidental triggers
-        g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-    }
+		g_eGameState = S_MAINMENU;
+	}
 }
+
 void processUserInput()
 {
     // quits the game if player hits the escape key
@@ -537,28 +280,11 @@ void clearScreen()
 	g_Console.clearBuffer(/*0x1F*/);
 }
 
-void renderSplashScreen()  // renders the splash screen
+void renderHighScore()
 {
-	PrintSplashScreen();
+	points = g_sChar.gold;
+	HighScore(points);
 }
-void renderMainMenuScreen() //renders main menu
-{
-	PrintMainMenu();
-}
-void renderInstructionScreen() //render instructions
-{
-	PrintInstructions();
-}
-void renderLevelSelection()
-{
-	PrintLevelSelect();
-}
-void renderDialogue()
-{
-	PrintDialogueBox();
-	PrintDialogueText();
-}
-
 void renderGame()
 {
 	MapLayout(maps, &numberOfEnemy);//Map level,Calling address of numberofenemy

@@ -18,14 +18,13 @@ void PrintSplashScreen()
 	for (int y = 0; y < 30; y++)
 	{
 		line = text[y];
-		g_Console.writeToBuffer(c, line);
+		g_Console.writeToBuffer(c, line, 0xE);
 		c.Y++;
 	}
 }
 
 void SplashScreen()
 {
-
 	int height = 0;
 	int width;
 	string line = "";

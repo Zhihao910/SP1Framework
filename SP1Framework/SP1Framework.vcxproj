@@ -77,11 +77,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collisionDetection.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="Fog.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="highScore.cpp" />
     <ClCompile Include="InstructionScreen.cpp" />
     <ClCompile Include="LevelSelection.cpp" />
     <ClCompile Include="loadLayout.cpp" />
@@ -92,14 +94,17 @@
     <ClCompile Include="SplashScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collisionDetection.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="highScore.h" />
     <ClInclude Include="loadLayout.h" />
     <ClInclude Include="loadText.h" />
     <ClInclude Include="printLayout.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="HighScoreLayout.txt" />
     <Text Include="Instructions.txt" />
     <Text Include="LevelSelection.txt" />
     <Text Include="Mainmenu.txt" />

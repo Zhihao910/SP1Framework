@@ -44,6 +44,7 @@ void PrintDialogueText()
 	c.X = 4;
 	c.Y = 24;
 
+	ostringstream oss;
 	string healthText =		"Health: ";
 	string goldText	=		"Amount of Gold: ";
 	string redText =		"Number of Red Keys: ";
@@ -63,19 +64,28 @@ void PrintDialogueText()
 
 	g_Console.writeToBuffer(c, goldText);
 	c.X = sizeof(goldText);
-	g_Console.writeToBuffer(c, g_sChar.gold + '0', 0xE);		//Prints out number of Gold.
+
+	oss << g_sChar.gold;
+	g_Console.writeToBuffer(c, oss.str(), 0xE);		//Prints out number of Gold.
+	oss.str("");
 
 	c.X = 4;
 	c.Y += 2;
 
 	g_Console.writeToBuffer(c, redText);
 	c.X = sizeof(redText);
-	g_Console.writeToBuffer(c, g_sChar.redKey + '0', 0xC);		//Prints out number of Red Keys.
+
+	oss << g_sChar.redKey;
+	g_Console.writeToBuffer(c, oss.str(), 0xC);		//Prints out number of Red Keys.
+	oss.str("");
 
 	c.X = 4;
 	c.Y += 2;
 
 	g_Console.writeToBuffer(c, blueText);
 	c.X = sizeof(blueText);
+
+	oss << g_sChar.blueKey;
 	g_Console.writeToBuffer(c, g_sChar.blueKey + '0', 0x9);		//Prints out number of Blue Keys.
+	oss.str("");
 }
