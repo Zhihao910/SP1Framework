@@ -91,6 +91,7 @@
     <ClCompile Include="loadLayout.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="minigames.cpp" />
     <ClCompile Include="MobCollision.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="printLayout.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="highScore.h" />
     <ClInclude Include="loadLayout.h" />
     <ClInclude Include="loadText.h" />
+    <ClInclude Include="minigames.h" />
     <ClInclude Include="printLayout.h" />
     <ClInclude Include="traps.h" />
   </ItemGroup>

@@ -1,21 +1,17 @@
 #include "collisionDetection.h"
 
+bool bSomethingHappened = false;
+bool enableGod = false;
+
 void moveCharacter()
 {
 	COORD c;
 	c.X = 4;
 	c.Y = 24;
 
-	bool bSomethingHappened = false;
-	bool enableGod = false;
-
 	if (g_dBounceTime > g_dElapsedTime)
 	{
 		return;
-	}
-	if (difficulty == 5)
-	{
-		enableGod = true;
 	}
 	// Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
@@ -400,6 +396,14 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_SPACE])
 	{
+		if (enableGod)
+		{
+			enableGod = false;
+		}
+		else if (!enableGod)
+		{
+			enableGod = true;
+		}
 		g_sChar.m_bActive = !g_sChar.m_bActive;
 		bSomethingHappened = true;
 	}

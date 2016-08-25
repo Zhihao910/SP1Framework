@@ -13,7 +13,7 @@ SEnemyChar   g_sEnemy[2][totalEnemy]; //[Number of Enemy Type][Amount of enemy]
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime;		// this is to prevent key bouncing, so we won't trigger keypresses more than once
 char map[100][50];			// array for Maps
-char text[40][100];			// array for Screens
+char text[50][100];			// array for Screens
 int points;					// score variable
 int maps = 0;				// level selection
 int difficulty = 0;			// difficulty selection
@@ -241,13 +241,6 @@ void selectDifficulty()
 	{
 		difficulty = 4;
 		g_sChar.health = 3;
-		g_dBounceTime = g_dElapsedTime + 0.5;
-		g_eGameState = S_LEVELS;
-	}
-	if (g_abKeyPressed[K_5])
-	{
-		difficulty = 5;
-		g_sChar.health = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}

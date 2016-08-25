@@ -9,7 +9,7 @@ void PrintDifficulty()
 	c.Y = 3;
 	string line = "";
 
-	for (int y = 0; y < 20; y++)
+	for (int y = 0; y < 21; y++)
 	{
 		if (y < 6)
 		{

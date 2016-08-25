@@ -14,18 +14,18 @@ void PrintMainMenu()
 		int color;
 		int time = g_dElapsedTime;
 
-		if (time % 4 == 0 || time % 5 == 0)
+		if (time % 4 == 0 || time % 3 == 0)
 		{
 			if (time % 2 == 0)
 			{
 				if (y % 3 == 0)
 				{
-					color = 0xA;
+					color = 0xC;
 				}
 
 				if (y % 3 != 0)
 				{
-					color = 0x2;
+					color = 0x4;
 				}
 			}
 
@@ -33,12 +33,12 @@ void PrintMainMenu()
 			{
 				if (y % 2 == 0)
 				{
-					color = 0xA;
+					color = 0xC;
 				}
 
 				if (y % 2 != 0)
 				{
-					color = 0x2;
+					color = 0xD;
 				}
 			}
 		}
@@ -67,7 +67,7 @@ void PrintMainMenu()
 
 				if (y % 2 != 0)
 				{
-					color = 0xB;
+					color = 0x1;
 				}
 			}
 		}
