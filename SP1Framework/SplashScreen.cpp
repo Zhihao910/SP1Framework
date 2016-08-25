@@ -28,7 +28,7 @@ void SplashScreen()
 	int height = 0;
 	int width;
 	string line = "";
-	ifstream myfile("Splashscreen.txt");
+	ifstream myfile("Screens/Splashscreen.txt");
 
 	if (myfile.is_open())
 	{

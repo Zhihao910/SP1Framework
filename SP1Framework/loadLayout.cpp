@@ -10,17 +10,17 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 	g_sChar.health = 10;
 	switch (level)
 	{
-	case 1: mapname = "MapLayout1.txt";
+	case 1: mapname = "Maps/MapLayout1.txt";
 		break;
-	case 2: mapname = "MapLayout2.txt";
+	case 2: mapname = "Maps/MapLayout2.txt";
 		break;
-	case 3: mapname = "MapLayout3.txt";
+	case 3: mapname = "Maps/MapLayout3.txt";
 		break;
-	case 4: mapname = "MapLayout4.txt";
+	case 4: mapname = "Maps/MapLayout4.txt";
 		break;
-	case 5: mapname = "MapLayout5.txt";
+	case 5: mapname = "Maps/MapLayout5.txt";
 		break;
-	case 6: mapname = "MapLayout6.txt";
+	case 6: mapname = "Maps/MapLayout6.txt";
 		break;
 	}
 	memset(map, '\0', sizeof(map[0][0]) * 100 * 50); // clear array

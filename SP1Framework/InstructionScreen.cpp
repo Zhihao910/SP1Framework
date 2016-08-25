@@ -39,7 +39,7 @@ void Instructions()
 	int height = 0;
 	int width;
 	string line = "";
-	ifstream myfile("Instructions.txt");
+	ifstream myfile("Screens/Instructions.txt");
 
 	if (myfile.is_open())
 	{

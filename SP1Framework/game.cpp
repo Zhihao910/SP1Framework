@@ -16,7 +16,8 @@ char map[100][50];			// array for Maps
 char text[40][100];			// array for Screens
 int points;					// score variable
 int maps = 0;				// level selection
-int enemyType = 2;			// 2 types of enemy(Slow, Fast).
+int difficulty = 0;			// difficulty selection
+int enemyType = 2;			// 2 types of enemy(Slow, Fast)
 int numberOfEnemy = 0;		// Number of enemy in map
 bool	setSpawn = false;
 bool	newMap = true;
@@ -153,6 +154,8 @@ void render()
 		break;
 	case S_INSTRUCTIONS: PrintInstructions();
 		break;
+	case S_DIFFICULTY: PrintDifficulty();
+		break;
 	case S_LEVELS: PrintLevelSelect();
 		break;
 	case S_SCORE: renderHighScore();
@@ -200,6 +203,35 @@ void mainmenuwait() // main menu logic
 }
 void instructionwait()
 {
+	if (g_abKeyPressed[K_P])
+	{
+		g_eGameState = S_MAINMENU;
+	}
+}
+void selectDifficulty()
+{
+	if (g_dBounceTime > g_dElapsedTime)
+		return;
+	if (g_abKeyPressed[K_1])
+	{
+		difficulty = 1;
+		g_eGameState = S_LEVELS;
+	}
+	if (g_abKeyPressed[K_2])
+	{
+		difficulty = 2;
+		g_eGameState = S_LEVELS;
+	}
+	if (g_abKeyPressed[K_3])
+	{
+		difficulty = 3;
+		g_eGameState = S_LEVELS;
+	}
+	if (g_abKeyPressed[K_4])
+	{
+		difficulty = 4;
+		g_eGameState = S_LEVELS;
+	}
 	if (g_abKeyPressed[K_P])
 	{
 		g_eGameState = S_MAINMENU;

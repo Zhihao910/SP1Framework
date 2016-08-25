@@ -32,7 +32,7 @@ void LevelSelect()
 	int height = 0;
 	int width;
 	string line = "";
-	ifstream myfile("LevelSelection.txt");
+	ifstream myfile("Screens/LevelSelection.txt");
 
 	if (myfile.is_open())
 	{

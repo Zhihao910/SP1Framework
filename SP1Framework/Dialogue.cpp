@@ -22,7 +22,7 @@ void DialogueBox()
 	int height = 0;
 	int width;
 	string line = "";
-	ifstream myfile("Dialogue.txt");
+	ifstream myfile("Screens/Dialogue.txt");
 
 	if (myfile.is_open())
 	{

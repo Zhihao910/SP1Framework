@@ -84,7 +84,7 @@ void MainMenu()
 	int height = 0;
 	int width;
 	string line = "";
-	ifstream myfile("Mainmenu.txt");
+	ifstream myfile("Screens/Mainmenu.txt");
 
 	if (myfile.is_open())
 	{

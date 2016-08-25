@@ -25,7 +25,7 @@ void Death()
 	int height = 0;
 	int width;
 	string line = "";
-	ifstream myfile("YouDied.txt");
+	ifstream myfile("Screens/YouDied.txt");
 
 	if (myfile.is_open())
 	{

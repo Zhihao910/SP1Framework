@@ -11,7 +11,7 @@ void HighScore(int score)
 	int highScore;
 	ostringstream oss;
 
-	ifstream InFile("HighScore.txt");
+	ifstream InFile("Screens/HighScore.txt");
 	if (InFile.is_open())
 	{
 		InFile >> highScore;
@@ -70,7 +70,7 @@ void HighScore(int score)
 		InFile.close();
 	}
 
-	ofstream OutFile("HighScore.txt");
+	ofstream OutFile("Screens/HighScore.txt");
 	if (OutFile.is_open())
 	{
 		OutFile << highScore;
@@ -88,7 +88,7 @@ void HighScoreBox()
 	int height = 0;
 	int width;
 	string loadLine = "";
-	ifstream myfile("HighScoreLayout.txt");
+	ifstream myfile("Screens/HighScoreLayout.txt");
 
 	if (myfile.is_open())
 	{
