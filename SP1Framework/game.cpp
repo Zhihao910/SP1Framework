@@ -121,6 +121,8 @@ void update(double dt)
 		break;
 	case S_INSTRUCTIONS: instructionwait();
 		break;
+	case S_DIFFICULTY: selectDifficulty();
+		break;
 	case S_LEVELS: selectLevel();
 		break;
 	case S_DEATH: deathwait();
@@ -186,7 +188,7 @@ void mainmenuwait() // main menu logic
 	if (g_abKeyPressed[K_1])
 	{
 		g_dBounceTime = g_dElapsedTime + 0.5; // 125ms should be enough
-		g_eGameState = S_LEVELS;
+		g_eGameState = S_DIFFICULTY;
 	}
 
 	if (g_abKeyPressed[K_2])
@@ -211,76 +213,103 @@ void instructionwait()
 void selectDifficulty()
 {
 	if (g_dBounceTime > g_dElapsedTime)
+	{
 		return;
+	}
 	if (g_abKeyPressed[K_1])
 	{
 		difficulty = 1;
+		g_sChar.health = 10;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
 	if (g_abKeyPressed[K_2])
 	{
 		difficulty = 2;
+		g_sChar.health = 10;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
 	if (g_abKeyPressed[K_3])
 	{
 		difficulty = 3;
+		g_sChar.health = 10;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
 	if (g_abKeyPressed[K_4])
 	{
 		difficulty = 4;
+		g_sChar.health = 3;
+		g_dBounceTime = g_dElapsedTime + 0.5;
+		g_eGameState = S_LEVELS;
+	}
+	if (g_abKeyPressed[K_5])
+	{
+		difficulty = 5;
+		g_sChar.health = 10;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
 	if (g_abKeyPressed[K_P])
 	{
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_MAINMENU;
 	}
 }
 void selectLevel()
 {	
 	if (g_dBounceTime > g_dElapsedTime)
+	{
 		return;
+	}
 	if (g_abKeyPressed[K_1])
 	{
 		maps = 1;
 		g_sChar.gold = 0;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_GAME;
 	}
 	if (g_abKeyPressed[K_2])
 	{
 		maps = 2;
 		g_sChar.gold = 0;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_GAME;
 	}
 	if (g_abKeyPressed[K_3])
 	{
 		maps = 3;
 		g_sChar.gold = 0;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_GAME;
 	}
 	if (g_abKeyPressed[K_4])
 	{
 		maps = 4;
 		g_sChar.gold = 0;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_GAME;
 	}
 	if (g_abKeyPressed[K_5])
 	{
 		maps = 5;
 		g_sChar.gold = 0;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_GAME;
 	}
 	if (g_abKeyPressed[K_6])
 	{
 		maps = 6;
 		g_sChar.gold = 0;
+		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_GAME;
 	}
 
 	if (g_abKeyPressed[K_P])
 	{
-		g_eGameState = S_MAINMENU;
+		g_dBounceTime = g_dElapsedTime + 0.5;
+		g_eGameState = S_DIFFICULTY;
 	}
 }
 void scorewait()
@@ -330,7 +359,7 @@ void renderGame()
 	MapLayout(maps, &numberOfEnemy);	//Map level, Calling address of number of enemy
 	renderEnemy();						//Renders the enemy
     renderCharacter();					//Renders the player
-	renderFog();						//Renders Fog of War
+	renderFog(difficulty);				//Renders Fog of War
 	Portal();							//Renders the End Portals
 }
 void renderCharacter()

@@ -8,6 +8,7 @@ extern bool bSomethingHappened;
 extern bool g_abKeyPressed[K_COUNT];
 extern bool	setSpawn;
 extern bool	newMap;
+extern int difficulty;
 extern int maps;
 extern int enemyType;
 extern int numberOfEnemy;

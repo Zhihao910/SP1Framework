@@ -79,10 +79,10 @@ struct SGameChar
 {
     COORD m_cLocation;
     bool  m_bActive;
+	int health;
 	int redKey;
-	int	blueKey;
+	int	greenKey;
 	int gold;
-	int health = 10;
 };
 
 struct SEnemyChar
@@ -112,7 +112,7 @@ void renderSplashScreen();		// Renders the splash screen
 void renderGame();				// Renders the game stuff
 void renderMap();				// Renders the map to the buffer first
 void renderCharacter();			// Renders the character into the buffer
-void renderFog();				// Renders the Fog of War into the buffer
+void renderFog(int diffLevel);	// Renders the Fog of War into the buffer
 void renderEnemy();				// Renders the enemy into the buffer
 void renderFramerate();			// Renders debug information, frame rate, elapsed time, etc
 void renderHighScore();			// Renders the highscore
@@ -121,6 +121,7 @@ void renderToScreen();			// Dump the contents of the buffer to the screen, one f
 void mainmenuwait();			// Logic for Main Menu
 void instructionwait();			// Logic for Instruction Screen
 void selectLevel();				// Logic for Level Selection
+void selectDifficulty();		// Logic for Difficulty Selection
 void scorewait();				// Logic for Score Screen
 void deathwait();				// Logic for Death Screen
 
@@ -140,6 +141,7 @@ void LevelSelect();				// Function for loading the text file
 void DialogueBox();				// Function for loading the text file
 void HighScoreBox();			// Function for loading the text file
 void Death();					// Function for loading the text file
+void Difficulty();				// Function for loading the text file
 
 void HighScore(int score);		// Function for loading highscore data from file.
 void Portal();					// Function for in-game portals

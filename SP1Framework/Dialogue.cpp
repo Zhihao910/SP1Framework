@@ -48,7 +48,7 @@ void PrintDialogueText()
 	string healthText =		"Health: ";
 	string goldText	=		"Amount of Gold: ";
 	string redText =		"Number of Red Keys: ";
-	string blueText =		"Number of Blue Keys: ";
+	string greenText =		"Number of Green Keys: ";
 	string deathText =		"You Died! ";
 
 	g_Console.writeToBuffer(c, healthText);
@@ -82,10 +82,10 @@ void PrintDialogueText()
 	c.X = 4;
 	c.Y += 2;
 
-	g_Console.writeToBuffer(c, blueText);
-	c.X = sizeof(blueText);
+	g_Console.writeToBuffer(c, greenText);
+	c.X = sizeof(greenText);
 
-	oss << g_sChar.blueKey;
-	g_Console.writeToBuffer(c, g_sChar.blueKey + '0', 0x9);		//Prints out number of Blue Keys.
+	oss << g_sChar.greenKey;
+	g_Console.writeToBuffer(c, g_sChar.greenKey + '0', 0xA);		//Prints out number of Green Keys.
 	oss.str("");
 }

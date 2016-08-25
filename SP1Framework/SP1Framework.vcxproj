@@ -80,6 +80,7 @@
     <ClCompile Include="CharCollision.cpp" />
     <ClCompile Include="DeathScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
+    <ClCompile Include="DifficultySelection.cpp" />
     <ClCompile Include="Fog.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />

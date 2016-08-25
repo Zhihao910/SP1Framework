@@ -6,7 +6,7 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 	int typeOne = 0;
 	int typeTwo = 0;
 	g_sChar.redKey = 0;
-	g_sChar.blueKey = 0;
+	g_sChar.greenKey = 0;
 	g_sChar.health = 10;
 	switch (level)
 	{

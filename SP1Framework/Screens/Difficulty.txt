@@ -1,0 +1,20 @@
+    ____   _  ____ ____ _               __ __        
+   / __ \ (_)/ __// __/(_)_____ __  __ / // /_ __  __
+  / / / // // /_ / /_ / // ___// / / // // __// / / /
+ / /_/ // // __// __// // /__ / /_/ // // /_ / /_/ / 
+/_____//_//_/  /_/  /_/ \___/ \__,_//_/ \__/ \__, /  
+                                            /____/   
+                                                     
+                                                     
+    Press "1" for Easy Mode                          
+                                                     
+    Press "2" for Intermediate Mode                  
+                                                     
+    Press "3" for Hard Mode                          
+                                                     
+    Press "4" for OverKill Mode                      
+                                                     
+    Press "5" for GOD mode                           
+                                                     
+                                                     
+    PRESS "P" TO GO TO THE MAIN MENU.                
