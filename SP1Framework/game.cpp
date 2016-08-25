@@ -295,10 +295,11 @@ void renderHighScore()
 }
 void renderGame()
 {
-	MapLayout(maps, &numberOfEnemy);//Map level,Calling address of numberofenemy
-	renderEnemy();		//renders the enemy
-    renderCharacter();
-	Portal();// renders the character into the buffer
+	MapLayout(maps, &numberOfEnemy);	//Map level, Calling address of number of enemy
+	renderEnemy();						//Renders the enemy
+    renderCharacter();					//Renders the player
+	renderFog();						//Renders Fog of War
+	Portal();							//Renders the character into the buffer
 }
 void renderCharacter()
 {

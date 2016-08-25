@@ -1,12 +1,25 @@
-#include "game.h"
+#include "Fog.h"
 
-void fog()
+void renderFog()
 {
+	const short fogWidth = 40;
+	const short fogHeight = 40;
 
-	string str = " ";
+	for (short row = 0; row < 100; row++)
+	{
+		for (short col = 0; col < 100; col++)
+		{
+			COORD playerPos = g_sChar.m_cLocation;
 
-	int width = 4;
-	int length = 4;
+			if (playerPos.X >= (col - fogWidth) && playerPos.X <= (col + fogWidth) && playerPos.Y <= (row + fogHeight) && playerPos.Y >= (row - fogHeight))
+			{
+				continue;
+			}
 
-	
+			else
+			{
+				g_Console.writeToBuffer(col, row, ' ', 0x0);
+			}
+		}
+	}
 }

@@ -14,29 +14,61 @@ void PrintMainMenu()
 		int color;
 		int time = g_dElapsedTime;
 
-		if (time % 2 == 0)
+		if (time % 4 == 0 || time % 5 == 0)
 		{
-			if (y % 3 == 0)
+			if (time % 2 == 0)
 			{
-				color = 0x4;
+				if (y % 3 == 0)
+				{
+					color = 0xA;
+				}
+
+				if (y % 3 != 0)
+				{
+					color = 0x2;
+				}
 			}
 
-			if (y % 3 != 0)
+			if (time % 2 != 0)
 			{
-				color = 0xc;
+				if (y % 2 == 0)
+				{
+					color = 0xA;
+				}
+
+				if (y % 2 != 0)
+				{
+					color = 0x2;
+				}
 			}
 		}
-
-		if (time % 2 != 0)
+		
+		else
 		{
-			if (y % 2 == 0)
+			if (time % 2 == 0)
 			{
-				color = 0x4;
+				if (y % 3 == 0)
+				{
+					color = 0x3;
+				}
+
+				if (y % 3 != 0)
+				{
+					color = 0xB;
+				}
 			}
 
-			if (y % 2 != 0)
+			if (time % 2 != 0)
 			{
-				color = 0xc;
+				if (y % 2 == 0)
+				{
+					color = 0x3;
+				}
+
+				if (y % 2 != 0)
+				{
+					color = 0xB;
+				}
 			}
 		}
 		

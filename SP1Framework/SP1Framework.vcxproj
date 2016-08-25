@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collisionDetection.h" />
+    <ClInclude Include="Fog.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
