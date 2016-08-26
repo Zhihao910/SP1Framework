@@ -109,7 +109,7 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 					g_sEnemy[0][typeOne].m_cLocation.X = width;
 					g_sEnemy[0][typeOne].m_cLocation.Y = height + 1;
 					g_sEnemy[0][typeOne].m_bActive = true;
-					map[width][height] = char(176);
+					map[width][height] = char(158);
 					typeOne++;
 				}
 				if (map[width][height] == 'T') //Enemy type 2

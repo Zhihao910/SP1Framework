@@ -71,7 +71,7 @@ void enemyMove() // Enemy Random Movement
 					}
 					else
 					{
-						g_sEnemy[i][x].m_cLocation.X--;
+						g_eGameState = S_FIGHT;
 					}
 				}
 				else

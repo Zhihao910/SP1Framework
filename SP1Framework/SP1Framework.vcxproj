@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="attack.cpp" />
     <ClCompile Include="charMovement.cpp" />
     <ClCompile Include="DeathScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />

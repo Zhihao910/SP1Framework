@@ -5,7 +5,7 @@ extern SEnemyChar g_sEnemy[2][totalEnemy];
 extern EGAMESTATES g_eGameState;
 extern struct SGameChar g_sChar;
 extern char map[100][50];
-extern char text[40][100];
+extern char text[50][100];
 extern bool bSomethingHappened;
 extern bool g_abKeyPressed[K_COUNT];
 extern bool	setSpawn;

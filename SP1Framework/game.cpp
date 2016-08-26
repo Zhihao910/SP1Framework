@@ -165,6 +165,8 @@ void render()
 		break;
 	case S_DEATH: PrintDeath();
 		break;
+	case S_FIGHT: combat();
+		break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 	renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -414,24 +416,10 @@ void renderEnemy()
 			{
 				if (g_sEnemy[i][x].m_bActive)
 				{
-					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)88);
+					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)158);
 					enemyMove();
 				}
 			}
 		}
 	}
 }
-
-
-// Note for ATXK;
-
-/* 
-Create #define and Enum for all keys from A to Z.
-Use key inputs to put characters into string (input string) or something.
-Use randomizer to select a word from a vector array.
-Compare input string to attack function word.
-If same, minus 1 from MaxWords, if not same, minus health from player.
-
-Optional:
-- Include a timer to make sure players type fast.
-*/
