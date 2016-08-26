@@ -12,6 +12,7 @@ extern bool	setSpawn;
 extern bool	newMap;
 extern int difficulty;
 extern int maps;
+extern int unlocked;
 extern int enemyType;
 extern int numberOfEnemy;
 extern double g_dBounceTime;

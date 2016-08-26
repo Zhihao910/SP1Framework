@@ -43,6 +43,7 @@ void moveCharacter()
 			if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240)) //Portal
 			{
 				maps++;
+				unlocked++;
 				newMap = true;
 				setSpawn = false;
 				if (maps > 6)
@@ -137,6 +138,7 @@ void moveCharacter()
 			if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240)) //Portal
 			{
 				maps++;
+				unlocked++;
 				newMap = true;
 				setSpawn = false;
 				if (maps > 6)
@@ -232,6 +234,7 @@ void moveCharacter()
 			if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240)) //Portal
 			{
 				maps++;
+				unlocked++;
 				newMap = true;
 				setSpawn = false;
 				if (maps > 6)
@@ -327,6 +330,7 @@ void moveCharacter()
 			if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(240))
 			{
 				maps++;
+				unlocked++;
 				newMap = true;
 				setSpawn = false;
 				if (maps > 6)

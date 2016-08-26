@@ -19,8 +19,9 @@ int difficulty = 0;			// difficulty selection
 int maps = 0;				// level selection
 int enemyType = 2;			// 2 types of enemy(Slow, Fast)
 int numberOfEnemy = 0;		// Number of enemy in map
-bool	setSpawn = false;
-bool	newMap = true;
+int unlocked = 1;
+bool setSpawn = false;
+bool newMap = true;
 
 // Console object
 Console g_Console(100, 50, "SP1 Framework");
@@ -265,38 +266,53 @@ void selectLevel()
 	}
 	if (g_abKeyPressed[K_2])
 	{
-		maps = 2;
-		g_sChar.gold = 0;
-		g_dBounceTime = g_dElapsedTime + 0.5;
-		g_eGameState = S_GAME;
+		if (unlocked > 1)
+		{
+			maps = 2;
+			g_sChar.gold = 0;
+			g_dBounceTime = g_dElapsedTime + 0.5;
+			g_eGameState = S_GAME;
+		}	
 	}
 	if (g_abKeyPressed[K_3])
 	{
-		maps = 3;
-		g_sChar.gold = 0;
-		g_dBounceTime = g_dElapsedTime + 0.5;
-		g_eGameState = S_GAME;
+		if (unlocked > 2)
+		{
+			maps = 3;
+			g_sChar.gold = 0;
+			g_dBounceTime = g_dElapsedTime + 0.5;
+			g_eGameState = S_GAME;
+		}
 	}
 	if (g_abKeyPressed[K_4])
 	{
-		maps = 4;
-		g_sChar.gold = 0;
-		g_dBounceTime = g_dElapsedTime + 0.5;
-		g_eGameState = S_GAME;
+		if (unlocked > 3)
+		{
+			maps = 4;
+			g_sChar.gold = 0;
+			g_dBounceTime = g_dElapsedTime + 0.5;
+			g_eGameState = S_GAME;
+		}
 	}
 	if (g_abKeyPressed[K_5])
 	{
-		maps = 5;
-		g_sChar.gold = 0;
-		g_dBounceTime = g_dElapsedTime + 0.5;
-		g_eGameState = S_GAME;
+		if (unlocked > 4)
+		{
+			maps = 5;
+			g_sChar.gold = 0;
+			g_dBounceTime = g_dElapsedTime + 0.5;
+			g_eGameState = S_GAME;
+		}
 	}
 	if (g_abKeyPressed[K_6])
 	{
-		maps = 6;
-		g_sChar.gold = 0;
-		g_dBounceTime = g_dElapsedTime + 0.5;
-		g_eGameState = S_GAME;
+		if (unlocked > 4)
+		{
+			maps = 6;
+			g_sChar.gold = 0;
+			g_dBounceTime = g_dElapsedTime + 0.5;
+			g_eGameState = S_GAME;
+		}
 	}
 
 	if (g_abKeyPressed[K_P])
@@ -405,3 +421,17 @@ void renderEnemy()
 		}
 	}
 }
+
+
+// Note for ATXK;
+
+/* 
+Create #define and Enum for all keys from A to Z.
+Use key inputs to put characters into string (input string) or something.
+Use randomizer to select a word from a vector array.
+Compare input string to attack function word.
+If same, minus 1 from MaxWords, if not same, minus health from player.
+
+Optional:
+- Include a timer to make sure players type fast.
+*/

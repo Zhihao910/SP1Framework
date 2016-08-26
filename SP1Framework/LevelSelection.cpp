@@ -28,7 +28,6 @@ void PrintLevelSelect()
 
 void LevelSelect()
 {
-
 	int height = 0;
 	int width;
 	string line = "";
