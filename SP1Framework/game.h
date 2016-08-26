@@ -28,7 +28,6 @@
 
 using namespace std;
 
-extern CStopWatch g_swTimer;
 extern char map[100][50];
 extern struct SGameChar g_sChar;
 extern bool g_bQuitGame;

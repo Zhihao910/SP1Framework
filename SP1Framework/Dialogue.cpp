@@ -9,7 +9,7 @@ void PrintDialogueBox()
 	c.Y = 22;
 	string line = "";
 
-	for (int y = 0; y < 20; y++)
+	for (int y = 0; y < 26; y++)
 	{
 		line = text[y];
 		g_Console.writeToBuffer(c, line);
@@ -42,7 +42,7 @@ void PrintDialogueText()
 {
 	COORD c = g_Console.getConsoleSize();
 	c.X = 4;
-	c.Y = 24;
+	c.Y = 30;
 
 	ostringstream oss;
 	string healthText =		"Health: ";
@@ -64,7 +64,7 @@ void PrintDialogueText()
 	c.Y += 4;
 
 	g_Console.writeToBuffer(c, mapLevel);
-	c.X = sizeof(mapLevel);
+	c.X = sizeof(mapLevel) + 4;
 
 	oss << maps;
 	g_Console.writeToBuffer(c, maps + '0', 0xC);		//Prints out Map Level.
@@ -74,7 +74,7 @@ void PrintDialogueText()
 	c.Y += 4;
 
 	g_Console.writeToBuffer(c, goldText);
-	c.X = sizeof(goldText);
+	c.X = sizeof(goldText) + 4;
 
 	oss << g_sChar.gold;
 	g_Console.writeToBuffer(c, oss.str(), 0xE);		//Prints out number of Gold.
@@ -84,7 +84,7 @@ void PrintDialogueText()
 	c.Y += 2;
 
 	g_Console.writeToBuffer(c, redText);
-	c.X = sizeof(redText);
+	c.X = sizeof(redText) + 4;
 
 	oss << g_sChar.redKey;
 	g_Console.writeToBuffer(c, oss.str(), 0xC);		//Prints out number of Red Keys.
@@ -94,7 +94,7 @@ void PrintDialogueText()
 	c.Y += 2;
 
 	g_Console.writeToBuffer(c, greenText);
-	c.X = sizeof(greenText);
+	c.X = sizeof(greenText) + 4;
 
 	oss << g_sChar.greenKey;
 	g_Console.writeToBuffer(c, g_sChar.greenKey + '0', 0xA);		//Prints out number of Green Keys.
