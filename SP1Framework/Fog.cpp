@@ -39,7 +39,6 @@ void renderFog(int diffLevel)
 			{
 				continue;
 			}
-
 			else
 			{
 				g_Console.writeToBuffer(col, row, ' ', 0x0);

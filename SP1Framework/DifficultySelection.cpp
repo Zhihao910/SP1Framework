@@ -5,8 +5,8 @@ void PrintDifficulty()
 	Difficulty();
 
 	COORD c = g_Console.getConsoleSize();
-	c.X /= 3;
-	c.Y = 3;
+	c.X /= 4;
+	c.Y = 2;
 	string line = "";
 
 	for (int y = 0; y < 21; y++)

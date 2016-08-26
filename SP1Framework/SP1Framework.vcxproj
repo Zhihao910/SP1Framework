@@ -77,7 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CharCollision.cpp" />
+    <ClCompile Include="charMovement.cpp" />
     <ClCompile Include="DeathScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="DifficultySelection.cpp" />
@@ -92,7 +92,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="minigames.cpp" />
-    <ClCompile Include="MobCollision.cpp" />
+    <ClCompile Include="enemyMovement.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="printLayout.cpp" />
     <ClCompile Include="SplashScreen.cpp" />

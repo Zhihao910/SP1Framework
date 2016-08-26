@@ -15,8 +15,8 @@ double  g_dBounceTime;		// this is to prevent key bouncing, so we won't trigger 
 char map[100][50];			// array for Maps
 char text[50][100];			// array for Screens
 int points;					// score variable
-int maps = 0;				// level selection
 int difficulty = 0;			// difficulty selection
+int maps = 0;				// level selection
 int enemyType = 2;			// 2 types of enemy(Slow, Fast)
 int numberOfEnemy = 0;		// Number of enemy in map
 bool	setSpawn = false;
@@ -349,7 +349,7 @@ void renderHighScore()
 }
 void renderGame()
 {
-	MapLayout(maps, &numberOfEnemy);	//Map level, Calling address of number of enemy
+	MapLayout(maps, &numberOfEnemy);	//Maps
 	renderEnemy();						//Renders the enemy
     renderCharacter();					//Renders the player
 	renderFog(difficulty);				//Renders Fog of War
@@ -402,14 +402,6 @@ void renderEnemy()
 					enemyMove();
 				}
 			}
-			//if (i == 1) //Enemy type 2(Fast)
-			//{
-			//	if (g_sEnemy[i][x].m_bActive)
-			//	{
-			//		g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)84);
-			//		enemyMove();
-			//	}
-			//}
 		}
 	}
 }

@@ -22,7 +22,7 @@
                                                                                     
  == COLLECT COLOURED KEYS TO OPENED LOCKED DOORS OF THE SAME COLOUR.                
                                                                                     
- == FIGHT MONSTERS AND GAIN EXPERIENCE TO LEVEL UP YOUR CHARACTER.                  
+ == AVOID ENEMY AND COLLECT GOLD TO GAIN HIGHSCORE.                  
                                                                                     
  == USE PORTALS TO GAIN ACCESS TO NEW AREAS.                                        
                                                                                     

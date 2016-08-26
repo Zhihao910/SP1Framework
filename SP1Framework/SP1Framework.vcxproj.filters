@@ -75,16 +75,16 @@
     <ClCompile Include="Fog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CharCollision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MobCollision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DifficultySelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="minigames.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyMovement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="charMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

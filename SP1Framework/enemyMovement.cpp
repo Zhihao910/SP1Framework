@@ -1,6 +1,6 @@
 #include "collisionDetection.h"
 
-void enemyMove()
+void enemyMove() // Enemy Random Movement
 {
 	for (int i = 0; i < enemyType; i++)
 	{
@@ -14,9 +14,9 @@ void enemyMove()
 			{
 			case 1: //Enemy Up Movement
 			{
-				if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y - 2]) != char(219))
+				if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y - 2]) != char(219)) // Check if it's a wall.
 				{
-					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y - 2 != g_sChar.m_cLocation.Y - 1))
+					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y - 2 != g_sChar.m_cLocation.Y - 1)) // Check Enemy X/Y and Player X/Y
 					{
 						g_sEnemy[i][x].m_cLocation.Y--;
 					}
@@ -41,7 +41,7 @@ void enemyMove()
 			{
 				if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y]) != char(219))
 				{
-					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1))
+					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1)) 
 					{
 						g_sEnemy[i][x].m_cLocation.Y++;
 					}
@@ -111,7 +111,7 @@ void enemyMove()
 			if (g_sEnemy[i][x].bSomethingHappened)
 			{
 				// set the bounce time to some time in the future to prevent accidental triggers
-				g_sEnemy[i][x].slowDownTime = g_dElapsedTime + 0.5f; // Speed of enemy
+				g_sEnemy[i][x].slowDownTime = g_dElapsedTime + 0.5f; // Speed.
 			}
 			g_sEnemy[i][x].tempCheck = g_sEnemy[i][x].random;
 		}
