@@ -9,7 +9,7 @@ void PrintDialogueBox()
 	c.Y = 22;
 	string line = "";
 
-	for (int y = 0; y < 16; y++)
+	for (int y = 0; y < 20; y++)
 	{
 		line = text[y];
 		g_Console.writeToBuffer(c, line);
@@ -50,6 +50,7 @@ void PrintDialogueText()
 	string redText =		"Number of Red Keys: ";
 	string greenText =		"Number of Green Keys: ";
 	string deathText =		"You Died! ";
+	string mapLevel =		"Current Level: ";
 
 	g_Console.writeToBuffer(c, healthText);
 	c.X = sizeof(goldText);
@@ -58,6 +59,16 @@ void PrintDialogueText()
 		g_Console.writeToBuffer(c, char(3), 0xC);				//Prints out amount of health.
 		c.X += 2;
 	}
+
+	c.X = 4;
+	c.Y += 4;
+
+	g_Console.writeToBuffer(c, mapLevel);
+	c.X = sizeof(mapLevel);
+
+	oss << maps;
+	g_Console.writeToBuffer(c, maps + '0', 0xC);		//Prints out Map Level.
+	oss.str("");
 
 	c.X = 4;
 	c.Y += 4;
