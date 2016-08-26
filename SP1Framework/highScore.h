@@ -1,4 +1,2 @@
 #include "game.h"
-
-extern Console g_Console;
-extern char text[40][100];
+#include "global.h"

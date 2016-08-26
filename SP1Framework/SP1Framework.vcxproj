@@ -27,7 +27,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -91,7 +91,6 @@
     <ClCompile Include="loadLayout.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="minigames.cpp" />
     <ClCompile Include="enemyMovement.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="printLayout.cpp" />
@@ -104,25 +103,35 @@
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="highScore.h" />
     <ClInclude Include="loadLayout.h" />
     <ClInclude Include="loadText.h" />
-    <ClInclude Include="minigames.h" />
     <ClInclude Include="printLayout.h" />
     <ClInclude Include="traps.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="HighScoreLayout.txt" />
-    <Text Include="Instructions.txt" />
-    <Text Include="LevelSelection.txt" />
-    <Text Include="Mainmenu.txt" />
-    <Text Include="MapLayout1.txt" />
-    <Text Include="MapLayout2.txt" />
-    <Text Include="MapLayout3.txt" />
-    <Text Include="MapLayout4.txt" />
-    <Text Include="MapLayout5.txt" />
-    <Text Include="MapLayout6.txt" />
-    <Text Include="Splashscreen.txt" />
+    <Text Include="Maps\MapLayout1.txt" />
+    <Text Include="Maps\MapLayout2.txt" />
+    <Text Include="Maps\MapLayout3.txt" />
+    <Text Include="Maps\MapLayout4.txt" />
+    <Text Include="Maps\MapLayout5.txt" />
+    <Text Include="Maps\MapLayout6.txt" />
+    <Text Include="Maps\MazeRunner1.txt" />
+    <Text Include="Maps\MazeRunner2.txt" />
+    <Text Include="Maps\MazeRunner3.txt" />
+    <Text Include="Maps\MazeRunner4.txt" />
+    <Text Include="Maps\MazeRunner5.txt" />
+    <Text Include="Screens\Dialogue.txt" />
+    <Text Include="Screens\Difficulty.txt" />
+    <Text Include="Screens\HighScore.txt" />
+    <Text Include="Screens\HighScoreLayout.txt" />
+    <Text Include="Screens\Instructions.txt" />
+    <Text Include="Screens\Legend.txt" />
+    <Text Include="Screens\LevelSelection.txt" />
+    <Text Include="Screens\Mainmenu.txt" />
+    <Text Include="Screens\Splashscreen.txt" />
+    <Text Include="Screens\YouDied.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

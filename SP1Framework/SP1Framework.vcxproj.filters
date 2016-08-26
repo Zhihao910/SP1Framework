@@ -78,9 +78,6 @@
     <ClCompile Include="DifficultySelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="minigames.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="enemyMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -119,42 +116,72 @@
     <ClInclude Include="traps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="minigames.h">
+    <ClInclude Include="global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="MapLayout1.txt">
+    <Text Include="Maps\MapLayout1.txt">
       <Filter>Resource Files\Maps</Filter>
     </Text>
-    <Text Include="MapLayout2.txt">
+    <Text Include="Maps\MapLayout2.txt">
       <Filter>Resource Files\Maps</Filter>
     </Text>
-    <Text Include="MapLayout3.txt">
+    <Text Include="Maps\MapLayout3.txt">
       <Filter>Resource Files\Maps</Filter>
     </Text>
-    <Text Include="MapLayout4.txt">
+    <Text Include="Maps\MapLayout4.txt">
       <Filter>Resource Files\Maps</Filter>
     </Text>
-    <Text Include="MapLayout5.txt">
+    <Text Include="Maps\MapLayout5.txt">
       <Filter>Resource Files\Maps</Filter>
     </Text>
-    <Text Include="MapLayout6.txt">
+    <Text Include="Maps\MapLayout6.txt">
       <Filter>Resource Files\Maps</Filter>
     </Text>
-    <Text Include="HighScoreLayout.txt">
+    <Text Include="Maps\MazeRunner1.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="Maps\MazeRunner2.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="Maps\MazeRunner3.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="Maps\MazeRunner4.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="Maps\MazeRunner5.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="Screens\Dialogue.txt">
       <Filter>Resource Files\Screens</Filter>
     </Text>
-    <Text Include="Instructions.txt">
+    <Text Include="Screens\Difficulty.txt">
       <Filter>Resource Files\Screens</Filter>
     </Text>
-    <Text Include="LevelSelection.txt">
+    <Text Include="Screens\HighScore.txt">
       <Filter>Resource Files\Screens</Filter>
     </Text>
-    <Text Include="Mainmenu.txt">
+    <Text Include="Screens\HighScoreLayout.txt">
       <Filter>Resource Files\Screens</Filter>
     </Text>
-    <Text Include="Splashscreen.txt">
+    <Text Include="Screens\Instructions.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Screens\Legend.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Screens\LevelSelection.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Screens\Mainmenu.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Screens\Splashscreen.txt">
+      <Filter>Resource Files\Screens</Filter>
+    </Text>
+    <Text Include="Screens\YouDied.txt">
       <Filter>Resource Files\Screens</Filter>
     </Text>
   </ItemGroup>

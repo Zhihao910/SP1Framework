@@ -133,7 +133,6 @@ void PrintDialogueBox();		// Loads and Prints the Dialogue Template
 void PrintDialogueText();		// Loads and Prints the Dialogue Text
 void PrintDeath();				// Loads and Prints the Death Screen
 void PrintDifficulty();			// Loads and Prints the Difficulty Screen
-void PrintMaze();				// Loads and Prints the Maze
 
 void SplashScreen();			// Function for loading the text file
 void MainMenu();				// Function for loading the text file
@@ -143,7 +142,6 @@ void DialogueBox();				// Function for loading the text file
 void HighScoreBox();			// Function for loading the text file
 void Death();					// Function for loading the text file
 void Difficulty();				// Function for loading the text file
-void loadMaze();				// Function for loading the text file
 
 void HighScore(int score);		// Function for loading highscore data from file.
 void Portal();					// Function for in-game portals
@@ -152,9 +150,6 @@ void fireTrap();				// Function for traps
 void poisonTrap();				// Function for traps
 void pitTrap();					// Function for traps
 void spikeTrap();				// Function for traps
-
-void mazeRunner();				// Function for MazeRunner minigame
-
 
 void MapLayout(int levels, int *numberOfEnemy);						// Function for printing selected level from data
 void readMap(int level, int height, int width, int *numberOfEnemy);	// Function for loading selected level into data

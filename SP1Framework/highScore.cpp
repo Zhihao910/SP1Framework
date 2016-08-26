@@ -1,5 +1,6 @@
 #include "highScore.h"
 
+
 void HighScore(int score)
 {
 	COORD c = g_Console.getConsoleSize();
@@ -112,3 +113,21 @@ void HighScoreBox()
 		c.Y++;
 	}
 }
+
+/*
+void findHighest(int A[][Cm], int n, int m)
+{
+	for (int i = 0; i < n; i++)
+	{
+		int max = A[i][0];
+		for (int j = 1; j < m; j++)
+		{
+			if (A[i][j] > max)
+			{
+				max = A[i][j];
+			}
+		}
+		// do something with max
+	}
+}
+*/

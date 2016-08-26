@@ -32,7 +32,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
-						g_sChar.health--;
+						g_sChar.health -= 2;
 					}
 				}
 			}
@@ -126,7 +126,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
-						g_sChar.health--;
+						g_sChar.health -= 2;
 					}
 				}
 			}
@@ -221,7 +221,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
-						g_sChar.health--;
+						g_sChar.health -= 2;
 					}
 				}
 			}
@@ -316,7 +316,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
-						g_sChar.health--;
+						g_sChar.health -= 2;
 					}
 				}
 			}
