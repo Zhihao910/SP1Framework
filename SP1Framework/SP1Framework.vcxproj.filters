@@ -128,6 +128,9 @@
     <ClInclude Include="clock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="attack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Maps\MapLayout1.txt">

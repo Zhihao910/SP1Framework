@@ -1,11 +1,4 @@
-#include "global.h"
-
-int ActionSelection = 0;
-int AttackSelection = 0;
-int ActionChoice = 3;
-int AttackChoice = 3;
-bool Used = false;
-double Wait;
+#include "attack.h"
 
 void PrintCombat()
 {
@@ -57,6 +50,8 @@ void CombatUI()
 	UIStats();
 	UIChoice();
 	UISelected();
+	
+	AttStats();
 }
 void UIStats()
 {
@@ -225,6 +220,28 @@ void UISelected()
 	}
 }
 
+void AttStats()
+{
+	COORD c;
+	c.X = 50;
+	c.Y = 25;
+
+	ostringstream oss;
+	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", " "};
+
+	if (AttackChoice == 3)
+	{
+		oss << Attacks.at(AttackChoice);
+	}
+
+	else
+	{
+		oss << "Player used " << Attacks.at(AttackChoice);
+	}
+
+	g_Console.writeToBuffer(c, oss.str(), 0xA);
+	oss.str("");
+}
 void AttChoice()
 {
 	g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
@@ -238,7 +255,7 @@ void AttChoice()
 	c.Y = 26;
 
 	ostringstream oss;
-	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify" };
+	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", " "};
 
 	oss << Attacks.at(0);
 	g_Console.writeToBuffer(c, oss.str());
@@ -299,9 +316,8 @@ void AttChoice()
 	if (g_abKeyPressed[K_RETURN])
 	{
 		AttackChoice = AttackSelection;
+		AttSelected();	
 		Wait = g_dElapsedTime + 0.125;
-
-		AttSelected();
 	}
 
 	switch (AttackSelection)
@@ -333,28 +349,65 @@ void AttChoice()
 }
 void AttSelected()
 {
+	COORD c;
+	c.X = 50;
+	c.Y = 25;
+
 	if (AttackChoice == 0)
 	{
-		g_sEnemy[1][1].health -= 4;
-
-		if (g_sEnemy[1][1].health <= 0)
+		if (g_sChar.health <= 0)
 		{
 			g_eGameState = S_DEATH;
 		}
+		for (int u = 0; u < numberOfEnemy; u++)
+		{
+			if (g_sEnemy[0][u].bIsFighting)
+			{
+				g_sEnemy[0][u].health -= 10;
+			}
+			if (g_sEnemy[0][u].health <= 0)
+			{
+				g_sEnemy[0][u].bIsDead = true;
+				g_eGameState = S_GAME;
+			}
+		}
 	}
-
 	if (AttackChoice == 1)
 	{
-		g_sEnemy[2][8].health -= 3;
-
-		if (g_sEnemy[2][8].health <= 0)
+		if (g_sChar.health <= 0)
 		{
 			g_eGameState = S_DEATH;
 		}
+		for (int u = 0; u < numberOfEnemy; u++)
+		{
+			if (g_sEnemy[0][u].bIsFighting)
+			{
+				g_sEnemy[0][u].health -= 20;
+			}
+			if (g_sEnemy[0][u].health <= 0)
+			{
+				g_sEnemy[0][u].bIsDead = true;
+				g_eGameState = S_GAME;
+			}
+		}
 	}
-
 	if (AttackChoice == 2)
 	{
-		g_sChar.defence += 2;
+		if (g_sChar.health <= 0)
+		{
+			g_eGameState = S_DEATH;
+		}
+		for (int u = 0; u < numberOfEnemy; u++)
+		{
+			if (g_sEnemy[0][u].bIsFighting)
+			{
+				g_sChar.attack += 2;
+			}
+			if (g_sEnemy[0][u].health <= 0)
+			{
+				g_sEnemy[0][u].bIsDead = true;
+				g_eGameState = S_GAME;
+			}
+		}
 	}
 }

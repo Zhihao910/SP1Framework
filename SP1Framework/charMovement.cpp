@@ -26,16 +26,6 @@ void moveCharacter()
 			{
 				g_sChar.m_cLocation.Y++;
 			}
-			for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
-			{
-				for (int x = 0; x < numberOfEnemy; x++)
-				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
-					{
-						g_sChar.health -= 2;
-					}
-				}
-			}
 			if (g_sChar.health < 1)
 			{
 				g_eGameState = S_DEATH;
@@ -120,16 +110,6 @@ void moveCharacter()
 			if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219)) // Checks Collisions Against Wall.
 			{
 				g_sChar.m_cLocation.X++;
-			}
-			for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
-			{
-				for (int x = 0; x < numberOfEnemy; x++)
-				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
-					{
-						g_sChar.health -= 2;
-					}
-				}
 			}
 			if (g_sChar.health < 1)
 			{
@@ -217,16 +197,6 @@ void moveCharacter()
 			{
 				g_sChar.m_cLocation.Y--;
 			}
-			for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
-			{
-				for (int x = 0; x < numberOfEnemy; x++)
-				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
-					{
-						g_sChar.health -= 2;
-					}
-				}
-			}
 			if (g_sChar.health < 1)
 			{
 				g_eGameState = S_DEATH;
@@ -312,16 +282,6 @@ void moveCharacter()
 			if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == char(219)) // Checks Collisions Against Wall.
 			{
 				g_sChar.m_cLocation.X--;
-			}
-			for (int i = 0; i < enemyType; i++) // Checks Collisions Against Enemy.
-			{
-				for (int x = 0; x < numberOfEnemy; x++)
-				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
-					{
-						g_sChar.health -= 2;
-					}
-				}
 			}
 			if (g_sChar.health < 1)
 			{

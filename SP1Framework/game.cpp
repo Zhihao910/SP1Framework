@@ -419,21 +419,17 @@ void renderToScreen()
 
 void renderEnemy()
 {
-	for (int i = 0; i < enemyType; i++)
+	for (int x = 0; x < numberOfEnemy; x++)
 	{
-		for (int x = 0; x < numberOfEnemy; x++)
+		if (g_sEnemy[0][x].m_bActive && !g_sEnemy[0][x].bIsDead && !g_sEnemy[0][x].bIsFighting)
 		{
-			if (i == 0) //Enemy type 1(Slow)
-			{
-				if (g_sEnemy[i][x].m_bActive)
-				{
-					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)158);
-					g_sEnemy[i][x].health = 10;
-					g_sEnemy[i][x].attack = 10;
-					g_sEnemy[i][x].defence = i * x;
-					enemyMove();
-				}
-			}
+			g_Console.writeToBuffer(g_sEnemy[0][x].m_cLocation, (char)158);
+			g_sEnemy[0][x].bIsDead = false;
+			g_sEnemy[0][x].bIsFighting = false;
+			g_sEnemy[0][x].health = 30;
+			g_sEnemy[0][x].attack = 10;
+			g_sEnemy[0][x].defence = 0 * x;
+			enemyMove();
 		}
 	}
 }

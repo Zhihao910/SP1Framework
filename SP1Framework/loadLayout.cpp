@@ -108,6 +108,8 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 					g_sEnemy[0][typeOne].m_cLocation.X = width;
 					g_sEnemy[0][typeOne].m_cLocation.Y = height + 1;
 					g_sEnemy[0][typeOne].m_bActive = true;
+					g_sEnemy[0][typeOne].bIsDead = false;
+					g_sEnemy[0][typeOne].bIsFighting = false;
 					map[width][height] = char(158);
 					typeOne++;
 				}

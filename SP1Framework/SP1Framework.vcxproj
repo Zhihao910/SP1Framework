@@ -102,6 +102,7 @@
     <ClCompile Include="trap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="attack.h" />
     <ClInclude Include="clock.h" />
     <ClInclude Include="collisionDetection.h" />
     <ClInclude Include="Fog.h" />
