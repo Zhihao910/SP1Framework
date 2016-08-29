@@ -16,4 +16,4 @@ extern int unlocked;
 extern int enemyType;
 extern int numberOfEnemy;
 extern double g_dBounceTime;
-extern double  g_dElapsedTime;
+extern double g_dElapsedTime;

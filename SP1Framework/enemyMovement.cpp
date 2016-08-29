@@ -23,7 +23,7 @@ void enemyMove() // Enemy Random Movement
 
 					else
 					{
-						g_sEnemy[i][x].m_cLocation.Y++;
+						g_eGameState = S_FIGHT;
 					}
 				}
 
@@ -47,7 +47,7 @@ void enemyMove() // Enemy Random Movement
 					}
 					else
 					{
-						g_sEnemy[i][x].m_cLocation.Y--;
+						g_eGameState = S_FIGHT;
 					}
 				}
 				else
@@ -94,7 +94,7 @@ void enemyMove() // Enemy Random Movement
 					}
 					else
 					{
-						g_sEnemy[i][x].m_cLocation.X++;
+						g_eGameState = S_FIGHT;
 					}
 				}
 				else

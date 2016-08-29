@@ -168,7 +168,7 @@ void render()
 		break;
 	case S_DEATH: PrintDeath();
 		break;
-	case S_FIGHT: combat();
+	case S_FIGHT: PrintCombat();
 		break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -189,8 +189,6 @@ void splashScreenWait()    // waits for time to pass in splash screen
 }
 void mainmenuwait() // main menu logic
 {
-	g_sChar.health = 10;
-
 	if (g_abKeyPressed[K_1])
 	{
 		g_dBounceTime = g_dElapsedTime + 0.5; // 125ms should be enough
@@ -226,20 +224,26 @@ void selectDifficulty()
 	{
 		difficulty = 1;
 		g_sChar.health = 10;
+		g_sChar.attack = 10;
+		g_sChar.defence = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
 	if (g_abKeyPressed[K_2])
 	{
 		difficulty = 2;
-		g_sChar.health = 10;
+		g_sChar.health = 7;
+		g_sChar.attack = 10;
+		g_sChar.defence = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
 	if (g_abKeyPressed[K_3])
 	{
 		difficulty = 3;
-		g_sChar.health = 10;
+		g_sChar.health = 5;
+		g_sChar.attack = 10;
+		g_sChar.defence = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
@@ -247,6 +251,8 @@ void selectDifficulty()
 	{
 		difficulty = 4;
 		g_sChar.health = 3;
+		g_sChar.attack = 10;
+		g_sChar.defence = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
@@ -411,7 +417,6 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-
 void renderEnemy()
 {
 	for (int i = 0; i < enemyType; i++)
@@ -423,6 +428,9 @@ void renderEnemy()
 				if (g_sEnemy[i][x].m_bActive)
 				{
 					g_Console.writeToBuffer(g_sEnemy[i][x].m_cLocation, (char)158);
+					g_sEnemy[i][x].health = 10;
+					g_sEnemy[i][x].attack = 10;
+					g_sEnemy[i][x].defence = i * x;
 					enemyMove();
 				}
 			}

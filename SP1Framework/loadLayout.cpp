@@ -7,7 +7,6 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 	int typeTwo = 0;
 	g_sChar.redKey = 0;
 	g_sChar.greenKey = 0;
-	g_sChar.health = 10;
 	switch (level)
 	{
 	case 1: mapname = "Maps/MapLayout1.txt";

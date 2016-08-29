@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClCompile Include="attack.cpp" />
     <ClCompile Include="charMovement.cpp" />
+    <ClCompile Include="clock.cpp" />
     <ClCompile Include="DeathScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="DifficultySelection.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="trap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="clock.h" />
     <ClInclude Include="collisionDetection.h" />
     <ClInclude Include="Fog.h" />
     <ClInclude Include="Framework\console.h" />
