@@ -14,19 +14,17 @@ void enemyMove() // Enemy Random Movement
 			{
 			case 1: //Enemy Up Movement
 			{
-				if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y - 2]) != char(219)) // Check if it's a wall.
+				if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y - 2]) != char(219)) // enemy is not touching wall.
 				{
-					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y - 2 != g_sChar.m_cLocation.Y - 1)) // Check Enemy X/Y and Player X/Y
+					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X || g_sEnemy[i][x].m_cLocation.Y - 1 != g_sChar.m_cLocation.Y)) // enemy x/y not same as player x/y
 					{
-						g_sEnemy[i][x].m_cLocation.Y--;
+						g_sEnemy[i][x].m_cLocation.Y--; // it will move up
 					}
-
 					else
 					{
 						g_eGameState = S_FIGHT;
 					}
 				}
-
 				else
 				{
 					while (g_sEnemy[i][x].random == g_sEnemy[i][x].tempCheck)
@@ -41,7 +39,7 @@ void enemyMove() // Enemy Random Movement
 			{
 				if ((map[g_sEnemy[i][x].m_cLocation.X][g_sEnemy[i][x].m_cLocation.Y]) != char(219))
 				{
-					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1)) 
+					if ((g_sEnemy[i][x].m_cLocation.X != g_sChar.m_cLocation.X || g_sEnemy[i][x].m_cLocation.Y + 1 != g_sChar.m_cLocation.Y))
 					{
 						g_sEnemy[i][x].m_cLocation.Y++;
 					}
@@ -57,7 +55,6 @@ void enemyMove() // Enemy Random Movement
 						g_sEnemy[i][x].random = rand() % 4 + 1;
 					}
 				}
-
 				g_sEnemy[i][x].bSomethingHappened = true;
 				break;
 			}
@@ -65,7 +62,7 @@ void enemyMove() // Enemy Random Movement
 			{
 				if ((map[g_sEnemy[i][x].m_cLocation.X + 1][g_sEnemy[i][x].m_cLocation.Y - 1]) != char(219))
 				{
-					if ((g_sEnemy[i][x].m_cLocation.X + 1 != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1))
+					if ((g_sEnemy[i][x].m_cLocation.X + 1 != g_sChar.m_cLocation.X || g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y))
 					{
 						g_sEnemy[i][x].m_cLocation.X++;
 					}
@@ -88,7 +85,7 @@ void enemyMove() // Enemy Random Movement
 			{
 				if ((map[g_sEnemy[i][x].m_cLocation.X - 1][g_sEnemy[i][x].m_cLocation.Y - 1]) != char(219))
 				{
-					if ((g_sEnemy[i][x].m_cLocation.X - 1 != g_sChar.m_cLocation.X) && (g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y - 1))
+					if ((g_sEnemy[i][x].m_cLocation.X - 1 != g_sChar.m_cLocation.X || g_sEnemy[i][x].m_cLocation.Y != g_sChar.m_cLocation.Y))
 					{
 						g_sEnemy[i][x].m_cLocation.X--;
 					}

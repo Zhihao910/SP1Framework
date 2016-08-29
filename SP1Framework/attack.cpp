@@ -70,7 +70,7 @@ void UIStats()
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X += sizeof(oss.str());
+	c.X += sizeof(oss.str()) - 4;
 
 	oss << g_sChar.health;
 	g_Console.writeToBuffer(c, oss.str());
@@ -83,7 +83,7 @@ void UIStats()
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X += sizeof(oss.str());
+	c.X += sizeof(oss.str()) - 4;
 
 	oss << g_sChar.attack;
 	g_Console.writeToBuffer(c, oss.str());
@@ -96,7 +96,7 @@ void UIStats()
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X += sizeof(oss.str());
+	c.X += sizeof(oss.str()) - 4;
 
 	oss << g_sChar.defence;
 	g_Console.writeToBuffer(c, oss.str());
