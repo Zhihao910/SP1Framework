@@ -223,7 +223,7 @@ void selectDifficulty()
 	if (g_abKeyPressed[K_1])
 	{
 		difficulty = 1;
-		g_sChar.health = 10;
+		g_sChar.health = 20;
 		g_sChar.attack = 10;
 		g_sChar.defence = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
@@ -232,7 +232,7 @@ void selectDifficulty()
 	if (g_abKeyPressed[K_2])
 	{
 		difficulty = 2;
-		g_sChar.health = 7;
+		g_sChar.health = 15;
 		g_sChar.attack = 10;
 		g_sChar.defence = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
@@ -241,7 +241,7 @@ void selectDifficulty()
 	if (g_abKeyPressed[K_3])
 	{
 		difficulty = 3;
-		g_sChar.health = 5;
+		g_sChar.health = 7;
 		g_sChar.attack = 10;
 		g_sChar.defence = 10;
 		g_dBounceTime = g_dElapsedTime + 0.5;
@@ -426,9 +426,7 @@ void renderEnemy()
 			g_Console.writeToBuffer(g_sEnemy[0][x].m_cLocation, (char)158);
 			g_sEnemy[0][x].bIsDead = false;
 			g_sEnemy[0][x].bIsFighting = false;
-			g_sEnemy[0][x].health = 30;
-			g_sEnemy[0][x].attack = 10;
-			g_sEnemy[0][x].defence = 0 * x;
+			g_sEnemy[0][x].health = 15;
 			enemyMove();
 		}
 	}

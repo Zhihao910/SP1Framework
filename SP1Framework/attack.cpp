@@ -50,16 +50,36 @@ void CombatUI()
 	UIStats();
 	UIChoice();
 	UISelected();
-	
+
 	AttStats();
+	MonsterAtt();
 }
 void UIStats()
 {
 	COORD c;
-	c.X = 50;
-	c.Y = 28;
+	c.X = 55;
+	c.Y = 3;
 
 	ostringstream oss;
+
+	for (int u = 0; u < numberOfEnemy; u++)
+	{
+		if (g_sEnemy[0][u].bIsFighting && !g_sEnemy[0][u].bIsDead)
+		{
+			oss << "Health: ";
+			g_Console.writeToBuffer(c, oss.str());
+			oss.str("");
+
+			c.X += 15;
+
+			oss << g_sEnemy[0][u].health;
+			g_Console.writeToBuffer(c, oss.str());
+			oss.str("");
+		}
+	}
+
+	c.X = 50;
+	c.Y = 28;
 
 	oss << "Health: ";
 	g_Console.writeToBuffer(c, oss.str());
@@ -227,14 +247,13 @@ void AttStats()
 	c.Y = 25;
 
 	ostringstream oss;
-	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", " "};
+	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", "" };
 
 	if (AttackChoice == 3)
 	{
 		oss << Attacks.at(AttackChoice);
 	}
-
-	else
+	else if (AttackChoice != 3 && Attacked)
 	{
 		oss << "Player used " << Attacks.at(AttackChoice);
 	}
@@ -257,20 +276,20 @@ void AttChoice()
 	ostringstream oss;
 	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", " "};
 
-	oss << Attacks.at(0);
+	oss << Attacks.at(0) << " - 4HP";
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
 	c.X = 29;
 
-	oss << Attacks.at(1);
+	oss << Attacks.at(1) << " - 5HP";
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
 	c.X = 5;
 	c.Y = 32;
 
-	oss << Attacks.at(2);
+	oss << Attacks.at(2) << " + 2DEF";
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
@@ -349,16 +368,8 @@ void AttChoice()
 }
 void AttSelected()
 {
-	COORD c;
-	c.X = 50;
-	c.Y = 25;
-
-	if (AttackChoice == 0)
+	if (AttackChoice == 0 && !Attacked)
 	{
-		if (g_sChar.health <= 0)
-		{
-			g_eGameState = S_DEATH;
-		}
 		for (int u = 0; u < numberOfEnemy; u++)
 		{
 			if (g_sEnemy[0][u].bIsFighting)
@@ -371,13 +382,11 @@ void AttSelected()
 				g_eGameState = S_GAME;
 			}
 		}
+
+		Attacked = true;
 	}
-	if (AttackChoice == 1)
+	if (AttackChoice == 1 && !Attacked)
 	{
-		if (g_sChar.health <= 0)
-		{
-			g_eGameState = S_DEATH;
-		}
 		for (int u = 0; u < numberOfEnemy; u++)
 		{
 			if (g_sEnemy[0][u].bIsFighting)
@@ -390,18 +399,19 @@ void AttSelected()
 				g_eGameState = S_GAME;
 			}
 		}
+
+		Attacked = true;
 	}
-	if (AttackChoice == 2)
+	if (AttackChoice == 2 && !Attacked)
 	{
-		if (g_sChar.health <= 0)
-		{
-			g_eGameState = S_DEATH;
-		}
 		for (int u = 0; u < numberOfEnemy; u++)
 		{
 			if (g_sEnemy[0][u].bIsFighting)
 			{
-				g_sChar.attack += 2;
+				if (g_sChar.defence < 16)
+				{
+					g_sChar.defence += 2;
+				}
 			}
 			if (g_sEnemy[0][u].health <= 0)
 			{
@@ -409,5 +419,37 @@ void AttSelected()
 				g_eGameState = S_GAME;
 			}
 		}
+
+		Attacked = true;
 	}
+}
+
+void MonsterAtt()
+{
+	COORD c;
+	c.X = 50;
+	c.Y = 25;
+
+	ostringstream oss;
+	vector <string> MonsterAtt{ "Piercing Rage", "Ghostly Ghibus", "Acid Bile", ""};
+	
+	if (MonsterChoice == 3)
+	{
+		oss << MonsterAtt.at(MonsterChoice);
+		g_Console.writeToBuffer(c, oss.str());
+		oss.str("");
+	}
+	else if (MonsterChoice != 3)
+	{
+		oss << "Monster used " << MonsterAtt.at(MonsterChoice);
+		g_Console.writeToBuffer(c, oss.str(), 0xA);
+		oss.str("");
+	}
+}
+void MonsterSelect()
+{
+	int Choice = rand() % 4 + 1;
+	MonsterChoice = Choice;
+
+
 }

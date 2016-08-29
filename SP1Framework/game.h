@@ -103,8 +103,6 @@ struct SEnemyChar
 	bool bIsDead;
 	bool bIsFighting;
 	int health;
-	int attack;
-	int defence;
 	int random = 1;
 	int tempCheck = 1;
 	double slowDownTime = 0;
@@ -150,13 +148,14 @@ void PrintDeath();				// Loads and Prints the Death Screen
 void PrintDifficulty();			// Loads and Prints the Difficulty Screen
 void PrintCombat();				// Loads and Prints the Combat Screen
 
-void CombatUI();
-void UIStats();
-void UIChoice();
-void UISelected();
-void AttStats();
-void AttChoice();
-void AttSelected();
+void CombatUI();				// Loads all the User Interface elements for Combat
+void UIStats();					// Prints the Statistics of Player
+void UIChoice();				// Prints the Player Options
+void UISelected();				// Prints the CurrentSelected Player Option
+void AttStats();				// Prints which attack was used
+void AttChoice();				// Prints the Attack Options
+void AttSelected();				// Prints the CurrentSelected Attack Option
+void MonsterAtt();
 
 void SplashScreen();			// Function for loading the text file
 void MainMenu();				// Function for loading the text file
