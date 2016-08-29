@@ -13,6 +13,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <string>
+#include "clock.h"
 
 #define VK_1		0x31 
 #define VK_2		0x32 

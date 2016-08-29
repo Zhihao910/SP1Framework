@@ -3,8 +3,10 @@
 //
 #include "game.h"
 
+
 double  g_dElapsedTime;
 double  g_dDeltaTime;
+double g_dCountdown;
 bool    g_abKeyPressed[K_COUNT];
 
 // Game specific variables here
@@ -150,6 +152,7 @@ void render()
 		break;
 	case S_GAME: 
 		renderGame();
+		render_clock(g_dDeltaTime);
 		PrintDialogueBox();
 		PrintDialogueText();
 		break;
@@ -394,18 +397,21 @@ void renderFramerate()
     c.Y = 0;
     g_Console.writeToBuffer(c, ss.str());
 
-    // displays the elapsed time
-    ss.str("");
-    ss << g_dElapsedTime << "secs";
-    c.X = 0;
-    c.Y = 0;
-    g_Console.writeToBuffer(c, ss.str(), 0x59);
+	// displays the elapsed time
+	ss.str("");
+	ss << g_dElapsedTime << "secs";
+	c.X = 0;
+	c.Y = 0;
+	g_Console.writeToBuffer(c, ss.str(), 0x59);
+
 }
 void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
+
+
 void renderEnemy()
 {
 	for (int i = 0; i < enemyType; i++)
