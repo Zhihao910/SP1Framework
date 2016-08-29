@@ -3,7 +3,7 @@
 void PrintCombat()
 {
 	CombatScreen(); // Always first to render.
-	CombatUI();
+	CombatUI();		// Logic for Combat
 }
 
 void CombatScreen()
@@ -231,14 +231,16 @@ void UISelected()
 
 	if (ActionChoice == 1)
 	{
-		//Inventory();
+		InvChoice();
 	}
 
 	if (ActionChoice == 2)
 	{
-		//Escape();
+		RunAway();
 	}
 }
+
+// Combat System //
 
 void AttStats()
 {
@@ -253,7 +255,7 @@ void AttStats()
 	{
 		oss << Attacks.at(AttackChoice);
 	}
-	else if (AttackChoice != 3 && Attacked)
+	else if (AttackChoice != 3)
 	{
 		oss << "Player used " << Attacks.at(AttackChoice);
 	}
@@ -374,7 +376,7 @@ void AttSelected()
 		{
 			if (g_sEnemy[0][u].bIsFighting)
 			{
-				g_sEnemy[0][u].health -= 10;
+				g_sEnemy[0][u].health = g_sEnemy[0][u].health - (g_sChar.attack + AttackChoice);
 			}
 			if (g_sEnemy[0][u].health <= 0)
 			{
@@ -391,7 +393,7 @@ void AttSelected()
 		{
 			if (g_sEnemy[0][u].bIsFighting)
 			{
-				g_sEnemy[0][u].health -= 20;
+				g_sEnemy[0][u].health = g_sEnemy[0][u].health - (g_sChar.attack + AttackChoice);
 			}
 			if (g_sEnemy[0][u].health <= 0)
 			{
@@ -423,33 +425,219 @@ void AttSelected()
 		Attacked = true;
 	}
 }
-
 void MonsterAtt()
 {
 	COORD c;
 	c.X = 50;
 	c.Y = 25;
 
-	ostringstream oss;
-	vector <string> MonsterAtt{ "Piercing Rage", "Ghostly Ghibus", "Acid Bile", ""};
-	
-	if (MonsterChoice == 3)
+	MonsterChoice = 0;
+
+	if (Attacked)
 	{
-		oss << MonsterAtt.at(MonsterChoice);
-		g_Console.writeToBuffer(c, oss.str());
-		oss.str("");
-	}
-	else if (MonsterChoice != 3)
-	{
-		oss << "Monster used " << MonsterAtt.at(MonsterChoice);
-		g_Console.writeToBuffer(c, oss.str(), 0xA);
-		oss.str("");
+		if (!SetAttack)
+		{
+			MonsterChoice = rand() % 3;
+			SetAttack = true;
+		}
+
+		if (MonsterChoice == 0)
+		{
+			g_sChar.health = g_sChar.health - 6;
+
+			if (g_sChar.health <= 0)
+			{
+				g_eGameState = S_DEATH;
+			}
+
+			Attacked = false;
+		}
+
+		if (MonsterChoice == 1)
+		{
+			g_sChar.health = g_sChar.health - 9;
+
+			if (g_sChar.health <= 0)
+			{
+				g_eGameState = S_DEATH;
+			}
+
+			Attacked = false;
+		}
+
+		if (MonsterChoice == 2)
+		{
+			g_sChar.health = g_sChar.health - 7;
+
+			if (g_sChar.health <= 0)
+			{
+				g_eGameState = S_DEATH;
+			}
+
+			Attacked = false;
+		}
 	}
 }
-void MonsterSelect()
+
+// Inventory System //
+
+void InvChoice()
 {
-	int Choice = rand() % 4 + 1;
-	MonsterChoice = Choice;
+	g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
+	g_abKeyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
+	g_abKeyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
+	g_abKeyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
+	g_abKeyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
 
+	COORD c;
+	c.X = 5;
+	c.Y = 26;
 
+	ostringstream oss;
+	vector <string> Potions{ "Potion of Heal", "Potion of Armour", "Potion of Strength", "" };
+
+	oss << Potions.at(0);
+	g_Console.writeToBuffer(c, oss.str());
+	oss.str("");
+
+	c.X = 29;
+
+	oss << Potions.at(1);
+	g_Console.writeToBuffer(c, oss.str());
+	oss.str("");
+
+	c.X = 5;
+	c.Y = 32;
+
+	oss << Potions.at(2);
+	g_Console.writeToBuffer(c, oss.str());
+	oss.str("");
+
+	if (Wait > g_dElapsedTime)
+		return;
+
+	if (InvSelection == 0)					// Attack Selected
+	{
+		if (g_abKeyPressed[K_DOWN])
+		{
+			InvSelection = 2;
+		}
+		if (g_abKeyPressed[K_RIGHT])
+		{
+			InvSelection = 1;
+		}
+	}
+
+	if (InvSelection == 1)					// Inventory Selected
+	{
+		if (g_abKeyPressed[K_LEFT])
+		{
+			InvSelection = 0;
+		}
+		if (g_abKeyPressed[K_DOWN])
+		{
+			InvSelection = 2;
+		}
+	}
+
+	if (InvSelection == 2)					// Escape Selected
+	{
+		if (g_abKeyPressed[K_UP])
+		{
+			InvSelection = 0;
+		}
+		if (g_abKeyPressed[K_RIGHT])
+		{
+			InvSelection = 2;
+		}
+	}
+
+	if (g_abKeyPressed[K_ESCAPE])
+	{
+		Wait = g_dElapsedTime + 0.125;
+		PrintCombat();
+	}
+
+	if (g_abKeyPressed[K_RETURN])
+	{
+		InventoryChoice = InvSelection;
+		InvSelected();
+		Wait = g_dElapsedTime + 0.125;
+	}
+
+	switch (InvSelection)
+	{
+	case 0:
+		c.X = 5;
+		c.Y = 26;
+		oss << Potions.at(InvSelection);
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+		break;
+
+	case 1:
+		c.X = 29;
+		c.Y = 26;
+		oss << Potions.at(InvSelection);
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+		break;
+
+	case 2:
+		c.X = 5;
+		c.Y = 32;
+		oss << Potions.at(InvSelection);
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+		break;
+
+	case 3:
+		c.X = 29;
+		c.Y = 32;
+		oss << Potions.at(InvSelection);
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+		break;
+	}
+}
+void InvSelected()
+{
+	if (InventoryChoice == 0 && g_sChar.health != 20)
+	{
+		g_sChar.health = g_sChar.health + 4;
+	}
+
+	if (InventoryChoice == 1 && g_sChar.defence != 16)
+	{
+		g_sChar.defence = g_sChar.defence + 3;
+	}
+
+	if (InventoryChoice == 2 && g_sChar.attack != 18)
+	{
+		g_sChar.attack = g_sChar.attack + 2;
+	}
+}
+
+// Escape System //
+
+void RunAway()
+{
+	int Luck = rand() % 6 - 1;
+
+	if (Luck < 6 && Luck > 4)
+	{
+		for (int u = 0; u < numberOfEnemy; u++)
+		{
+			if (g_sEnemy[0][u].bIsFighting)
+			{
+				g_sEnemy[0][u].bIsDead = true;
+				g_eGameState = S_GAME;
+			}
+		}
+	}
+
+	else
+	{
+		g_eGameState = S_DEATH;
+	}
 }
