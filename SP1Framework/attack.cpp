@@ -183,14 +183,9 @@ void UIChoice()
 
 	if (g_abKeyPressed[K_RETURN])
 	{
-		if (!Used)
-		{
-			ActionChoice = ActionSelection;
-			Used = true;
-			IsBack = false;
+		
+		ActionChoice = ActionSelection;
 
-			Wait = g_dElapsedTime + 0.125;
-		}
 	}
 
 	switch (ActionSelection)
@@ -222,23 +217,22 @@ void UIChoice()
 }
 void UISelected()
 {
-	if (!IsBack)
+	
+	if (ActionChoice == 0)
 	{
-		if (ActionChoice == 0)
-		{
-			AttChoice();
-		}
-
-		else if (ActionChoice == 1)
-		{
-			InvChoice();
-		}
-
-		else if (ActionChoice == 2)
-		{
-			RunAway();
-		}
+		AttChoice();
 	}
+
+	else if (ActionChoice == 1)
+	{
+		InvChoice();
+	}
+
+	else if (ActionChoice == 2)
+	{
+		RunAway();
+	}
+	
 }
 
 ///////////////////
@@ -290,7 +284,7 @@ void AttChoice()
 	//									   //
 	/////////////////////////////////////////
 
-	if (AttackSelection == 0)					// Attack Selected
+	if (AttackSelection == 0)					// flamerage Selected
 	{
 		if (g_abKeyPressed[K_DOWN])
 		{
@@ -302,7 +296,7 @@ void AttChoice()
 		}
 	}
 
-	if (AttackSelection == 1)					// Inventory Selected
+	if (AttackSelection == 1)					// stormslash Selected
 	{
 		if (g_abKeyPressed[K_LEFT])
 		{
@@ -314,7 +308,7 @@ void AttChoice()
 		}
 	}
 
-	if (AttackSelection == 2)					// Escape Selected
+	if (AttackSelection == 2)					// fortify Selected
 	{
 		if (g_abKeyPressed[K_UP])
 		{
@@ -326,7 +320,7 @@ void AttChoice()
 		}
 	}
 
-	if (AttackSelection == 3)					// Escape Selected
+	if (AttackSelection == 3)					// Back Selected
 	{
 		if (g_abKeyPressed[K_UP])
 		{
@@ -340,8 +334,8 @@ void AttChoice()
 
 	if (g_abKeyPressed[K_RETURN])				// Confirms Highlighted Attack
 	{
-		AttackChoice = AttackSelection;
 		AttSelected();
+		AttackChoice = AttackSelection;
 	}
 
 	/////////////////////////////////////////
@@ -447,16 +441,6 @@ void AttSelected()
 
 		Attacked = true;
 	}
-
-	if (AttackChoice == 3)
-	{
-		ActionSelection = 0;
-		AttackSelection = 0;
-		IsBack = true;
-		Used = false;
-
-		UIChoice();
-	}
 	
 }
 
@@ -518,7 +502,7 @@ void AttStats()
 		}
 	}
 
-	g_Console.writeToBuffer(c, oss.str(), fontColor);
+	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
 }
