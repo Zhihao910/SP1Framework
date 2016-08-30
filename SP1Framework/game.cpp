@@ -13,6 +13,7 @@ bool    g_abKeyPressed[K_COUNT];
 SGameChar   g_sChar;
 SEnemyChar   g_sEnemy[2][totalEnemy]; //[Number of Enemy Type][Amount of enemy]
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
+EGAMESTATES g_eCombatState = C_UI;
 double  g_dBounceTime;		// this is to prevent key bouncing, so we won't trigger keypresses more than once
 char map[100][50];			// array for Maps
 char text[50][100];			// array for Screens
@@ -21,9 +22,9 @@ int difficulty = 0;			// difficulty selection
 int maps = 0;				// level selection
 int enemyType = 2;			// 2 types of enemy(Slow, Fast)
 int numberOfEnemy = 0;		// Number of enemy in map
-int unlocked = 1;
-bool setSpawn = false;
-bool newMap = true;
+int unlocked = 1;			// number of levels unlocked
+bool setSpawn = false;		// checks is spawnpoint is set in level
+bool newMap = true;			// checks is level loaded is a new level
 
 // Console object
 Console g_Console(100, 50, "SP1 Framework");
@@ -49,7 +50,7 @@ void init( void )
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Raster Fonts");
-	PlaySound(TEXT("music.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+	//PlaySound(TEXT("music.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 }
 
 //--------------------------------------------------------------
@@ -417,7 +418,6 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
-
 void renderEnemy()
 {
 	for (int x = 0; x < numberOfEnemy; x++)

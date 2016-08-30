@@ -3,6 +3,7 @@
 extern Console g_Console;
 extern SEnemyChar g_sEnemy[2][totalEnemy];
 extern EGAMESTATES g_eGameState;
+extern EGAMESTATES g_eCombatState;
 extern struct SGameChar g_sChar;
 extern char map[100][50];
 extern char text[50][100];

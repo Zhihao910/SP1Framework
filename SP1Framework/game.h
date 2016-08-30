@@ -80,9 +80,14 @@ enum EGAMESTATES
 	S_FIGHT,
 	S_DEATH,
 
+	C_UI,
 	C_ATTACK,
 	C_INVENTORY,
 	C_ESCAPE,
+
+	A_ICESTRIKE,
+	A_EXTRAPOLATEDMASS,
+	A_INCEPTION,
 
 	S_COUNT
 };
@@ -163,6 +168,12 @@ void Death();					// Function for loading the text file
 void Difficulty();				// Function for loading the text file
 void loadCombatScreen();		// Function for loading the text file
 void CombatScreen();			// Function for loading the text file
+
+void UserInterface();			// Function for UserOptions in Combat
+void Attack();					// Function for AttackOptions in Combat
+void Inventory();				// Function for PotionOptions in Combat
+void RunAway();					// Function for Escaping in Combat
+void PlayerStats();				// Function for PlayerStatistics in Combat
 
 void HighScore(int score);		// Function for loading highscore data from file.
 void Portal();					// Function for in-game portals
