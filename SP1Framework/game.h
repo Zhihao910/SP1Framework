@@ -155,7 +155,7 @@ void UISelected();				// Prints the CurrentSelected Player Option
 void AttStats();				// Prints which attack was used
 void AttChoice();				// Prints the Attack Options
 void AttSelected();				// Prints the CurrentSelected Attack Option
-void MonsterAtt();				// Prints which attack was used
+void eAttSelected();
 void InvChoice();				// Prints the Inventory Options
 void InvSelected();				// Prints the CurrentSelected Inventory Option
 void RunAway();					// Logic for Escaping.

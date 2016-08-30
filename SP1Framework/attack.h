@@ -8,6 +8,7 @@ int AttackChoice = 3;
 int InventoryChoice = 3;
 int MonsterChoice = 3;
 double Wait;
+bool IsBack = false;
 bool Used = false;
 bool Attacked = false;
 bool SetAttack = false;

@@ -3,7 +3,11 @@
 void PrintCombat()
 {
 	CombatScreen(); // Always first to render.
-	CombatUI();		// Logic for Combat
+	UIStats();		// Prints player stats.
+	UIChoice();		// Prints player options and highlights selected one. (Attack, Inventory, Escape)
+	UISelected();	// Logic for Selected Options
+
+	AttStats();
 }
 
 void CombatScreen()
@@ -45,16 +49,7 @@ void loadCombatScreen()
 	}
 }
 
-void CombatUI()
-{
-	UIStats();
-	UIChoice();
-	UISelected();
-
-	AttStats();
-	MonsterAtt();
-}
-void UIStats()
+void UIStats()		// Prints out Player Stats in the UI.
 {
 	COORD c;
 	c.X = 55;
@@ -159,6 +154,7 @@ void UIChoice()
 		{
 			ActionSelection = 1;
 		}
+		
 	}
 
 	if (ActionSelection == 1)					// Inventory Selected
@@ -190,8 +186,10 @@ void UIChoice()
 		if (!Used)
 		{
 			ActionChoice = ActionSelection;
-			Wait = g_dElapsedTime + 0.125;
 			Used = true;
+			IsBack = false;
+
+			Wait = g_dElapsedTime + 0.125;
 		}
 	}
 
@@ -224,45 +222,29 @@ void UIChoice()
 }
 void UISelected()
 {
-	if (ActionChoice == 0)
+	if (!IsBack)
 	{
-		AttChoice();
-	}
+		if (ActionChoice == 0)
+		{
+			AttChoice();
+		}
 
-	if (ActionChoice == 1)
-	{
-		InvChoice();
-	}
+		else if (ActionChoice == 1)
+		{
+			InvChoice();
+		}
 
-	if (ActionChoice == 2)
-	{
-		RunAway();
+		else if (ActionChoice == 2)
+		{
+			RunAway();
+		}
 	}
 }
 
-// Combat System //
+///////////////////
+// Player Attack //
+///////////////////
 
-void AttStats()
-{
-	COORD c;
-	c.X = 50;
-	c.Y = 25;
-
-	ostringstream oss;
-	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", "" };
-
-	if (AttackChoice == 3)
-	{
-		oss << Attacks.at(AttackChoice);
-	}
-	else if (AttackChoice != 3)
-	{
-		oss << "Player used " << Attacks.at(AttackChoice);
-	}
-
-	g_Console.writeToBuffer(c, oss.str(), 0xA);
-	oss.str("");
-}
 void AttChoice()
 {
 	g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
@@ -276,7 +258,7 @@ void AttChoice()
 	c.Y = 26;
 
 	ostringstream oss;
-	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", " "};
+	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", "= Back ="};
 
 	oss << Attacks.at(0) << " - 4HP";
 	g_Console.writeToBuffer(c, oss.str());
@@ -295,8 +277,18 @@ void AttChoice()
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	if (Wait > g_dElapsedTime)
-		return;
+	c.X = 29;
+	c.Y = 32;
+
+	oss << Attacks.at(3);
+	g_Console.writeToBuffer(c, oss.str());
+	oss.str("");
+
+	/////////////////////////////////////////
+	//                                     //
+	//     Controls for selected Attack    //
+	//									   //
+	/////////////////////////////////////////
 
 	if (AttackSelection == 0)					// Attack Selected
 	{
@@ -318,7 +310,7 @@ void AttChoice()
 		}
 		if (g_abKeyPressed[K_DOWN])
 		{
-			AttackSelection = 2;
+			AttackSelection = 3;
 		}
 	}
 
@@ -330,16 +322,33 @@ void AttChoice()
 		}
 		if (g_abKeyPressed[K_RIGHT])
 		{
-			AttackSelection = 1;
+			AttackSelection = 3;
 		}
 	}
 
-	if (g_abKeyPressed[K_RETURN])
+	if (AttackSelection == 3)					// Escape Selected
+	{
+		if (g_abKeyPressed[K_UP])
+		{
+			AttackSelection = 1;
+		}
+		if (g_abKeyPressed[K_LEFT])
+		{
+			AttackSelection = 2;
+		}
+	}
+
+	if (g_abKeyPressed[K_RETURN])				// Confirms Highlighted Attack
 	{
 		AttackChoice = AttackSelection;
-		AttSelected();	
-		Wait = g_dElapsedTime + 0.125;
+		AttSelected();
 	}
+
+	/////////////////////////////////////////
+	//                                     //
+	//     Highlights selected Attack      //
+	//									   //
+	/////////////////////////////////////////
 
 	switch (AttackSelection)
 	{
@@ -366,10 +375,24 @@ void AttChoice()
 		g_Console.writeToBuffer(c, oss.str(), 0xC);
 		oss.str("");
 		break;
+
+	case 3:
+		c.X = 29;
+		c.Y = 32;
+		oss << Attacks.at(AttackSelection);
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+		break;
 	}
 }
 void AttSelected()
 {
+	/////////////////////////////////////////
+	//                                     //
+	//     Logic for Selected Attack       //
+	//									   //
+	/////////////////////////////////////////
+
 	if (AttackChoice == 0 && !Attacked)
 	{
 		for (int u = 0; u < numberOfEnemy; u++)
@@ -424,15 +447,25 @@ void AttSelected()
 
 		Attacked = true;
 	}
+
+	if (AttackChoice == 3)
+	{
+		ActionSelection = 0;
+		AttackSelection = 0;
+		IsBack = true;
+		Used = false;
+
+		UIChoice();
+	}
+	
 }
-void MonsterAtt()
+
+///////////////////
+//  Enemy Attack //
+///////////////////
+
+void eAttSelected()
 {
-	COORD c;
-	c.X = 50;
-	c.Y = 25;
-
-	MonsterChoice = 0;
-
 	if (Attacked)
 	{
 		if (!SetAttack)
@@ -443,43 +476,56 @@ void MonsterAtt()
 
 		if (MonsterChoice == 0)
 		{
-			g_sChar.health = g_sChar.health - 6;
-
-			if (g_sChar.health <= 0)
-			{
-				g_eGameState = S_DEATH;
-			}
-
-			Attacked = false;
+			g_sChar.health = g_sChar.health - 17;
 		}
 
 		if (MonsterChoice == 1)
 		{
-			g_sChar.health = g_sChar.health - 9;
-
-			if (g_sChar.health <= 0)
-			{
-				g_eGameState = S_DEATH;
-			}
-
-			Attacked = false;
+			g_sChar.health = g_sChar.health - 10;
 		}
 
 		if (MonsterChoice == 2)
 		{
-			g_sChar.health = g_sChar.health - 7;
-
-			if (g_sChar.health <= 0)
-			{
-				g_eGameState = S_DEATH;
-			}
-
-			Attacked = false;
+			g_sChar.health = g_sChar.health - 5;
 		}
 	}
 }
 
+///////////////////
+//  Attack Stats //
+///////////////////
+
+void AttStats()
+{
+	COORD c;
+	c.X = 50;
+	c.Y = 25;
+
+	int fontColor;
+	ostringstream oss;
+	vector <string> Attacks{ "Flame Rage", "Storm Flash", "Fortify", "" };
+
+	if (!Attacked)
+	{
+		if (AttackChoice != 3)
+		{
+			oss << "Player used " << Attacks.at(AttackChoice);
+			fontColor = 0xA;
+		}
+		else if (AttackChoice == 3)
+		{
+			oss << Attacks.at(AttackChoice);
+		}
+	}
+
+	g_Console.writeToBuffer(c, oss.str(), fontColor);
+	oss.str("");
+
+}
+
+//////////////////////
 // Inventory System //
+//////////////////////
 
 void InvChoice()
 {
@@ -602,23 +648,25 @@ void InvChoice()
 }
 void InvSelected()
 {
-	if (InventoryChoice == 0 && g_sChar.health != 20)
+	if (InventoryChoice == 0 && g_sChar.health <= 20)
 	{
 		g_sChar.health = g_sChar.health + 4;
 	}
 
-	if (InventoryChoice == 1 && g_sChar.defence != 16)
+	if (InventoryChoice == 1 && g_sChar.defence <= 16)
 	{
 		g_sChar.defence = g_sChar.defence + 3;
 	}
 
-	if (InventoryChoice == 2 && g_sChar.attack != 18)
+	if (InventoryChoice == 2 && g_sChar.attack <= 18)
 	{
 		g_sChar.attack = g_sChar.attack + 2;
 	}
 }
 
+///////////////////
 // Escape System //
+///////////////////
 
 void RunAway()
 {
