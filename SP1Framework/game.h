@@ -79,6 +79,11 @@ enum EGAMESTATES
 	S_SCORE,
 	S_FIGHT,
 	S_DEATH,
+
+	C_ATTACK,
+	C_INVENTORY,
+	C_ESCAPE,
+
 	S_COUNT
 };
 
@@ -147,18 +152,6 @@ void PrintDialogueText();		// Loads and Prints the Dialogue Text
 void PrintDeath();				// Loads and Prints the Death Screen
 void PrintDifficulty();			// Loads and Prints the Difficulty Screen
 void PrintCombat();				// Loads and Prints the Combat Screen
-
-void CombatUI();				// Loads all the User Interface elements for Combat
-void UIStats();					// Prints the Statistics of Player
-void UIChoice();				// Prints the Player Options
-void UISelected();				// Prints the CurrentSelected Player Option
-void AttStats();				// Prints which attack was used
-void AttChoice();				// Prints the Attack Options
-void AttSelected();				// Prints the CurrentSelected Attack Option
-void eAttSelected();
-void InvChoice();				// Prints the Inventory Options
-void InvSelected();				// Prints the CurrentSelected Inventory Option
-void RunAway();					// Logic for Escaping.
 
 void SplashScreen();			// Function for loading the text file
 void MainMenu();				// Function for loading the text file
