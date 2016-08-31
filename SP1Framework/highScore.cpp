@@ -88,6 +88,8 @@ void HighScoreBox()
 
 	int height = 0;
 	int width;
+	int color;
+	int time = g_dElapsedTime;
 	string loadLine = "";
 	ifstream myfile("Screens/HighScoreLayout.txt");
 
@@ -108,26 +110,34 @@ void HighScoreBox()
 
 	for (int y = 0; y < 36; y++)
 	{
+		if (time % 2 == 0)
+		{
+			if (y % 3 == 0)
+			{
+				color = 0x3;
+			}
+
+			if (y % 3 != 0)
+			{
+				color = 0x1;
+			}
+		}
+
+		if (time % 2 != 0)
+		{
+			if (y % 2 == 0)
+			{
+				color = 0x9;
+			}
+
+			if (y % 2 != 0)
+			{
+				color = 0xB;
+			}
+		}
+
 		printLine = text[y];
-		g_Console.writeToBuffer(c, printLine, 0xB);
+		g_Console.writeToBuffer(c, printLine, color);
 		c.Y++;
 	}
 }
-
-/*
-void findHighest(int A[][Cm], int n, int m)
-{
-	for (int i = 0; i < n; i++)
-	{
-		int max = A[i][0];
-		for (int j = 1; j < m; j++)
-		{
-			if (A[i][j] > max)
-			{
-				max = A[i][j];
-			}
-		}
-		// do something with max
-	}
-}
-*/

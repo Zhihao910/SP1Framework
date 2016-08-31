@@ -2,7 +2,36 @@
 
 void PrintCombat()
 {
+	int AnimTime = g_dElapsedTime;
+
 	CombatScreen(); // Always first to render.
+
+	if (AnimTime % 2 == 0)
+	{
+		if (AnimUsed)
+			MonsterAnim3();
+
+		else
+			MonsterAnim1();
+	}
+	if (AnimTime % 3 == 0)
+	{
+		if (AnimUsed)
+			MonsterAnim4();
+	}
+	if (AnimTime % 2 != 0)
+	{
+		if (AnimUsed)
+			MonsterAnim5();
+
+		else
+			MonsterAnim2();
+	}
+	if (AnimTime % 3 != 0)
+	{
+		if (AnimUsed)
+			MonsterAnim6();
+	}
 	PlayerStats();
 
 	switch (g_eCombatState)
@@ -38,7 +67,7 @@ void CombatScreen()
 	string print = "";
 
 
-	for (int y = 0; y < 35; y++)
+	for (int y = 0; y < 41; y++)
 	{
 		print = text[y];
 		g_Console.writeToBuffer(c, print, 0xE);
@@ -69,8 +98,8 @@ void loadCombatScreen()
 void PlayerStats()
 {
 	COORD c;
-	c.X = 50;
-	c.Y = 26;
+	c.X = 64;
+	c.Y = 32;
 
 	ostringstream oss;
 	
@@ -78,22 +107,22 @@ void PlayerStats()
 	g_Console.writeToBuffer(c, oss.str(), 0xA);
 	oss.str("");
 
-	c.X = 50;
-	c.Y = 29;
+	c.X = 64;
+	c.Y = 35;
 
 	oss << "Defence: " << g_sChar.defence;
 	g_Console.writeToBuffer(c, oss.str(), 0x3);
 	oss.str("");
 
-	c.X = 50;
-	c.Y = 32;
+	c.X = 64;
+	c.Y = 38;
 
 	oss << "Attack: " << g_sChar.attack;
 	g_Console.writeToBuffer(c, oss.str(), 0xC);
 	oss.str("");
 
 	c.X = 35;
-	c.Y = 4;
+	c.Y = 3;
 
 	for (int i = 0; i < numberOfEnemy; i++)
 	{
@@ -110,7 +139,7 @@ void UserInterface()
 {
 	COORD c;
 	c.X = 4;
-	c.Y = 26;
+	c.Y = 32;
 
 	g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
 	g_abKeyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
@@ -126,15 +155,15 @@ void UserInterface()
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X = 27;
-	c.Y = 26;
+	c.X = 33;
+	c.Y = 32;
 
 	oss << UserInter.at(1);					// Displayers the option: Potions
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
 	c.X = 4;
-	c.Y = 32;
+	c.Y = 38;
 
 	oss << UserInter.at(2);					// Displayers the option: Run
 	g_Console.writeToBuffer(c, oss.str());
@@ -149,18 +178,18 @@ void UserInterface()
 	{
 	case 0:		// ATTACK OPTION is currently highlighted.
 		c.X = 4;
-		c.Y = 26;
+		c.Y = 32;
 		if (g_abKeyPressed[K_RIGHT])
 		{
 			Highlighted = 1;
-			c.X = 27;
-			c.Y = 26;
+			c.X = 33;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_DOWN])
 		{
 			Highlighted = 2;
 			c.X = 4;
-			c.Y = 32;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -174,19 +203,19 @@ void UserInterface()
 		break;
 
 	case 1:		// POTIONS OPTION is currently highlighted.
-		c.X = 27;
-		c.Y = 26;
+		c.X = 33;
+		c.Y = 32;
 		if (g_abKeyPressed[K_LEFT])
 		{
 			Highlighted = 0;
 			c.X = 4;
-			c.Y = 26;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_DOWN])
 		{
 			Highlighted = 2;
 			c.X = 4;
-			c.Y = 32;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -201,18 +230,18 @@ void UserInterface()
 
 	case 2:		// RUN AWAY OPTION is currently highlighted.
 		c.X = 4;
-		c.Y = 32;
+		c.Y = 38;
 		if (g_abKeyPressed[K_UP])
 		{
 			Highlighted = 0;
 			c.X = 4;
-			c.Y = 26;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_RIGHT])
 		{
 			Highlighted = 1;
-			c.X = 27;
-			c.Y = 26;
+			c.X = 33;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -240,7 +269,7 @@ void Attack()
 {
 	COORD c;
 	c.X = 4;
-	c.Y = 26;
+	c.Y = 32;
 
 	g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
 	g_abKeyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
@@ -250,27 +279,28 @@ void Attack()
 
 	EnterPressed = false;
 	ostringstream oss;
-	vector <string> Attacks{ "Ice Strike", "Extrapolated Mass", "Inception", "== BACK ==" };
+	vector <string> Attacks{ "Ice Strike - 10 ATK", "Extrapolated Mass - 7 ATK", "Inception - 15 ATK", "== BACK ==" };
 
 	oss << Attacks.at(0);					// Displays the option: Ice Strike 
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X = 27;
+	c.X = 33;
+	c.Y = 32;
 
 	oss << Attacks.at(1);					// Displayers the option: Extrapolated Mass
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
 	c.X = 4;
-	c.Y = 32;
+	c.Y = 38;
 
 	oss << Attacks.at(2);					// Displayers the option: Inception
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X = 27;
-	c.Y = 32;
+	c.X = 33;
+	c.Y = 38;
 
 	oss << Attacks.at(3);					// Displayers the option: == BACK ==
 	g_Console.writeToBuffer(c, oss.str());
@@ -285,18 +315,18 @@ void Attack()
 	{
 	case 0:		// ICE STRIKE is currently highlighted.
 		c.X = 4;
-		c.Y = 26;
+		c.Y = 32;
 		if (g_abKeyPressed[K_RIGHT])
 		{
 			Highlighted = 1;
-			c.X = 27;
-			c.Y = 26;
+			c.X = 33;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_DOWN])
 		{
 			Highlighted = 2;
 			c.X = 4;
-			c.Y = 32;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -310,25 +340,25 @@ void Attack()
 		break;
 
 	case 1:		// EXTRAPOLATED MASS is currently highlighted.
-		c.X = 27;
-		c.Y = 26;
+		c.X = 33;
+		c.Y = 32;
 		if (g_abKeyPressed[K_LEFT])
 		{
 			Highlighted = 0;
 			c.X = 4;
-			c.Y = 26;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_DOWN])
 		{
 			Highlighted = 3;
-			c.X = 27;
-			c.Y = 32;
+			c.X = 33;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
 			if (EnterWait < g_dElapsedTime && !EnterPressed)
 			{
-				AttackDamage = 6;
+				AttackDamage = 7;
 				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}
@@ -337,24 +367,24 @@ void Attack()
 
 	case 2:		// INCEPTION is currently highlighted.
 		c.X = 4;
-		c.Y = 32;
+		c.Y = 38;
 		if (g_abKeyPressed[K_UP])
 		{
 			Highlighted = 0;
 			c.X = 4;
-			c.Y = 26;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_RIGHT])
 		{
 			Highlighted = 3;
-			c.X = 27;
-			c.Y = 32;
+			c.X = 33;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
-			if (EnterWait < g_dElapsedTime && !EnterWait)
+			if (EnterWait < g_dElapsedTime && !EnterPressed)
 			{
-				AttackDamage = 5;
+				AttackDamage = 15;
 				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}	
@@ -362,19 +392,19 @@ void Attack()
 		break;
 
 	case 3:		// == BACK == is currently highlighted.
-		c.X = 27;
-		c.Y = 32;
+		c.X = 33;
+		c.Y = 38;
 		if (g_abKeyPressed[K_UP])
 		{
 			Highlighted = 1;
-			c.X = 27;
-			c.Y = 26;
+			c.X = 33;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_LEFT])
 		{
 			Highlighted = 2;
 			c.X = 4;
-			c.Y = 32;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -401,7 +431,7 @@ void Inventory()
 {
 	COORD c;
 	c.X = 4;
-	c.Y = 26;
+	c.Y = 32;
 
 	g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
 	g_abKeyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
@@ -413,25 +443,26 @@ void Inventory()
 	ostringstream oss;
 	vector <string> Potions{ "Health Elixir", "Lug of Strength", "Shielded Ward", "== BACK ==" };
 
-	oss << Potions.at(0);					// Displays the option: Ice Strike 
+	oss << Potions.at(0);					// Displays the option: Health Elixir 
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X = 27;
+	c.X = 33;
+	c.Y = 32;
 
-	oss << Potions.at(1);					// Displayers the option: Extrapolated Mass
+	oss << Potions.at(1);					// Displayers the option: Lug of Strength
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
 	c.X = 4;
-	c.Y = 32;
+	c.Y = 38;
 
-	oss << Potions.at(2);					// Displayers the option: Inception
+	oss << Potions.at(2);					// Displayers the option: Shielded 
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
-	c.X = 27;
-	c.Y = 32;
+	c.X = 33;
+	c.Y = 38;
 
 	oss << Potions.at(3);					// Displayers the option: == BACK ==
 	g_Console.writeToBuffer(c, oss.str());
@@ -446,18 +477,18 @@ void Inventory()
 	{
 	case 0:		// HEALTH ELIXIR is currently highlighted.
 		c.X = 4;
-		c.Y = 26;
+		c.Y = 32;
 		if (g_abKeyPressed[K_RIGHT])
 		{
 			Highlighted = 1;
-			c.X = 27;
-			c.Y = 26;
+			c.X = 33;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_DOWN])
 		{
 			Highlighted = 2;
 			c.X = 4;
-			c.Y = 32;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -478,19 +509,19 @@ void Inventory()
 		break;
 
 	case 1:		// LUG OF STRENGTH is currently highlighted.
-		c.X = 27;
-		c.Y = 26;
+		c.X = 33;
+		c.Y = 32;
 		if (g_abKeyPressed[K_LEFT])
 		{
 			Highlighted = 0;
 			c.X = 4;
-			c.Y = 26;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_DOWN])
 		{
 			Highlighted = 3;
-			c.X = 27;
-			c.Y = 32;
+			c.X = 33;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -512,18 +543,18 @@ void Inventory()
 
 	case 2:		// SHIELDED WARD is currently highlighted.
 		c.X = 4;
-		c.Y = 32;
+		c.Y = 38;
 		if (g_abKeyPressed[K_UP])
 		{
 			Highlighted = 0;
 			c.X = 4;
-			c.Y = 26;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_RIGHT])
 		{
 			Highlighted = 3;
-			c.X = 27;
-			c.Y = 32;
+			c.X = 33;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -544,19 +575,19 @@ void Inventory()
 		break;
 
 	case 3:		// == BACK == is currently highlighted.
-		c.X = 27;
-		c.Y = 32;
+		c.X = 33;
+		c.Y = 38;
 		if (g_abKeyPressed[K_UP])
 		{
 			Highlighted = 1;
-			c.X = 27;
-			c.Y = 26;
+			c.X = 33;
+			c.Y = 32;
 		}
 		if (g_abKeyPressed[K_LEFT])
 		{
 			Highlighted = 2;
 			c.X = 4;
-			c.Y = 32;
+			c.Y = 38;
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
@@ -583,7 +614,7 @@ void RunAway()
 {
 	for (int i = 0; i < numberOfEnemy; i++)
 	{
-		if (g_sChar.health > 0 && g_sEnemy[0][i].health > 0 && g_sEnemy[0][i].bIsFighting)
+		if (g_sEnemy[0][i].health > 0 && g_sEnemy[0][i].bIsFighting)
 		{
 			g_sEnemy[0][i].bIsFighting = false;
 			g_sEnemy[0][i].bIsDead = true;
@@ -594,29 +625,35 @@ void RunAway()
 
 void PlayerAttack()
 {
+	COORD c;
+	c.X = 21;
+	c.Y = 28;
+
+	ostringstream oss;
+
 	for (int i = 0; i < numberOfEnemy; i++)
 	{
-		if (g_sEnemy[0][i].bIsFighting && !g_sEnemy[0][i].bIsDead)
+		if (g_sEnemy[0][i].bIsFighting && g_sEnemy[0][i].health > 0)
 		{
-			Damage = (g_sChar.attack + AttackDamage) - g_sEnemy[0][i].defence;
+			eDamageLeft = (g_sChar.attack + AttackDamage) - g_sEnemy[0][i].defence;
 
-			if (Damage <= 0)
+			if (eDamageLeft < 0)
 			{
-				Damage = 0;
+				eDamageLeft = 0;
 			}
 
-			eHealthLeft = g_sEnemy[0][i].health - Damage;
-			g_sEnemy[0][i].health = eHealthLeft;
+			eHealthLeft = g_sEnemy[0][i].health - eDamageLeft;
 
-			if (g_sEnemy[0][i].health <= 0)
+			if (g_sEnemy[0][i].health < 1)
 			{
 				g_sEnemy[0][i].bIsFighting = false;
 				g_sEnemy[0][i].bIsDead = true;
+				g_sChar.gold += 5;
 				g_eGameState = S_GAME;
 			}
-
 			else if (g_sEnemy[0][i].health > 0)
 			{
+				g_sEnemy[0][i].health = HealthLeft;
 				EnterPressed2 = true;
 				g_eCombatState = C_ENEMYATTACK;
 			}
@@ -627,7 +664,7 @@ void EnemyAttack()
 {
 	COORD c;
 	c.X = 4;
-	c.Y = 26;
+	c.Y = 32;
 
 	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
 	ostringstream oss;
@@ -640,6 +677,17 @@ void EnemyAttack()
 			RandomAttack = rand() % 4;
 			RandomDamage = rand() % 10 + 1;
 			SetAttack = true;
+		}
+
+		for (int i = 0; i < numberOfEnemy; i++)
+		{
+			if (g_sEnemy[0][i].health < 1)
+			{
+				g_sEnemy[0][i].bIsFighting = false;
+				g_sEnemy[0][i].bIsDead = true;
+				g_sChar.gold += 5;
+				g_eGameState = S_GAME;
+			}
 		}
 
 		switch (RandomAttack)
@@ -669,29 +717,29 @@ void EnemyAttack()
 		g_Console.writeToBuffer(c, oss.str(), 0xC);
 		oss.str("");
 
-		c.X = 27;
-		c.Y = 26;
+		c.X = 33;
+		c.Y = 32;
 
 		oss << "SPACE";
 		g_Console.writeToBuffer(c, oss.str(), 0xC);
 		oss.str("");
 
 		c.X = 4;
-		c.Y = 32;
+		c.Y = 38;
 
 		oss << "TO";
 		g_Console.writeToBuffer(c, oss.str(), 0xC);
 		oss.str("");
 
 		c.X = 26;
-		c.Y = 32;
+		c.Y = 38;
 
 		oss << "CONTINUE.";
 		g_Console.writeToBuffer(c, oss.str(), 0xC);
 		oss.str("");
 
 		c.X = 21;
-		c.Y = 22;
+		c.Y = 28;
 
 		oss << "Monster attacked with " << DamageLeft << " damage!";
 		g_Console.writeToBuffer(c, oss.str(), 0xC);
@@ -718,5 +766,204 @@ void EnemyAttack()
 				g_eCombatState = C_UI;
 			}	
 		}
+	}
+}
+
+void MonsterAnim1()
+{
+	COORD c;
+	c.X = 20;
+	c.Y = 4;
+
+	int height = 0;
+	int width;
+	string print = "";
+	string line = "";
+
+	ifstream myfile("Animations/MonsterAnim1.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			for (width = 0; width < 45; width++)
+			{
+				text[height][width] = line[width];
+			}
+			height++;
+		}
+		myfile.close();
+	}
+
+	for (int y = 0; y < 23; y++)
+	{
+		print = text[y];
+		g_Console.writeToBuffer(c, print, 0xC);
+		c.Y++;
+	}
+}
+void MonsterAnim2()
+{
+	COORD c;
+	c.X = 20;
+	c.Y = 4;
+
+	int height = 0;
+	int width;
+	string print = "";
+	string line = "";
+	ifstream myfile("Animations/MonsterAnim2.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			for (width = 0; width < 45; width++)
+			{
+				text[height][width] = line[width];
+			}
+			height++;
+		}
+		myfile.close();
+	}
+
+	for (int y = 0; y < 23; y++)
+	{
+		print = text[y];
+		g_Console.writeToBuffer(c, print, 0xC);
+		c.Y++;
+	}
+}
+
+void MonsterAnim3()
+{
+	COORD c;
+	c.X = 32;
+	c.Y = 14;
+
+	int height = 0;
+	int width;
+	string print = "";
+	string line = "";
+
+	ifstream myfile("Animations/MonsterAnim3.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			for (width = 0; width < 20; width++)
+			{
+				text[height][width] = line[width];
+			}
+			height++;
+		}
+		myfile.close();
+	}
+
+	for (int y = 0; y < 7; y++)
+	{
+		print = text[y];
+		g_Console.writeToBuffer(c, print, 0xC);
+		c.Y++;
+	}
+}
+void MonsterAnim4()
+{
+	COORD c;
+	c.X = 32;
+	c.Y = 14;
+
+	int height = 0;
+	int width;
+	string print = "";
+	string line = "";
+
+	ifstream myfile("Animations/MonsterAnim4.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			for (width = 0; width < 20; width++)
+			{
+				text[height][width] = line[width];
+			}
+			height++;
+		}
+		myfile.close();
+	}
+
+	for (int y = 0; y < 7; y++)
+	{
+		print = text[y];
+		g_Console.writeToBuffer(c, print, 0xC);
+		c.Y++;
+	}
+}
+void MonsterAnim5()
+{
+	COORD c;
+	c.X = 32;
+	c.Y = 14;
+
+	int height = 0;
+	int width;
+	string print = "";
+	string line = "";
+
+	ifstream myfile("Animations/MonsterAnim5.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			for (width = 0; width < 20; width++)
+			{
+				text[height][width] = line[width];
+			}
+			height++;
+		}
+		myfile.close();
+	}
+
+	for (int y = 0; y < 7; y++)
+	{
+		print = text[y];
+		g_Console.writeToBuffer(c, print, 0xC);
+		c.Y++;
+	}
+}
+void MonsterAnim6()
+{
+	COORD c;
+	c.X = 32;
+	c.Y = 14;
+
+	int height = 0;
+	int width;
+	string print = "";
+	string line = "";
+
+	ifstream myfile("Animations/MonsterAnim6.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			for (width = 0; width < 20; width++)
+			{
+				text[height][width] = line[width];
+			}
+			height++;
+		}
+		myfile.close();
+	}
+
+	for (int y = 0; y < 7; y++)
+	{
+		print = text[y];
+		g_Console.writeToBuffer(c, print, 0xC);
+		c.Y++;
 	}
 }

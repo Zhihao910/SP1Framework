@@ -38,6 +38,7 @@ extern struct SGameChar g_sChar;
 extern bool g_bQuitGame;
 extern bool newMap;
 extern bool setSpawn;
+extern bool AnimUsed;
 const int totalEnemy = 8;
 
 // Enumeration to store the control keys that your game will have
@@ -79,6 +80,7 @@ enum EGAMESTATES
 	S_SCORE,
 	S_FIGHT,
 	S_DEATH,
+	S_WIN,
 
 	C_UI,
 	C_ATTACK,
@@ -111,7 +113,7 @@ struct SEnemyChar
 	bool bSomethingHappened = false;
 	bool bIsDead;
 	bool bIsFighting;
-	int health;
+	int health = 15;
 	int defence;
 	int random = 1;
 	int tempCheck = 1;
@@ -147,6 +149,7 @@ void selectLevel();				// Logic for Level Selection
 void selectDifficulty();		// Logic for Difficulty Selection
 void scorewait();				// Logic for Score Screen
 void deathwait();				// Logic for Death Screen
+void winwait();					// Logic for Win Screen
 
 void PrintSplashScreen();		// Loads and Prints the Splash Screen
 void PrintMainMenu();			// Loads and Prints the Main Menu
@@ -157,6 +160,7 @@ void PrintDialogueText();		// Loads and Prints the Dialogue Text
 void PrintDeath();				// Loads and Prints the Death Screen
 void PrintDifficulty();			// Loads and Prints the Difficulty Screen
 void PrintCombat();				// Loads and Prints the Combat Screen
+void PrintWin();				// Loads and Prints the Win Screen
 
 void SplashScreen();			// Function for loading the text file
 void MainMenu();				// Function for loading the text file
@@ -168,12 +172,19 @@ void Death();					// Function for loading the text file
 void Difficulty();				// Function for loading the text file
 void loadCombatScreen();		// Function for loading the text file
 void CombatScreen();			// Function for loading the text file
+void Win();						// Function for loading the text file
 
 void UserInterface();			// Function for UserOptions in Combat
 void Attack();					// Function for AttackOptions in Combat
 void Inventory();				// Function for PotionOptions in Combat
 void RunAway();					// Function for Escaping in Combat
 void PlayerStats();				// Function for PlayerStatistics in Combat
+void MonsterAnim1();
+void MonsterAnim2();
+void MonsterAnim3();
+void MonsterAnim4();
+void MonsterAnim5();
+void MonsterAnim6();
 
 void EnemyAttack();
 

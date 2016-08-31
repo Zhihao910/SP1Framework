@@ -57,7 +57,7 @@ void PrintDialogueText()
 	for (int i = 0; i < g_sChar.health; i++)
 	{
 		g_Console.writeToBuffer(c, char(3), 0xC);				//Prints out amount of health.
-		c.X++;
+		c.X += 2;
 	}
 
 	c.X = 4;

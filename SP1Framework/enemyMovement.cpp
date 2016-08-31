@@ -20,8 +20,17 @@ void enemyMove() // Enemy Random Movement
 					{
 						g_sEnemy[i][x].m_cLocation.Y--; // it will move up
 					}
-					else if (!g_sEnemy[i][x].bIsDead)
+					else if (!g_sEnemy[i][x].bIsDead && g_sEnemy[0][x].health > 0)
 					{
+						if (AnimUsed)
+						{
+							AnimUsed = false;
+						}
+
+						else if (!AnimUsed)
+						{
+							AnimUsed = true;
+						}
 						g_sEnemy[i][x].bIsFighting = true;
 						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;
@@ -45,8 +54,17 @@ void enemyMove() // Enemy Random Movement
 					{
 						g_sEnemy[i][x].m_cLocation.Y++;
 					}
-					else if (!g_sEnemy[i][x].bIsDead)
+					else if (!g_sEnemy[i][x].bIsDead && g_sEnemy[0][x].health > 0)
 					{
+						if (AnimUsed)
+						{
+							AnimUsed = false;
+						}
+
+						else if (!AnimUsed)
+						{
+							AnimUsed = true;
+						}
 						g_sEnemy[i][x].bIsFighting = true;
 						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;	
@@ -70,8 +88,17 @@ void enemyMove() // Enemy Random Movement
 					{
 						g_sEnemy[i][x].m_cLocation.X++;
 					}
-					else if (!g_sEnemy[i][x].bIsDead)
+					else if (!g_sEnemy[i][x].bIsDead && g_sEnemy[0][x].health > 0)
 					{
+						if (AnimUsed)
+						{
+							AnimUsed = false;
+						}
+
+						else if (!AnimUsed)
+						{
+							AnimUsed = true;
+						}
 						g_sEnemy[i][x].bIsFighting = true;
 						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;
@@ -95,8 +122,17 @@ void enemyMove() // Enemy Random Movement
 					{
 						g_sEnemy[i][x].m_cLocation.X--;
 					}
-					else if (!g_sEnemy[i][x].bIsDead)
+					else if (!g_sEnemy[i][x].bIsDead && g_sEnemy[0][x].health > 0)
 					{
+						if (AnimUsed)
+						{
+							AnimUsed = false;
+						}
+
+						else if (!AnimUsed)
+						{
+							AnimUsed = true;
+						}
 						g_sEnemy[i][x].bIsFighting = true;
 						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;

@@ -11,6 +11,7 @@ extern bool bSomethingHappened;
 extern bool g_abKeyPressed[K_COUNT];
 extern bool	setSpawn;
 extern bool	newMap;
+extern bool AnimUsed;
 extern int difficulty;
 extern int maps;
 extern int unlocked;

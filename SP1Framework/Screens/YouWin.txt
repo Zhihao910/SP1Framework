@@ -1,0 +1,14 @@
++aa   aa+ -aaaaa   a    aa     a     a. aa+ aaaa    a 
+ -aa  aa--aa-  aa- aa  +aa-   +a. a .a.+aa- aa ba   a 
+  -aa aa.-aa.  aa-+aa  -aa.   -a. a .a -aa-+aa  ba aa-
+  . caa+.-aa   aa.++a  .aa.   .a. a .a .aa.+aa-  ccaa-
+  . aa-+.. aaaa+-.--aaaaa+    ..aa-aa+ .aa.-aa.   +aa.
+   aa--- . -.-.-. .-+- - -    . +.- -  .+  . -.   - - 
+ +aa .-.   . - -. ..-. . .      - . .   - .. ..   . -.
+ - - ..  . . . -   ... . .      .   .   - .   .   . . 
+ . .         . .     .            .     .           . 
+ . .                                                  
+                                                      
+           =================================          
+           == PRESS "SPACE" FOR HIGHSCORE ==          
+           =================================          

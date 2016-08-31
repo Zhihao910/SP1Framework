@@ -129,6 +129,8 @@ void update(double dt)
 		break;
 	case S_LEVELS: selectLevel();
 		break;
+	case S_WIN: winwait();
+		break;
 	case S_DEATH: deathwait();
 		break;
 	case S_SCORE: scorewait();
@@ -167,9 +169,11 @@ void render()
 		break;
 	case S_SCORE: renderHighScore();
 		break;
+	case S_WIN: PrintWin();
+		break;
 	case S_DEATH: PrintDeath();
 		break;
-	case S_FIGHT: PrintCombat();
+	case S_FIGHT: PrintCombat();	
 		break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -207,6 +211,10 @@ void mainmenuwait() // main menu logic
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_bQuitGame = true;
 	}
+	if (g_abKeyPressed[K_SPACE])
+	{
+		unlocked = 5;
+	}
 }
 void instructionwait()
 {
@@ -224,7 +232,7 @@ void selectDifficulty()
 	if (g_abKeyPressed[K_1])
 	{
 		difficulty = 1;
-		g_sChar.health = 20;
+		g_sChar.health = 15;
 		g_sChar.attack = 5;
 		g_sChar.defence = 5;
 		g_dBounceTime = g_dElapsedTime + 0.5;
@@ -347,6 +355,13 @@ void deathwait()
 		g_eGameState = S_SCORE;
 	}
 }
+void winwait()
+{
+	if (g_abKeyPressed[K_SPACE])
+	{
+		g_eGameState = S_SCORE;
+	}
+}
 
 void processUserInput()
 {
@@ -426,7 +441,7 @@ void renderEnemy()
 			g_Console.writeToBuffer(g_sEnemy[0][x].m_cLocation, (char)158);
 			g_sEnemy[0][x].bIsDead = false;
 			g_sEnemy[0][x].bIsFighting = false;
-			g_sEnemy[0][x].health = 15;
+			g_sEnemy[0][x].health = 20;
 			g_sEnemy[0][x].defence = x;
 			enemyMove();
 		}

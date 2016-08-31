@@ -30,11 +30,23 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
-						g_sEnemy[i][x].bIsFighting = true;
-						g_eCombatState = C_UI;
-						g_eGameState = S_FIGHT;
+						if (g_sEnemy[i][x].health > 0)
+						{
+							if (AnimUsed)
+							{
+								AnimUsed = false;
+							}
+
+							else if (!AnimUsed)
+							{
+								AnimUsed = true;
+							}
+							g_sEnemy[i][x].bIsFighting = true;
+							g_eCombatState = C_UI;
+							g_eGameState = S_FIGHT;
+						}
 					}
 				}
 			}
@@ -50,7 +62,7 @@ void moveCharacter()
 				setSpawn = false;
 				if (maps > 6)
 				{
-					g_eGameState = S_SCORE;
+					g_eGameState = S_WIN;
 				}
 			}
 			if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
@@ -127,11 +139,23 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && g_sEnemy[0][x].health > 0)
 					{
-						g_sEnemy[i][x].bIsFighting = true;
-						g_eCombatState = C_UI;
-						g_eGameState = S_FIGHT;
+						if (g_sEnemy[i][x].health > 0)
+						{
+							if (AnimUsed)
+							{
+								AnimUsed = false;
+							}
+
+							else if (!AnimUsed)
+							{
+								AnimUsed = true;
+							}
+							g_sEnemy[i][x].bIsFighting = true;
+							g_eCombatState = C_UI;
+							g_eGameState = S_FIGHT;
+						}
 					}
 				}
 			}
@@ -147,7 +171,7 @@ void moveCharacter()
 				setSpawn = false;
 				if (maps > 6)
 				{
-					g_eGameState = S_SCORE;
+					g_eGameState = S_WIN;
 				}
 			}
 			if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
@@ -225,11 +249,23 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && g_sEnemy[0][x].health > 0)
 					{
-						g_sEnemy[i][x].bIsFighting = true;
-						g_eCombatState = C_UI;
-						g_eGameState = S_FIGHT;
+						if (g_sEnemy[i][x].health > 0)
+						{
+							if (AnimUsed)
+							{
+								AnimUsed = false;
+							}
+
+							else if (!AnimUsed)
+							{
+								AnimUsed = true;
+							}
+							g_sEnemy[i][x].bIsFighting = true;
+							g_eCombatState = C_UI;
+							g_eGameState = S_FIGHT;
+						}
 					}
 				}
 			}
@@ -245,7 +281,7 @@ void moveCharacter()
 				setSpawn = false;
 				if (maps > 6)
 				{
-					g_eGameState = S_SCORE;
+					g_eGameState = S_WIN;
 				}
 			}
 			if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
@@ -323,11 +359,23 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && g_sEnemy[0][x].health > 0)
 					{
-						g_sEnemy[i][x].bIsFighting = true;
-						g_eCombatState = C_UI;
-						g_eGameState = S_FIGHT;
+						if (g_sEnemy[i][x].health > 0)
+						{
+							if (AnimUsed)
+							{
+								AnimUsed = false;
+							}
+
+							else if (!AnimUsed)
+							{
+								AnimUsed = true;
+							}
+							g_sEnemy[i][x].bIsFighting = true;
+							g_eCombatState = C_UI;
+							g_eGameState = S_FIGHT;
+						}
 					}
 				}
 			}
@@ -343,7 +391,7 @@ void moveCharacter()
 				setSpawn = false;
 				if (maps > 6)
 				{
-					g_eGameState = S_SCORE;
+					g_eGameState = S_WIN;
 				}
 			}
 			if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == char(178)) //Red Door
