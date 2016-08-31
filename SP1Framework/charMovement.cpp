@@ -415,6 +415,7 @@ void moveCharacter()
 		else if (!enableGod)
 		{
 			enableGod = true;
+			unlocked = 5;
 		}
 		g_sChar.m_bActive = !g_sChar.m_bActive;
 		bSomethingHappened = true;
