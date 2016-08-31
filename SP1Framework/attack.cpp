@@ -10,7 +10,7 @@ void PrintCombat()
 	case C_UI: UserInterface();
 		break;
 
-	case C_ATTACK:  Attack();
+	case C_ATTACK: Attack();
 		break;
 
 	case C_INVENTORY: Inventory();
@@ -583,7 +583,7 @@ void RunAway()
 {
 	for (int i = 0; i < numberOfEnemy; i++)
 	{
-		if (g_sChar.health > 0 && g_sEnemy[0][i].health > 0)
+		if (g_sChar.health > 0 && g_sEnemy[0][i].health > 0 && g_sEnemy[0][i].bIsFighting)
 		{
 			g_sEnemy[0][i].bIsFighting = false;
 			g_sEnemy[0][i].bIsDead = true;
@@ -610,6 +610,7 @@ void PlayerAttack()
 
 			if (g_sEnemy[0][i].health <= 0)
 			{
+				g_sEnemy[0][i].bIsFighting = false;
 				g_sEnemy[0][i].bIsDead = true;
 				g_eGameState = S_GAME;
 			}

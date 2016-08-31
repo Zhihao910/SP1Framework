@@ -30,9 +30,10 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
 					{
 						g_sEnemy[i][x].bIsFighting = true;
+						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;
 					}
 				}
@@ -126,9 +127,10 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
 					{
 						g_sEnemy[i][x].bIsFighting = true;
+						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;
 					}
 				}
@@ -223,9 +225,10 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
 					{
 						g_sEnemy[i][x].bIsFighting = true;
+						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;
 					}
 				}
@@ -320,9 +323,10 @@ void moveCharacter()
 			{
 				for (int x = 0; x < numberOfEnemy; x++)
 				{
-					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
+					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1) && !g_sEnemy[0][x].bIsDead)
 					{
 						g_sEnemy[i][x].bIsFighting = true;
+						g_eCombatState = C_UI;
 						g_eGameState = S_FIGHT;
 					}
 				}
