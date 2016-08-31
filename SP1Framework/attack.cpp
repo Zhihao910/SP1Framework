@@ -18,6 +18,12 @@ void PrintCombat()
 
 	case C_ESCAPE: RunAway();
 		break;
+
+	case C_ENEMYATTACK: EnemyAttack();
+		break;
+
+	case A_ATTACK: PlayerAttack();
+		break;
 	}
 }
 
@@ -85,6 +91,19 @@ void PlayerStats()
 	oss << "Attack: " << g_sChar.attack;
 	g_Console.writeToBuffer(c, oss.str(), 0xC);
 	oss.str("");
+
+	c.X = 35;
+	c.Y = 4;
+
+	for (int i = 0; i < numberOfEnemy; i++)
+	{
+		if (g_sEnemy[0][i].bIsFighting)
+		{
+			oss << "Health: " << g_sEnemy[0][i].health;
+			g_Console.writeToBuffer(c, oss.str(), 0xC);
+			oss.str("");
+		}
+	}
 }
 
 void UserInterface()
@@ -108,6 +127,7 @@ void UserInterface()
 	oss.str("");
 
 	c.X = 27;
+	c.Y = 26;
 
 	oss << UserInter.at(1);					// Displayers the option: Potions
 	g_Console.writeToBuffer(c, oss.str());
@@ -280,9 +300,10 @@ void Attack()
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
-			if (EnterWait < g_dElapsedTime)
+			if (EnterWait < g_dElapsedTime && !EnterPressed)
 			{
-				g_eCombatState = A_ICESTRIKE;
+				AttackDamage = 10;
+				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}	
 		}
@@ -305,8 +326,12 @@ void Attack()
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
-			g_eCombatState = A_EXTRAPOLATEDMASS;
-			EnterPressed = true;
+			if (EnterWait < g_dElapsedTime && !EnterPressed)
+			{
+				AttackDamage = 6;
+				g_eCombatState = A_ATTACK;
+				EnterPressed = true;
+			}
 		}
 		break;
 
@@ -327,9 +352,10 @@ void Attack()
 		}
 		if (g_abKeyPressed[K_RETURN])
 		{
-			if (EnterWait < g_dElapsedTime)
+			if (EnterWait < g_dElapsedTime && !EnterWait)
 			{
-				g_eCombatState = A_INCEPTION;
+				AttackDamage = 5;
+				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}	
 		}
@@ -371,7 +397,6 @@ void Attack()
 	g_Console.writeToBuffer(c, oss.str(), 0xA);
 	oss.str("");
 }
-
 void Inventory()
 {
 	COORD c;
@@ -447,6 +472,7 @@ void Inventory()
 					g_sChar.health = 30;
 				}
 				EnterPressed = true;
+				g_eCombatState = C_ENEMYATTACK;
 			}
 		}
 		break;
@@ -479,6 +505,7 @@ void Inventory()
 					g_sChar.attack = 15;
 				}
 				EnterPressed = true;
+				g_eCombatState = C_ENEMYATTACK;
 			}
 		}
 		break;
@@ -511,6 +538,7 @@ void Inventory()
 					g_sChar.defence = 16;
 				}
 				EnterPressed = true;
+				g_eCombatState = C_ENEMYATTACK;
 			}
 		}
 		break;
@@ -551,8 +579,143 @@ void Inventory()
 	g_Console.writeToBuffer(c, oss.str(), 0xA);
 	oss.str("");
 }
-
 void RunAway()
 {
+	for (int i = 0; i < numberOfEnemy; i++)
+	{
+		if (g_sChar.health > 0 && g_sEnemy[0][i].health > 0)
+		{
+			g_sEnemy[0][i].bIsFighting = false;
+			g_sEnemy[0][i].bIsDead = true;
+			g_eGameState = S_GAME;
+		}
+	}
+}
 
+void PlayerAttack()
+{
+	for (int i = 0; i < numberOfEnemy; i++)
+	{
+		if (g_sEnemy[0][i].bIsFighting && !g_sEnemy[0][i].bIsDead)
+		{
+			Damage = (g_sChar.attack + AttackDamage) - g_sEnemy[0][i].defence;
+
+			if (Damage <= 0)
+			{
+				Damage = 0;
+			}
+
+			eHealthLeft = g_sEnemy[0][i].health - Damage;
+			g_sEnemy[0][i].health = eHealthLeft;
+
+			if (g_sEnemy[0][i].health <= 0)
+			{
+				g_sEnemy[0][i].bIsDead = true;
+				g_eGameState = S_GAME;
+			}
+
+			else if (g_sEnemy[0][i].health > 0)
+			{
+				EnterPressed2 = true;
+				g_eCombatState = C_ENEMYATTACK;
+			}
+		}
+	}
+}
+void EnemyAttack()
+{
+	COORD c;
+	c.X = 4;
+	c.Y = 26;
+
+	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
+	ostringstream oss;
+
+	if (EnterPressed)
+	{
+		if (!SetAttack)
+		{
+			srand(time(NULL));
+			RandomAttack = rand() % 4;
+			RandomDamage = rand() % 10 + 1;
+			SetAttack = true;
+		}
+
+		switch (RandomAttack)
+		{
+		case 0:
+			Damage = RandomDamage + g_sChar.attack;
+			break;
+		case 1:
+			Damage = RandomDamage + g_sChar.gold;
+			break;
+		case 2:
+			Damage = RandomDamage + g_sChar.redKey;
+			break;
+		case 3:
+			Damage = RandomDamage + 7;
+			break;
+		}
+
+		DamageLeft = Damage - g_sChar.defence;
+
+		if (DamageLeft <= 0)
+		{
+			DamageLeft = 0;
+		}
+
+		oss << "PRESS";
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+
+		c.X = 27;
+		c.Y = 26;
+
+		oss << "SPACE";
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+
+		c.X = 4;
+		c.Y = 32;
+
+		oss << "TO";
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+
+		c.X = 26;
+		c.Y = 32;
+
+		oss << "CONTINUE.";
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+
+		c.X = 21;
+		c.Y = 22;
+
+		oss << "Monster attacked with " << DamageLeft << " damage!";
+		g_Console.writeToBuffer(c, oss.str(), 0xC);
+		oss.str("");
+		
+		if (EnterPressed2)
+		{
+			EnterWait = g_dElapsedTime + 0.125;
+			EnterPressed2 = false;
+		}
+
+		if (g_abKeyPressed[K_SPACE])
+		{
+			if (EnterWait < g_dElapsedTime)
+			{
+				HealthLeft = g_sChar.health - DamageLeft;
+				g_sChar.health = HealthLeft;
+
+				if (g_sChar.health <= 0)
+				{
+					g_eGameState = S_DEATH;
+				}
+				SetAttack = false;
+				g_eCombatState = C_UI;
+			}	
+		}
+	}
 }

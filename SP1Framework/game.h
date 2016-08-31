@@ -84,10 +84,9 @@ enum EGAMESTATES
 	C_ATTACK,
 	C_INVENTORY,
 	C_ESCAPE,
+	C_ENEMYATTACK,
 
-	A_ICESTRIKE,
-	A_EXTRAPOLATEDMASS,
-	A_INCEPTION,
+	A_ATTACK,
 
 	S_COUNT
 };
@@ -113,6 +112,7 @@ struct SEnemyChar
 	bool bIsDead;
 	bool bIsFighting;
 	int health;
+	int defence;
 	int random = 1;
 	int tempCheck = 1;
 	double slowDownTime = 0;
@@ -174,6 +174,10 @@ void Attack();					// Function for AttackOptions in Combat
 void Inventory();				// Function for PotionOptions in Combat
 void RunAway();					// Function for Escaping in Combat
 void PlayerStats();				// Function for PlayerStatistics in Combat
+
+void EnemyAttack();
+
+void PlayerAttack();
 
 void HighScore(int score);		// Function for loading highscore data from file.
 void Portal();					// Function for in-game portals

@@ -32,6 +32,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
+						g_sEnemy[i][x].bIsFighting = true;
 						g_eGameState = S_FIGHT;
 					}
 				}
@@ -127,6 +128,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
+						g_sEnemy[i][x].bIsFighting = true;
 						g_eGameState = S_FIGHT;
 					}
 				}
@@ -223,6 +225,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
+						g_sEnemy[i][x].bIsFighting = true;
 						g_eGameState = S_FIGHT;
 					}
 				}
@@ -319,6 +322,7 @@ void moveCharacter()
 				{
 					if ((g_sChar.m_cLocation.X == g_sEnemy[i][x].m_cLocation.X) && (g_sChar.m_cLocation.Y - 1 == g_sEnemy[i][x].m_cLocation.Y - 1))
 					{
+						g_sEnemy[i][x].bIsFighting = true;
 						g_eGameState = S_FIGHT;
 					}
 				}

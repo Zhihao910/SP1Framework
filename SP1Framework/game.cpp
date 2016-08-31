@@ -12,8 +12,8 @@ bool    g_abKeyPressed[K_COUNT];
 // Game specific variables here
 SGameChar   g_sChar;
 SEnemyChar   g_sEnemy[2][totalEnemy]; //[Number of Enemy Type][Amount of enemy]
-EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-EGAMESTATES g_eCombatState = C_UI;
+EGAMESTATES g_eGameState;
+EGAMESTATES g_eCombatState;
 double  g_dBounceTime;		// this is to prevent key bouncing, so we won't trigger keypresses more than once
 char map[100][50];			// array for Maps
 char text[50][100];			// array for Screens
@@ -216,7 +216,7 @@ void instructionwait()
 		g_eGameState = S_MAINMENU;
 	}
 }
-void selectDifficulty()
+void selectDifficulty()	
 {
 	if (g_dBounceTime > g_dElapsedTime)
 	{
@@ -226,8 +226,8 @@ void selectDifficulty()
 	{
 		difficulty = 1;
 		g_sChar.health = 20;
-		g_sChar.attack = 10;
-		g_sChar.defence = 10;
+		g_sChar.attack = 5;
+		g_sChar.defence = 5;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
@@ -235,8 +235,8 @@ void selectDifficulty()
 	{
 		difficulty = 2;
 		g_sChar.health = 15;
-		g_sChar.attack = 10;
-		g_sChar.defence = 10;
+		g_sChar.attack = 5;
+		g_sChar.defence = 5;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
@@ -244,8 +244,8 @@ void selectDifficulty()
 	{
 		difficulty = 3;
 		g_sChar.health = 7;
-		g_sChar.attack = 10;
-		g_sChar.defence = 10;
+		g_sChar.attack = 5;
+		g_sChar.defence = 5;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
@@ -253,8 +253,8 @@ void selectDifficulty()
 	{
 		difficulty = 4;
 		g_sChar.health = 3;
-		g_sChar.attack = 10;
-		g_sChar.defence = 10;
+		g_sChar.attack = 15;
+		g_sChar.defence = 5;
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_LEVELS;
 	}
@@ -428,6 +428,7 @@ void renderEnemy()
 			g_sEnemy[0][x].bIsDead = false;
 			g_sEnemy[0][x].bIsFighting = false;
 			g_sEnemy[0][x].health = 15;
+			g_sEnemy[0][x].defence = x;
 			enemyMove();
 		}
 	}
