@@ -10,16 +10,22 @@ void readMap(int level, int height, int width, int *numberOfEnemy)
 	switch (level)
 	{
 	case 1: mapname = "Maps/MapLayout1.txt";
+		g_game_timer = 120;
 		break;
 	case 2: mapname = "Maps/MapLayout2.txt";
+		g_game_timer = 110;
 		break;
 	case 3: mapname = "Maps/MapLayout3.txt";
+		g_game_timer = 100;
 		break;
 	case 4: mapname = "Maps/MapLayout4.txt";
+		g_game_timer = 90;
 		break;
 	case 5: mapname = "Maps/MapLayout5.txt";
+		g_game_timer = 80;
 		break;
 	case 6: mapname = "Maps/MapLayout6.txt";
+		g_game_timer = 70;
 		break;
 	}
 	memset(map, '\0', sizeof(map[0][0]) * 100 * 50); // clear array
