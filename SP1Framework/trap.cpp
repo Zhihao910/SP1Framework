@@ -1,6 +1,6 @@
 #include "traps.h"	
 
-void spikeTrap()
+void spikeTrap() // gray trap
 {
 	g_sChar.health -= 1;
 
@@ -10,7 +10,7 @@ void spikeTrap()
 	}
 }
 
-void fireTrap()
+void fireTrap() // red trap
 {
 	g_sChar.health -= 2;
 
@@ -20,7 +20,7 @@ void fireTrap()
 	}
 }
 
-void poisonTrap()
+void poisonTrap() // purple trap
 {
 	g_sChar.health -= 3;
 	if (g_sChar.health < 1)
@@ -29,7 +29,7 @@ void poisonTrap()
 	}
 }
 
-void pitTrap()
+void pitTrap() // brown floor trap
 {
 	g_sChar.health = 0;
 	g_eGameState = S_DEATH;

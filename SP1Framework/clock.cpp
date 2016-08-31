@@ -1,4 +1,5 @@
 #include "global.h"
+double g_game_timer = 0; //time duration
 
 void render_clock(double g_dDeltaTime)
 {
@@ -11,13 +12,13 @@ void render_clock(double g_dDeltaTime)
 	static double time = 120; // Time duration
 	double Wait = g_dBounceTime;
 
-	if (time > 0)
+	if (g_game_timer > 0)
 	{
-		time -= g_dDeltaTime; // Time minus delta time.
+		g_game_timer -= g_dDeltaTime; // Time minus delta time.
 	}
 
 	oss << fixed << setprecision(1);
-	oss << "Time left: " << time << " seconds"; // String must be placed one sentance at a time unlike cout.
+	oss << "Time left: " << g_game_timer << " seconds"; // String must be placed one sentance at a time unlike cout.
 
 	if (g_dElapsedTime > Wait && g_dElapsedTime != 0) // Safety bounce time.
 	{
@@ -26,13 +27,12 @@ void render_clock(double g_dDeltaTime)
 
 	g_Console.writeToBuffer(c, oss.str(), 0xB); // Cyan colour timer.
 
-	if (time <= 0) // death screen.
+	if (g_game_timer <= 0) // death screen.
 	{
 		g_eGameState = S_DEATH;
-		PrintDeath();
-		if (g_eGameState)
+		if (g_eGameState == S_DEATH)
 		{
-			time = 3;
+			g_game_timer = 120;  // time after reset
 		}
 	}
 }

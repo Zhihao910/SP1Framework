@@ -32,7 +32,7 @@ void Portal()
 
 	if ((map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1]) == 'F') // LEVEL 5
 	{
-		g_sChar.m_cLocation.X = 72;
+		g_sChar.m_cLocation.X = 71;
 		g_sChar.m_cLocation.Y = 4;
 	}
 }
