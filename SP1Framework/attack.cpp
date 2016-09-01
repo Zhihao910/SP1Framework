@@ -276,7 +276,7 @@ void Attack()
 
 	EnterPressed = false;
 	ostringstream oss;
-	vector <string> Attacks{ "Ice Strike - 10 ATK", "Extrapolated Mass - 7 ATK", "Inception - 15 ATK", "== BACK ==" };
+	vector <string> Attacks{ "Ice Strike - 5 ATK", "Extrapolated Mass - 7 ATK", "Inception - 4 ATK", "== BACK ==" };
 
 	oss << Attacks.at(0);					// Displays the option: Ice Strike 
 	g_Console.writeToBuffer(c, oss.str());
@@ -329,7 +329,7 @@ void Attack()
 		{
 			if (EnterWait < g_dElapsedTime && !EnterPressed)
 			{
-				AttackDamage = 10;
+				AttackDamage = 5;
 				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}	
@@ -381,7 +381,7 @@ void Attack()
 		{
 			if (EnterWait < g_dElapsedTime && !EnterPressed)
 			{
-				AttackDamage = 15;
+				AttackDamage = 4;
 				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}	
@@ -459,7 +459,7 @@ void Inventory()
 
 	c.Y += 2;
 
-	oss << "+ 4 ATTACK";
+	oss << "+ 1 ATTACK";
 	g_Console.writeToBuffer(c, oss.str(), 0xC);
 	oss.str("");
 
@@ -513,9 +513,9 @@ void Inventory()
 				{
 					g_sChar.health = g_sChar.health + 5;
 				}
-				if (g_sChar.health > 30)
+				if (g_sChar.health > 20)
 				{
-					g_sChar.health = 30;
+					g_sChar.health = 20;
 				}
 				EnterPressed = true;
 				g_eCombatState = C_ENEMYATTACK;
@@ -542,13 +542,13 @@ void Inventory()
 		{
 			if (EnterWait < g_dElapsedTime)
 			{
-				if (g_sChar.attack <= 15)
+				if (g_sChar.attack <= 10)
 				{
-					g_sChar.attack = g_sChar.attack + 4;
+					g_sChar.attack = g_sChar.attack + 1;
 				}
-				if (g_sChar.attack > 15)
+				if (g_sChar.attack > 10)
 				{
-					g_sChar.attack = 15;
+					g_sChar.attack = 10;
 				}
 				EnterPressed = true;
 				g_eCombatState = C_ENEMYATTACK;
@@ -575,13 +575,13 @@ void Inventory()
 		{
 			if (EnterWait < g_dElapsedTime)
 			{
-				if (g_sChar.defence <= 16)
+				if (g_sChar.defence <= 15)
 				{
 					g_sChar.defence = g_sChar.defence + 5;
 				}
-				if (g_sChar.defence > 16)
+				if (g_sChar.defence > 15)
 				{
-					g_sChar.defence = 16;
+					g_sChar.defence = 15;
 				}
 				EnterPressed = true;
 				g_eCombatState = C_ENEMYATTACK;
@@ -661,6 +661,7 @@ void PlayerAttack()
 				g_sEnemy[0][i].health = 0;
 				g_sEnemy[0][i].bIsDead = true;
 				g_sEnemy[0][i].bIsFighting = false;
+				g_sChar.gold += 10;
 				g_eCombatState = C_UI;
 				g_eGameState = S_GAME;
 			}
@@ -706,7 +707,7 @@ void EnemyAttack()
 
 		if (DamageLeft <= 0)
 		{
-			DamageLeft = 0;
+			DamageLeft = 5;
 		}
 
 		oss << "PRESS";

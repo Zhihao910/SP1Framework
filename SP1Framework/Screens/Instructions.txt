@@ -22,12 +22,14 @@
                                                                                     
  == COLLECT COLOURED KEYS TO OPENED LOCKED DOORS OF THE SAME COLOUR.                
                                                                                     
- == AVOID ENEMY AND COLLECT GOLD TO GAIN HIGHSCORE.                                 
+ == KILL ENEMIES TO GAIN MORE GOLD.                                                 
                                                                                     
  == USE PORTALS TO GAIN ACCESS TO NEW AREAS.                                        
                                                                                     
  == GET TO THE STAIRCASE AT THE END OF EACH LEVEL TO PROGRESS TO THE NEXT LEVEL.    
                                                                                     
- == HAVE FUN!                                                                       
+ == COLLECT GOLD TO ACHIEVE HIGHSCORES!                                             
                                                                                     
+ == HAVE FUN!
+                                                                                                                                                           
  PRESS "P" TO GO BACK TO MAIN MENU                                                  

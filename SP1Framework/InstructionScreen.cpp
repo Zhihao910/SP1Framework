@@ -9,7 +9,7 @@ void PrintInstructions()
 	c.Y = 0;
 	string line = "";
 
-	for (int y = 0; y < 33; y++)
+	for (int y = 0; y < 35; y++)
 	{
 		if (y < 6)
 		{
