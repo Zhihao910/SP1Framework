@@ -113,6 +113,7 @@ struct SEnemyChar
 	bool bSomethingHappened = false;
 	bool bIsDead;
 	bool bIsFighting;
+	bool bIsSpider;
 	int health = 15;
 	int defence;
 	int random = 1;

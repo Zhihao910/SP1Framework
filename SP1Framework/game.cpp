@@ -442,7 +442,15 @@ void renderEnemy()
 			g_sEnemy[0][x].bIsDead = false;
 			g_sEnemy[0][x].bIsFighting = false;
 			g_sEnemy[0][x].health = 20;
-			g_sEnemy[0][x].defence = x;
+
+			if (x % 2 == 0)
+			{
+				g_sEnemy[0][x].bIsSpider = true;
+			}
+			else if (x % 2 != 0)
+			{
+				g_sEnemy[0][x].bIsSpider = false;
+			}
 			enemyMove();
 		}
 	}

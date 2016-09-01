@@ -38,11 +38,11 @@ void moveCharacter()
 							{
 								AnimUsed = false;
 							}
-
-							else if (!AnimUsed)
+							else
 							{
 								AnimUsed = true;
 							}
+							
 							g_sEnemy[i][x].bIsFighting = true;
 							g_eCombatState = C_UI;
 							g_eGameState = S_FIGHT;
@@ -147,8 +147,7 @@ void moveCharacter()
 							{
 								AnimUsed = false;
 							}
-
-							else if (!AnimUsed)
+							else
 							{
 								AnimUsed = true;
 							}
@@ -257,8 +256,7 @@ void moveCharacter()
 							{
 								AnimUsed = false;
 							}
-
-							else if (!AnimUsed)
+							else
 							{
 								AnimUsed = true;
 							}
@@ -367,8 +365,7 @@ void moveCharacter()
 							{
 								AnimUsed = false;
 							}
-
-							else if (!AnimUsed)
+							else
 							{
 								AnimUsed = true;
 							}

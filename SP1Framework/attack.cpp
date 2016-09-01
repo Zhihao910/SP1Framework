@@ -5,12 +5,10 @@ void PrintCombat()
 	int AnimTime = g_dElapsedTime;
 
 	CombatScreen(); // Always first to render.
-
 	if (AnimTime % 2 == 0)
 	{
 		if (AnimUsed)
 			MonsterAnim3();
-
 		else
 			MonsterAnim1();
 	}
@@ -23,7 +21,6 @@ void PrintCombat()
 	{
 		if (AnimUsed)
 			MonsterAnim5();
-
 		else
 			MonsterAnim2();
 	}
@@ -332,7 +329,7 @@ void Attack()
 		{
 			if (EnterWait < g_dElapsedTime && !EnterPressed)
 			{
-				AttackDamage = 10;
+				AttackDamage = 1;
 				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}	
@@ -616,6 +613,7 @@ void RunAway()
 	{
 		if (g_sEnemy[0][i].health > 0 && g_sEnemy[0][i].bIsFighting)
 		{
+			g_sEnemy[0][i].health = 0;
 			g_sEnemy[0][i].bIsFighting = false;
 			g_sEnemy[0][i].bIsDead = true;
 			g_eGameState = S_GAME;
@@ -625,37 +623,27 @@ void RunAway()
 
 void PlayerAttack()
 {
-	COORD c;
-	c.X = 21;
-	c.Y = 28;
-
-	ostringstream oss;
-
 	for (int i = 0; i < numberOfEnemy; i++)
 	{
 		if (g_sEnemy[0][i].bIsFighting && g_sEnemy[0][i].health > 0)
 		{
-			eDamageLeft = (g_sChar.attack + AttackDamage) - g_sEnemy[0][i].defence;
-
-			if (eDamageLeft < 0)
+			eHealthLeft = g_sEnemy[0][i].health - AttackDamage;
+			g_sEnemy[0][i].health = eHealthLeft;
+			
+			if (g_sEnemy[0][i].health > 0)
 			{
-				eDamageLeft = 0;
-			}
-
-			eHealthLeft = g_sEnemy[0][i].health - eDamageLeft;
-
-			if (g_sEnemy[0][i].health < 1)
-			{
-				g_sEnemy[0][i].bIsFighting = false;
-				g_sEnemy[0][i].bIsDead = true;
-				g_sChar.gold += 5;
-				g_eGameState = S_GAME;
-			}
-			else if (g_sEnemy[0][i].health > 0)
-			{
-				g_sEnemy[0][i].health = HealthLeft;
-				EnterPressed2 = true;
+				g_sEnemy[0][i].bIsDead = false;
+				g_sEnemy[0][i].bIsFighting = true;
 				g_eCombatState = C_ENEMYATTACK;
+			}
+
+			if (g_sEnemy[0][i].health <= 0)
+			{
+				g_sEnemy[0][i].health = 0;
+				g_sEnemy[0][i].bIsDead = true;
+				g_sEnemy[0][i].bIsFighting = false;
+				g_eCombatState = C_UI;
+				g_eGameState = S_GAME;
 			}
 		}
 	}
@@ -677,17 +665,6 @@ void EnemyAttack()
 			RandomAttack = rand() % 4;
 			RandomDamage = rand() % 10 + 1;
 			SetAttack = true;
-		}
-
-		for (int i = 0; i < numberOfEnemy; i++)
-		{
-			if (g_sEnemy[0][i].health < 1)
-			{
-				g_sEnemy[0][i].bIsFighting = false;
-				g_sEnemy[0][i].bIsDead = true;
-				g_sChar.gold += 5;
-				g_eGameState = S_GAME;
-			}
 		}
 
 		switch (RandomAttack)
@@ -731,7 +708,7 @@ void EnemyAttack()
 		g_Console.writeToBuffer(c, oss.str(), 0xC);
 		oss.str("");
 
-		c.X = 26;
+		c.X = 33;
 		c.Y = 38;
 
 		oss << "CONTINUE.";
@@ -760,6 +737,8 @@ void EnemyAttack()
 
 				if (g_sChar.health <= 0)
 				{
+					newMap = true;
+					setSpawn = false;
 					g_eGameState = S_DEATH;
 				}
 				SetAttack = false;
@@ -772,8 +751,8 @@ void EnemyAttack()
 void MonsterAnim1()
 {
 	COORD c;
-	c.X = 20;
-	c.Y = 4;
+	c.X = 15;
+	c.Y = 5;
 
 	int height = 0;
 	int width;
@@ -805,13 +784,14 @@ void MonsterAnim1()
 void MonsterAnim2()
 {
 	COORD c;
-	c.X = 20;
-	c.Y = 4;
+	c.X = 15;
+	c.Y = 5;
 
 	int height = 0;
 	int width;
 	string print = "";
 	string line = "";
+
 	ifstream myfile("Animations/MonsterAnim2.txt");
 
 	if (myfile.is_open())
@@ -834,7 +814,6 @@ void MonsterAnim2()
 		c.Y++;
 	}
 }
-
 void MonsterAnim3()
 {
 	COORD c;
