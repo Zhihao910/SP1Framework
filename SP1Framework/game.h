@@ -26,9 +26,6 @@
 #define VK_9		0x39
 #define VK_0		0x30
 #define VK_P		0x50
-#define VK_NUMPAD1	0x61
-#define VK_NUMPAD2	0x62
-#define VK_NUMPAD3	0x63
 #define VK_RETURN	0x0D
 
 using namespace std;
@@ -62,9 +59,7 @@ enum EKEYS
 	K_8,
 	K_9,
 	K_0,
-	K_NUM1,
-	K_NUM2,
-	K_NUM3,
+	K_NUMPAD0,
     K_COUNT
 };
 
@@ -180,16 +175,15 @@ void Attack();					// Function for AttackOptions in Combat
 void Inventory();				// Function for PotionOptions in Combat
 void RunAway();					// Function for Escaping in Combat
 void PlayerStats();				// Function for PlayerStatistics in Combat
-void MonsterAnim1();
-void MonsterAnim2();
-void MonsterAnim3();
-void MonsterAnim4();
-void MonsterAnim5();
-void MonsterAnim6();
+void MonsterAnim1();			// Animation for Monster
+void MonsterAnim2();			// Animation for Monster
+void MonsterAnim3();			// Animation for Monster
+void MonsterAnim4();			// Animation for Monster
+void MonsterAnim5();			// Animation for Monster
+void MonsterAnim6();			// Animation for Monster
 
-void EnemyAttack();
-
-void PlayerAttack();
+void EnemyAttack();				// Logic for Enemy Combat
+void PlayerAttack();			// Logic for Player Combat
 
 void HighScore(int score);		// Function for loading highscore data from file.
 void Portal();					// Function for in-game portals

@@ -1,83 +1,92 @@
 #include "highScore.h"
 
-
 void HighScore(int score)
 {
 	COORD c = g_Console.getConsoleSize();
-	c.X /= 3;
-	c.Y = (c.Y / 3) - 2;
+	c.X = 15;
+	c.Y = 12;
 
 	HighScoreBox();
 
-	int highScore;
+	int prevScore[5];
+	int tempArray[4];
+	int temp;
 	ostringstream oss;
 
 	ifstream InFile("Screens/HighScore.txt");
 	if (InFile.is_open())
 	{
-		InFile >> highScore;
-
-		if (score < highScore)
+		for (int i = 0; i < 5; i++)		// Reads scores from file and puts into an array.
 		{
-			oss << "You didn't beat the previous highscore!";
-			g_Console.writeToBuffer(c, oss.str(), 0xC);
-			oss.str("");
-
-			c.Y += 2;
-
-			oss << "Your Score: " << score;
-			g_Console.writeToBuffer(c, oss.str());
-			oss.str("");
-
-			c.Y += 2;
-
-			oss << "Current Highscore: " << highScore;
-			g_Console.writeToBuffer(c, oss.str());
-			oss.str("");
-
-			c.Y += 2;
-
-			oss << "Press 'ESC' to go back to Main Menu.";
-			g_Console.writeToBuffer(c, oss.str(), 0x3);
-			oss.str("");
-		}
-
-		if (score >= highScore)
-		{
-			oss << "You beat the previous highscore!";
-			g_Console.writeToBuffer(c, oss.str(), 0xA);
-			oss.str("");
-
-			c.Y += 2;
-
-			oss << "Your Score: " << score;
-			g_Console.writeToBuffer(c, oss.str());
-			oss.str("");
-
-			c.Y += 2;
-
-			oss << "Previous Highscore: " << highScore;
-			g_Console.writeToBuffer(c, oss.str());
-			oss.str("");
-
-			c.Y += 2;
-
-			oss << "Press 'ESC' to go back to Main Menu.";
-			g_Console.writeToBuffer(c, oss.str(), 0x3);
-			oss.str("");
-
-			highScore = score;
+			InFile >> prevScore[i];
 		}
 		InFile.close();
 	}
 
+	for (int i = 0; i < 5; i++)			// Sorts the array
+	{
+		for (int x = i + 1; x < 5; x++)
+		{
+			if (prevScore[i] < prevScore[x])
+			{
+				temp = prevScore[x];
+				prevScore[x] = prevScore[i];
+				prevScore[i] = temp;
+			}
+		}
+	}
+
+	if (score > prevScore[0])			// If Current Score is greater than previous Highscore, rearrange Array.
+	{
+		int temp0 = prevScore[0];
+		int temp1 = prevScore[1];
+		int temp2 = prevScore[2];
+		int temp3 = prevScore[3];
+
+		prevScore[0] = score;
+		prevScore[1] = temp0;
+		prevScore[2] = temp1;
+		prevScore[3] = temp2;
+		prevScore[4] = temp3;
+	}
+
+	oss << "Your Score:" << " " << score;
+	g_Console.writeToBuffer(c, oss.str(), 0xC);
+	oss.str("");
+
+	c.Y += 2;
+
+	oss << "High Scores:";
+	g_Console.writeToBuffer(c, oss.str(), 0xA);
+	oss.str("");
+
+	c.Y += 4;
+
+	for (int i = 0; i < 5; i++)
+	{
+		oss << "Score" << " " << i + 1 << ":" << " " << prevScore[i];
+		g_Console.writeToBuffer(c, oss.str(), 0xB);
+		oss.str("");
+
+		c.X += 15;
+	}
+
+	c.X = 15;
+	c.Y = 23;
+
+	oss << "PRESS 'ESCAPE' TO GO BACK TO MAIN MENU";
+	g_Console.writeToBuffer(c, oss.str(), 0xA);
+	oss.str("");
+
 	ofstream OutFile("Screens/HighScore.txt");
 	if (OutFile.is_open())
 	{
-		OutFile << highScore;
+		for (int i = 0; i < 5; i++)
+		{
+			OutFile << prevScore[i] << " ";
+		}
+		OutFile.close();
 	}
-
-	OutFile.close();
 }
 
 void HighScoreBox()

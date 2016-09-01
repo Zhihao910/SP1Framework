@@ -329,7 +329,7 @@ void Attack()
 		{
 			if (EnterWait < g_dElapsedTime && !EnterPressed)
 			{
-				AttackDamage = 1;
+				AttackDamage = 10;
 				g_eCombatState = A_ATTACK;
 				EnterPressed = true;
 			}	
@@ -444,6 +444,12 @@ void Inventory()
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
+	c.Y += 2;
+
+	oss << "+ 5 HEALTH";
+	g_Console.writeToBuffer(c, oss.str(), 0xA);
+	oss.str("");
+
 	c.X = 33;
 	c.Y = 32;
 
@@ -451,11 +457,23 @@ void Inventory()
 	g_Console.writeToBuffer(c, oss.str());
 	oss.str("");
 
+	c.Y += 2;
+
+	oss << "+ 4 ATTACK";
+	g_Console.writeToBuffer(c, oss.str(), 0xC);
+	oss.str("");
+
 	c.X = 4;
 	c.Y = 38;
 
 	oss << Potions.at(2);					// Displayers the option: Shielded 
 	g_Console.writeToBuffer(c, oss.str());
+	oss.str("");
+
+	c.Y += 2;
+
+	oss << "+ 5 DEFENCE";
+	g_Console.writeToBuffer(c, oss.str(), 0xB);
 	oss.str("");
 
 	c.X = 33;
@@ -491,9 +509,9 @@ void Inventory()
 		{
 			if (EnterWait < g_dElapsedTime)
 			{
-				if (g_sChar.health <= 30)
+				if (g_sChar.health <= 20)
 				{
-					g_sChar.health = g_sChar.health + 10;
+					g_sChar.health = g_sChar.health + 5;
 				}
 				if (g_sChar.health > 30)
 				{
@@ -627,6 +645,7 @@ void PlayerAttack()
 	{
 		if (g_sEnemy[0][i].bIsFighting && g_sEnemy[0][i].health > 0)
 		{
+			AttackDamage = AttackDamage + g_sChar.attack;
 			eHealthLeft = g_sEnemy[0][i].health - AttackDamage;
 			g_sEnemy[0][i].health = eHealthLeft;
 			

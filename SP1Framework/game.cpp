@@ -92,6 +92,7 @@ g_abKeyPressed[K_3] = isKeyPressed(VK_3);
 g_abKeyPressed[K_4] = isKeyPressed(VK_4);
 g_abKeyPressed[K_5] = isKeyPressed(VK_5);
 g_abKeyPressed[K_6] = isKeyPressed(VK_6);
+g_abKeyPressed[K_0] = isKeyPressed(VK_0);
 g_abKeyPressed[K_P] = isKeyPressed(VK_P);
 }
 
@@ -222,6 +223,10 @@ void instructionwait()
 	{
 		g_eGameState = S_MAINMENU;
 	}
+	if (g_abKeyPressed[K_SPACE])
+	{
+		unlocked = 5;
+	}
 }
 void selectDifficulty()	
 {
@@ -269,6 +274,10 @@ void selectDifficulty()
 	{
 		g_dBounceTime = g_dElapsedTime + 0.5;
 		g_eGameState = S_MAINMENU;
+	}
+	if (g_abKeyPressed[K_SPACE])
+	{
+		unlocked = 5;
 	}
 }
 void selectLevel()
@@ -371,11 +380,17 @@ void processUserInput()
 
 	if (g_abKeyPressed[K_P])
 	{
-		g_sChar.m_cLocation.X = (g_Console.getConsoleSize().X / 2) - 40;
-		g_sChar.m_cLocation.Y = (g_Console.getConsoleSize().Y / 2) - 23;
 		g_eGameState = S_MAINMENU;
 		newMap = true;
 		setSpawn = false;
+	}
+	
+	if (g_abKeyPressed[K_0])
+	{
+		unlocked = 5;
+		newMap = true;
+		setSpawn = false;
+		g_eGameState = S_LEVELS;
 	}
 }
 
